@@ -1,0 +1,634 @@
+/*@font-face {
+  font-family: "myFont";
+  src: url(../font/wlm.ttf) format("truetype");
+}*/
+/*team css*/
+
+table {
+  width:100%;
+}
+.myrow {
+    height:90%;
+  }
+
+  .triheight {
+    border-radius: 2px;
+    margin-top: 5px;
+  }
+  .triheight div {
+    /*border: 1px solid;*/
+    /*height:100%;*/
+    /*padding: 3px;*/
+    /*margin-top: 5px;*/
+  }
+
+  .pic_container {
+    text-align: center;
+  }
+
+  .pic_container img {
+    max-height: 90%;
+    max-width: 95%;
+    position: relative;
+    top:15px;
+  }
+
+  .staff_info {
+    width:80%;
+    height:100%;
+    margin: auto;
+    text-align: center;
+  }
+
+  .visible{
+      visibility: visible;
+  }
+
+  .hidden{
+      visibility: hidden;
+  }
+
+  body{
+    background: lightgrey;
+  }
+
+  .normalcell {
+    height:180px;
+    background: white;
+    border-radius: 5px;
+    padding: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+/*team css end*/
+/* entire container, keeps perspective */
+.flip-container {
+	perspective: 1000px;
+	margin: 1%;
+}
+/* flip the pane when hovered */
+ .flip-container.hover .flipper {
+	transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+	width: 100%;
+	min-width: 190px;
+	max-width: 340px;
+	height: 170px;
+}
+
+/* flip speed goes here */
+.flipper {
+	transition: 0.6s;
+	transform-style: preserve-3d;
+	width:100%;
+	height:100%;
+}
+
+/* hide back of pane during swap */
+.front, .back {
+	backface-visibility: hidden;
+	position: absolute;
+	top: 0;
+	left: 0;
+}
+
+/* front pane, placed above back */
+.front {
+	border-radius: 5px;
+	z-index: 2;
+	padding: 2%;
+	background: rgb(252, 150, 141);
+	transform: rotateY(0deg);
+}
+
+/* back, initially hidden pane */
+.back {
+	border-radius: 5px;
+	padding: 2%;
+	background: rgb(163, 198, 255);
+	transform: rotateY(180deg);
+}
+
+.fliper table {
+	height:100%;
+}
+
+body {
+	font-family: "PT Sans Narrow", "Lato", sans-serif;
+  -webkit-overflow-scrolling: touch;
+  overflow-x:scroll;
+  /*font-size: 25px;*/
+}
+
+td {
+  text-align: left;
+}
+/*todo css*/
+
+.todoTable_inner {
+	/*display: block;*/
+	max-height: 220px;
+  overflow-y:auto;
+	width: 100%;
+}
+
+.todolist {
+		width: 100%;
+		max-height: 200px;
+		table-layout: fixed;
+}
+
+.todolist tbody {
+	width:100%;
+}
+
+.todo tr {
+	background: rgb(163, 198, 255);
+}
+
+.done tr {
+	background: rgb(252, 150, 141);
+}
+
+#todolist td {
+	width: 20%;
+}
+
+
+
+.todocell{
+	border-bottom-style: solid;
+	width: 90%;
+	margin: auto;
+}
+
+
+.todocell td {
+	text-align:left;
+	/*max-width: 33%;
+	min-width: 20%;
+	word-wrap: break-word;*/
+	padding-left: 5px;
+}
+.todoContent {
+	/*overflow-y: scroll;*/
+	/*max-width:20%;*/
+	/*padding: 0px;
+	margin: 0px 0px;*/
+	word-wrap: break-word;
+}
+.doneTidiContent {
+	/*width:33%;*/
+	word-wrap: break-word;
+	/*overflow-y: scroll;*/
+}
+.todocell th {
+	text-align:left;
+	/*max-width: 33%;
+	min-width: 20%;
+	word-wrap: break-word;*/
+	padding-left: 5px;
+}
+/*todo css end*/
+.stack_icon {
+  font-size: 25px;
+  cursor: pointer;
+  margin-left: 10px;
+  color: white;
+}
+
+.globle_header {
+    border-bottom: 5px solid black;
+    position: fixed;
+    z-index: 2;
+    /*background-image: url("../img/MeiguoEduLogo.png");*/
+    /*background-size:cover;*/
+    background-color: #11203A;
+    width: 100%;
+    height: 50px;
+}
+
+.header {
+  text-align: center;
+  margin-top: -25px;
+  /*padding-left: 43%;*/
+	margin-left: 43%;
+  /*padding-right: 40%;*/
+  /*display: inline-block;*/
+}
+
+.header_text {
+  font-size: 20px;
+  color: white;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    /*background-color: #111;*/
+    background-color: white;
+    overflow-x: hidden;
+    transition: 0.5s;
+    /*padding-top: 20px;*/
+    margin-top: 50px; /*don't change*/
+    color: white;
+    border-right: 3px solid black;
+}
+
+.sidenav a {
+    padding: 20px;
+    height: 13%;
+    text-decoration: none !important;
+    font-size: 17px;
+    /*color: #818181;*/
+    color: black;
+    display: block;
+    transition: 0.3s;
+    width: 100%;
+    white-space: nowrap;
+}
+
+.sidenav a:hover, .offcanvas a:focus{
+    color: white !important;
+    box-shadow: 10px 10px 50px grey;
+    background-color: #11203A;
+}
+
+.sidenav a:visited {
+	/*color: #818181;*/
+  color: black;
+}
+
+#doe, #pmc, #ft, #stu, #setting {
+    /*-webkit-overflow-scrolling: touch;
+    overflow-x:scroll;
+    z-index: 0;*/
+    transition: margin-left .5s;
+    padding: 10px;
+    padding-top: 40px;
+    margin-top: 20px;
+    background-color: #eee;
+}
+
+.page-header {
+	margin: 0px;
+	margin-bottom: 10px;
+	border-bottom: 1px solid darkgrey;
+}
+
+.tab_content {
+	margin-top: -20px;
+}
+
+.well-sm {
+	background-image: none;
+	background-color: white;
+	padding: 1px;
+}
+
+.panel-heading {
+	background-color: #eee;
+}
+
+.panel_heading_text {
+	font-weight: bold;
+}
+
+.panel-body {
+	padding: 0px;
+  overflow:hidden;
+}
+
+.tab-pane {
+	padding: 15px;
+  border-top: 3px solid #11203A;
+}
+
+.tab-pane-detail {
+  background-color: #f1f1f1;
+}
+
+.carousel-inner {
+	margin-bottom: -20px;
+}
+
+.pmc_div {
+  margin-top: -22px !important;
+  border-top: 3px solid #11203A;
+}
+
+.divStyle {
+  border: 2px solid lightgrey;
+  box-shadow: 1px 1px 10px grey;
+  /*background-color: #f1f1f1;*/
+  background-color: white;
+}
+
+.box_table {
+  background-color: white !important;
+}
+
+#details_tables th {
+  white-space: pre;
+}
+
+#details_tables p {
+  font-size: 18px;
+  /*margin-top: -20px;*/
+}
+
+#details_tables td, #details_tables th {
+  border: 0;
+}
+
+
+.special_th {
+  padding-bottom: 20px;
+}
+
+
+.second_detail_table {
+  margin-top: -8px;
+}
+
+.second_detail_table_style {
+  background-color: white;
+  margin-top: 8px;
+  border-radius: 5px;
+	/*margin-left: 2px;*/
+	/*padding-left: 2px;*/
+}
+
+.badge_table {
+  background-color: white;
+  margin-left: 15px;
+  width: 470px;
+  /*border-radius: 5px;*/
+}
+
+#stu_acdamic_his_table, #stu_family_bio_table, .white_bg{
+  background-color: white;
+  border-radius: 5px;
+}
+
+
+.tr_table_toggle {
+  box-shadow: 3px 3px 10px;
+  background-color: #11203A;
+  color: white;
+  border: 1px solid #651111;
+}
+
+#stu_acdamic_his_table button , #stu_family_bio_table button{
+  border-radius: 50px;
+  color: #651111;
+  height: 30px;
+  font-weight: bold;
+}
+
+.table {
+  border-radius: 5px !important;
+  font-family: "Arial";
+	height:100%;
+}
+
+.table_aligned th {
+  width: 230px;
+}
+
+.badge_table td{
+  text-align: center;
+}
+
+.box-shadow:hover {
+  box-shadow: 3px 3px 10px;
+}
+
+.stu_p {
+  margin-top: 20px;
+}
+
+.panel_stu_detail {
+  margin-top: -23px;
+}
+
+.nav_tab_stu_detail {
+  overflow: hidden;
+  margin-top: -42px;
+}
+
+ul {
+  font-size: 15px;
+}
+
+.title {
+  font-size: 20px;
+  font-weight: 200;
+  /*color: #651111;*/
+  color: white;
+}
+
+.manage_well {
+  padding: 20px;
+  font-family: Arial;
+}
+
+.manage_btn {
+  height: 30px;
+  width: 70px;
+  margin-top: 10px;
+}
+
+
+
+.row {
+  margin: 0px;
+  background-color: #f1f1f1;
+}
+
+.pic_style {
+  background-color: white;
+  border-radius: 5px;
+  /*margin-right: 30px;*/
+  /*width: 200px;*/
+  /*padding-bottom: 4px;*/
+}
+
+.col-sm-2 {
+  padding-left:0px;
+  padding-right:0px;
+}
+
+
+@media screen and (max-width: 750px) {
+    .leg_fav {
+      margin-top: -790px !important;
+    }
+
+    .bill_fav{
+      margin-top: -410px !important;
+    }
+
+    .bill_from_fav{
+      margin-top: -410px !important;
+    }
+
+    .stack_img {
+      width: 50%;
+    }
+
+    .panel-heading {
+      padding:5px 0px 0px 0px;
+    }
+}
+
+
+.no_b_margin {
+  margin-bottom: 0px;
+}
+
+
+.no_padding {
+  padding: 0px;
+}
+
+
+.text_red {
+  color: #651111;
+}
+
+/******************for counsellor*****************/
+#form_coun_bio h3 {
+  font-size: 16px;
+  color: #C63516;
+}
+
+.stu_indent {
+  margin-left: 30px;
+}
+
+.stu_number {
+  color: #161BC6;
+  font-weight: bold;
+}
+
+#gen_info, #stu_management {
+  padding: 0px;
+  background-color: #f1f1f1;
+  font-family: Arial;
+  padding: 10px;
+}
+
+#stu_management h3 {
+  color: #651111;
+}
+
+#stu_management select {
+  width: 139px;
+}
+
+#activityDisplay table td {
+  text-align: center;
+}
+
+#activityDisplay button {
+  width: 100%;
+  border-radius: 0px;
+  font-weight: bold;
+}
+
+.coun_btn {
+  /*padding-top: 20px;*/
+}
+
+.progress_div {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-top: -5px;
+}
+
+.happi1 {
+  background: #cc0000 !important;
+}
+.happi2 {
+  background: #ff3333 !important;
+}
+.happi3 {
+  background: #e6e600 !important;
+}
+.happi4 {
+  background: #70db70 !important;
+}
+.happi5 {
+  background: #33cc33 !important;
+}
+
+
+/******************for student*****************/
+.stu_tab-content {
+  background-color: #f1f1f1;
+}
+
+#second_detail_table h3 {
+  color: #651111;
+}
+
+.blue {
+	background-color: blue;
+}
+
+.green {
+	background-color: green;
+}
+
+.red {
+	background-color: red;
+}
+
+.namecard {
+	max-width: 250px;
+	height: 310px;
+	border-style: outset;
+	margin-right: 2%;
+	margin-top: 2%;
+	background-color: white;
+}
+
+.namecard_pic {
+	height: 56%;
+	/*border-style: solid;*/
+	margin: auto;
+}
+.namecard_row {
+	height: 9%;
+	text-align: left;
+	/*background-color: transparent;*/
+	/*border-style: solid;*/
+}
+
+.fillInHeight {
+	height:100%;
+	width:100%;
+	/*horizontal-align: middle;*/
+	margin: auto;
+}
+.namePic{
+	max-width: 100%;
+	/*width:100%;*/
+	max-height: 100%;
+	margin: auto;
+	display: block;
+}
+
+.unbindButton {
+	width:100%;
+	background-color: transparent;
+	outline: none;
+	/*border:none;*/
+}

@@ -1,0 +1,1601 @@
+<!DOCTYPE html>
+<html ng-app="myApp">
+<head>
+<title>Meiguo Education Web Application</title>
+<!-- <meta charset="utf-8"> -->
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+
+<!-- Compiled and minified CSS -->
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css"> -->
+
+<!-- Compiled and minified JavaScript -->
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script> -->
+
+<!-- Font awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+
+<!-- moment.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.15.2/moment.min.js"></script>
+
+<!-- jquery -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+<!-- jquery ui -->
+<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+<!-- bootstrap -->
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+<!-- AngularJS-->
+<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.3.5/angular.min.js"></script>
+<script src="https://rawgit.com/michaelbromley/angularUtils/master/src/directives/pagination/dirPagination.js"></script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+<link href='//fonts.googleapis.com/css?family=PT Sans Narrow' rel='stylesheet'>
+
+<!-- my css sheet -->
+<link rel="stylesheet" type="text/css" href="/forAdmin/styles.css">
+<link rel="stylesheet" type="text/css" href="/forAdmin/badges.css">
+
+
+
+<script>
+	$sideNavIsOpen = false;
+
+	$(window).on('resize', function(){
+      var win = $(this); //this = window
+      if (win.width() < 1000) {
+      	 if($sideNavIsOpen){openNavSmall();}
+      } else {
+      	if($sideNavIsOpen){openNav();}
+      }
+	});
+
+	function screenSize(){
+		if($(window).width()<1000){
+			if(!$sideNavIsOpen){openNavSmall();}
+			else{closeNav();}
+
+		} else {
+			if(!$sideNavIsOpen){openNav();}
+			else{closeNav();}
+		}
+	}
+
+	function openNavSmall() {
+		document.getElementById("mySidenavnew").style.width = "40px";
+		$("#mySidenavnew a").css("padding","8px 8px 30px 10px");
+		document.getElementById("doe").style.marginLeft = "40px";
+		document.getElementById("pmc").style.marginLeft = "40px";
+		document.getElementById("ft").style.marginLeft = "40px";
+		document.getElementById("stu").style.marginLeft = "40px";
+		document.getElementById("setting").style.marginLeft = "40px";
+		$sideNavIsOpen = true;
+	}
+
+	function openNav() {
+		document.getElementById("mySidenav").style.width = "180px";
+		document.getElementById("doe").style.marginLeft = "180px";
+		document.getElementById("pmc").style.marginLeft = "180px";
+		document.getElementById("ft").style.marginLeft = "180px";
+		document.getElementById("stu").style.marginLeft = "180px";
+		document.getElementById("setting").style.marginLeft = "180px";
+		$sideNavIsOpen = true;
+	}
+
+	function closeNav() {
+	    document.getElementById("mySidenav").style.width = "0px";
+	    document.getElementById("doe").style.marginLeft = "0px";
+	    document.getElementById("pmc").style.marginLeft = "0px";
+	    document.getElementById("ft").style.marginLeft = "0px";
+	    document.getElementById("stu").style.marginLeft = "0px";
+	    document.getElementById("mySidenavnew").style.width = "0";
+	    $sideNavIsOpen = false;
+	}
+
+	$(document).ready(function () {
+		$(document).on('click',"#stu_bio", function(e){
+			$(".tr_hide_cur").hide();
+			$(".tr_hide_pre").hide();
+			$(".tr_hide_per").hide();
+			$(".tr_hide_fam").hide();
+		});
+
+		$(document).on('click',"#tr_toggle_curSchool", function(e){
+			$(".tr_hide_cur").toggle('fast');
+			$('span', this).toggle();
+		});
+
+		$(document).on('click',"#tr_toggle_preSchool", function(e){
+			$(".tr_hide_pre").toggle('fast');
+			$('span', this).toggle();
+		});
+
+		$(document).on('click',"#tr_toggle_per", function(e){
+			$(".tr_hide_per").toggle('fast');
+			$('span', this).toggle();
+		});
+
+		$(document).on('click',"#tr_toggle_fam", function(e){
+			$(".tr_hide_fam").toggle('fast');
+			$('span', this).toggle();
+		});
+
+ 	});
+
+	//sideNavi bar functions
+	$(window).load(function(){
+		$("#mySidenav a, #mySidenavnew a").click(function(e){
+			e.preventDefault();
+		    $(".toggle").hide();
+		    var toShow = $(this).attr('href');
+		    $(toShow).show();
+		});
+	});//window.load
+
+</script>
+
+</head>
+
+
+<body onload="screenSize()">
+	<div class="globle_header">
+		<!-- stack icon -->
+		<form id="logout" action method="post">
+			<span class="stack_icon" onclick="screenSize()">&#9776;</span>
+			<span class = "header">
+				<span class="header_text">Welcome Admin!</span>
+				<button class="btn btn-default" onclick="logout()" style="float: right;right;z-index: 99;"><i class="fa fa-sign-out" aria-hidden="true" style="font-size: 20px;"></i>Log Out</button>
+			</span>
+		</form>
+	</div>
+<!-- ************************************************************************************************************ -->
+
+	<div class="row">
+		<!-- side Navi bar -->
+			<div id="mySidenav" class="sidenav hidden-sm">
+			  <a href="#doe"><i class="fa fa-user" aria-hidden="true"></i> <span class="hidden-sm">Director of<br/>&nbsp;&nbsp;&nbsp;Education</span></a>
+			  <a href="#pmc"><i class="fa fa-file-o" aria-hidden="true"></i> <span class="hidden-sm">Personal&nbsp;Management<br/>&nbsp;&nbsp;&nbsp;Counselor</span></a>
+			  <a href="#ft"><i class="fa fa-globe" aria-hidden="true"></i> <span class="hidden-sm">Family<br/>&nbsp;&nbsp;&nbsp;Translators</span></a>
+			  <a href="#stu"><i class="fa fa-graduation-cap" aria-hidden="true"></i> <span class="hidden-sm">Students</span></a>
+				<a href="#setting"><i class="fa fa-cog" aria-hidden="true"></i><span class="hidden-sm">Manage</span></a>
+			</div>
+
+			<div id="mySidenavnew" class="sidenav col-sm-2 visible-sm visible-xs">
+		        <a href="#doe"><i class="fa fa-user" aria-hidden="true"></i></a>
+		        <a href="#pmc"><i class="fa fa-file-o" aria-hidden="true"></i></a>
+		        <a href="#ft"><i class="fa fa-globe" aria-hidden="true"></i></a>
+		        <a href="#stu"><i class="fa fa-graduation-cap" aria-hidden="true"></i></a>
+						<a href="#setting"><i class="fa fa-cog" aria-hidden="true"></i></a>
+	  	</div>
+
+			<!-- doe content -->
+			<div id="doe" class="toggle">
+				<div class="page-header">
+					<h3>DOE</h3>
+				</div>
+				<div class="well well-sm">
+
+			   <div id="doeCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
+				   <div class="carousel-inner" role="listbox" ng-controller="DOEController">
+					   <div class="panel panel-default item active">
+					     <ul class="nav nav-tabs" role="tablist">
+					       <li role="presentation" class="active"><a href=" " aria-controls="acitve_bills" role="tab" data-toggle="tab">General Information</a ></li>
+					     </ul>
+					     <div class="tab-content">
+					       <div role="tabpanel" class="tab-pane active" id="acitve_bills" >
+					        <div class="panel-heading" style="overflow:hidden;">
+							      <div class='col-xs-5'><span class="panel_heading_text"></span></div>
+							      <div class='col-xs-5 col-xs-offset-2'>
+											<span style="float:right;">
+							       		<input style="height: 30px;" ng-model="q" id="search" class="form-control" placeholder="Search">
+							       		<input value="10" class="form-control" ng-model="pageSize" type="hidden">
+							      	</span>
+										</div>
+							    </div>
+							     <div class="panel-body">
+							      <div class="table-responsive">
+								      <table class="table table-hover" id="doe_table">
+								       <thead>
+								        <tr>
+								         <th>&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Name</th><th>Gender</th><th>Perferred Name</th><th>Email</th><th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+								        </tr>
+								       </thead>
+								       <tbody>
+								        <tr dir-paginate="row in doe_rows | filter:q | itemsPerPage: pageSize" pagination-id="doe_rows" current-page="currentPage">
+								         <td><image ng-src="{{row.photo}}" height='25' width='25'/></td>
+								         <td>{{row.full_name}}</td>
+								         <td>{{row.gender}}</td>
+								         <td>{{row.pre_name}}</td>
+								         <td>{{row.email}}</td>
+								         <td>
+								          <button id= "{{row.index}}" type="button" class="btn btn-primary doe_btn" onclick="$('#doeCarousel').carousel('next');">View Details</button>
+								         </td>
+								        </tr>
+								       </tbody>
+								      </table>
+								      <center>
+								       <dir-pagination-controls  max-size="10" boundary-links="true" direction-links="true"
+								         pagination-id="doe_rows" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+								      </center>
+							      </div>
+							     </div><!-- panel_body -->
+					       </div>
+					     </div><!-- tab-content -->
+					    </div><!-- panel panel-default item active -->
+							<!-- DETAILDED PAGE Counsellor******************************************************* -->
+				     <div class="panel item">
+					      <div class="panel-heading row" id="bill_panel_heading_with_white_bg">
+							     <div>
+							      <div style="float:left; margin-left:15px;"><button href="#doeCarousel" data-slide="prev" class="glyphicon glyphicon-chevron-left btn btn-default"></button></div>
+							      <div class="page-header" style="font-size: 20px; padding-top: 5px; padding-bottom: 12px;"> View Details</div>
+							     </div>
+						    </div>
+					    	<div class="row pmc_div">
+						     <!-- first col -->
+				      		<div class="col-md-6" id="details_tables">
+				      <table class="table">
+				       <tbody>
+				        <tr>
+									<td>
+										<div class='row'>
+											<div class='col-md-6 pic_style'><image ng-src="{{photo}}" height='170' width='140' style='margin-bottom: 10px;'/></div>
+											<div class='col-md-6 box-shadow white_bg'>
+												<table class='table box_table' id="details_tables">
+													<tr><td><b>Name: </b>{{full_name}}</td></tr>
+													<tr><td><b>Preferred Name: </b>{{pre_name}}</td></tr>
+													<tr><td><b>Gender: </b>{{gender}}</td></tr>
+													<tr><td><b>Birthday: </b>{{birthday}}</td></tr>
+												</table>
+											</div>
+										</div>
+									</td>
+				        </tr>
+								<tr>
+									<td>
+										<div class="box-shadow white_bg">
+											<table class='table box_table' id="details_tables">
+												<tr><th>Email</th><td>{{email}}</td></tr>
+												<tr><th>Phone</th><td>{{phone}}</td></tr>
+												<tr><th>WeChat</th><td>{{wechat}}</td></tr>
+												<tr><th>Skype</th><td>{{skype}}</td></tr>
+												<tr><th>Religion</th><td>{{religion}}</td></tr>
+											</table>
+										</div>
+									</td>
+								</tr>
+				       </tbody>
+				      </table>
+				     </div><!-- first col -->
+
+						  		<div class="col-md-6" id="coun_second_detail_table">
+						   <h3>Reserved Area</h3>
+						  </div>
+					     	</div>
+							</div>
+			     </div><!-- carousel slide -->
+			    </div><!-- carousel slide -->
+			  </div>
+			</div><!-- doe -->
+
+			<!-- Counsellor content -->
+			<div id="pmc" class="toggle" style="display: none;">
+			  <div class="page-header">
+			   <!-- <h3>Personal Management Counselor</h3> -->
+				 <h3>PMC</h3>
+			  </div>
+			  <div class="well well-sm">
+			   <!-- CAROUSEL START HERE **************************************************-->
+			   <div id="CounCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
+				   <!-- Wrapper for slides -->
+				   <div class="carousel-inner" role="listbox" ng-controller="CounsellorController">
+					   <div class="panel panel-default item active">
+					     <!-- Nav tabs -->
+					     <ul class="nav nav-tabs" role="tablist">
+					       <li role="presentation" class="active"><a href=" " aria-controls="acitve_bills" role="tab" data-toggle="tab">General Information</a ></li>
+					     </ul>
+					     <!-- Tab panes -->
+					     <div class="tab-content">
+					      <!-- active bill panes -->
+					       <div role="tabpanel" class="tab-pane active" id="acitve_bills">
+					        <div class="panel-heading" style="overflow:hidden;">
+							      <div class='col-xs-5'><span class="panel_heading_text"></span></div>
+							      <div class='col-xs-5 col-xs-offset-2'>
+											<span style="float:right;">
+							       		<input style="height: 30px;" ng-model="q" id="search" class="form-control" placeholder="Search">
+							       		<input value="10" class="form-control" ng-model="pageSize" type="hidden">
+							      	</span>
+										</div>
+							    </div><!-- panel_heading -->
+					         <!-- PUT THE DATA HERE Counsellors**************************************************-->
+							     <div class="panel-body">
+							      <div class="table-responsive">
+								      <table class="table table-hover" id="counselor_table">
+								       <thead>
+								        <tr>
+								         <th>&nbsp;&nbsp;&nbsp;&nbsp;</th><th>Name</th><th>Gender</th><th>Perferred Name</th><th>Email</th><th>&nbsp;&nbsp;&nbsp;&nbsp;</th>
+								        </tr>
+								       </thead>
+								       <tbody>
+								        <tr dir-paginate="row in coun_rows | filter:q | itemsPerPage: pageSize" pagination-id="coun_rows" current-page="currentPage">
+								         <td><image ng-src="{{row.photo}}" height='25' width='25'/></td>
+								         <td>{{row.full_name}}</td>
+								         <td>{{row.gender}}</td>
+								         <td>{{row.pre_name}}</td>
+								         <td>{{row.email}}</td>
+								         <td>
+								          <button id= "{{row.index}}" type="button" class="btn btn-primary coun_btn" onclick="$('#CounCarousel').carousel('next');">View Details</button>
+								         </td>
+								        </tr>
+								       </tbody>
+								      </table>
+								      <center>
+								       <dir-pagination-controls  max-size="10" boundary-links="true" direction-links="true"
+								         pagination-id="coun_rows" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+								      </center>
+							      </div>
+							     </div><!-- panel_body -->
+					       </div>
+					     </div>
+							 <!-- tab-content -->
+					    </div>
+							<!-- panel panel-default item active -->
+							<!-- DETAILDED PAGE Counsellor******************************************************* -->
+				     <div class="panel item">
+					      <div class="panel-heading row" id="bill_panel_heading_with_white_bg">
+							     <div>
+							      <div style="float:left; margin-left:15px;"><button href="#CounCarousel" data-slide="prev" class="glyphicon glyphicon-chevron-left btn btn-default"></button></div>
+							      <div class="page-header" style="font-size: 20px; padding-top: 5px; padding-bottom: 12px;"> View Details</div>
+							     </div>
+						    </div>
+					    	<div class="row pmc_div">
+						     <!-- first col -->
+						     <div class="col-md-6" id="details_tables">
+						      <!-- <table class="table" ng-controller="CounsellorController"> -->
+ 						      <table class="table">
+						       <tbody>
+						        <tr>
+											<td>
+												<div class='row'>
+													<div class='col-md-6 pic_style'><image ng-src="{{photo}}" height='170' width='140' style='margin-bottom: 10px;'/></div>
+													<div class='col-md-6 box-shadow white_bg'>
+														<table class='table box_table' id="details_tables">
+															<tr><td><b>Name: </b>{{full_name}}</td></tr>
+															<tr><td><b>Preferred Name: </b>{{pre_name}}</td></tr>
+															<tr><td><b>Gender: </b>{{gender}}</td></tr>
+															<tr><td><b>Birthday: </b>{{birthday}}</td></tr>
+														</table>
+													</div>
+												</div>
+											</td>
+						        </tr>
+										<tr>
+											<td>
+												<div class="box-shadow white_bg">
+													<table class='table box_table' id="details_tables">
+														<tr><th>Email</th><td>{{email}}</td></tr>
+														<tr><th>Phone</th><td>{{phone}}</td></tr>
+														<tr><th>WeChat</th><td>{{wechat}}</td></tr>
+														<tr><th>Skype</th><td>{{skype}}</td></tr>
+														<tr><th>Religion</th><td>{{religion}}</td></tr>
+													</table>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<div class="col s12 m7">
+											    <h2 class="header">Studnet Information</h2>
+											    <div class="card horizontal">
+											      <div class="card-image">
+											        <img src="https://lorempixel.com/100/190/nature/6">
+											      </div>
+											      <div class="card-stacked">
+											        <div class="card-content">
+											          <p>I am a very simple card. I am good at containing small bits of information.</p>
+											        </div>
+											        <div class="card-action">
+											          <a href="#">This is a link</a>
+											        </div>
+											      </div>
+											    </div>
+											  </div>
+										</tr>
+						       </tbody>
+						      </table>
+						     </div><!-- first col -->
+						     <div><!-- second col -->
+						      <div class="col-md-6" id="coun_second_detail_table">
+ 										<!-- <div class="col-md-6"> -->
+ 											<h3>Todo List</h3>
+ 											<!-- <div class="todoTable_outer"> -->
+ 												<div class="todoTable_inner">
+ 													<table id="dis_coun_todolist" class="todolist todo">
+ 														<tbody>
+ 															<tr class="todocell">
+ 																<th>Week</th>
+ 																<th>Content</th>
+ 																<th>Due Date</th>
+ 															</tr>
+ 														</tbody>
+ 													</table>
+													<table id="dis_coun_donetodolist" class="todolist done">
+ 														<tbody>
+ 															<!-- <tr class="todocell">
+ 																<th>Week</th>
+ 																<th>Content</th>
+ 																<th>Due Date</th>
+ 															</tr> -->
+ 														</tbody>
+ 													</table>
+ 												</div>
+ 											<!-- </div> -->
+ 										<!-- </div> -->
+
+ 										<!-- <div class="col-md-6"> -->
+ 											<!-- <h3>Todo List Log</h3> -->
+ 												<!-- <div class="todoTable_inner"> -->
+
+ 												<!-- </div> -->
+ 											<!-- </div> -->
+ 										<!-- </div> -->
+						      </div>
+					     	 </div>
+					     	</div>
+							</div>
+			     </div><!-- carousel slide -->
+			    </div><!-- carousel slide -->
+			  </div>
+		 	</div><!-- main_bill -->
+
+
+			<!-- main_committees content //////////////////////////////////////////////////////////-->
+			<div id="ft" class="toggle" style="display: none;">
+				<div class="page-header">
+					<h3>Committees</h3>
+				</div>
+				<div class="well well-sm">
+					<!-- CAROUSEL START HERE **************************************************-->
+					<div id="myCommCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
+					<!-- Wrapper for slides -->
+					<div class="carousel-inner" role="listbox">
+					<div class="panel panel-default item active">
+
+					<!-- Nav tabs -->
+				  	<ul class="nav nav-tabs" role="tablist">
+					    <li role="presentation" class="active"><a href="#committees_house" aria-controls="committees_house" role="tab" data-toggle="tab">House</a></li>
+					    <li role="presentation"><a href="#committees_senate" aria-controls="committees_senate" role="tab" data-toggle="tab">Senate</a></li>
+					    <li role="presentation"><a href="#committees_joint" aria-controls="committees_joint" role="tab" data-toggle="tab">Joint</a></li>
+				  	</ul>
+				  	<!-- Tab panes -->
+				  	<div class="tab-content">
+				  		<!-- State panes -->
+					    <div role="tabpanel" class="tab-pane active" id="committees_house" ng-controller="CommitteeController">
+					    	<div class="panel-heading" style="overflow:hidden;">
+								<div class='col-xs-5'><span class="panel_heading_text">House</span></div>
+								<div class='col-xs-5 col-xs-offset-2'><span style="float:right;">
+									<input style="height: 30px;" ng-model="q" id="search" class="form-control" placeholder="Search">
+									<input value="10" class="form-control" ng-model="pageSize" type="hidden">
+								</span></div>
+							</div><!-- panel_heading -->
+
+						<!-- PUT THE DATA HERE **************************************************-->
+							<div class="panel-body">
+								<div class="table-responsive">
+								<table class="table table-hover" id="all_committees_table">
+									<thead>
+										<tr>
+											<th>&nbsp;&nbsp;&nbsp;</th><th>Chamber</th><th>Committee<br/>ID</th><th>Name</th><th>Parent<br/>Committee</th><th>Contact</th><th>Office</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr dir-paginate="row in com_house_rows | filter:q | itemsPerPage: pageSize" pagination-id="com_house_rows" current-page="currentPage">
+											<td><button class='glyphicon glyphicon-star-empty btn btn-default' title='deactivated' id='{{row.index}}'></button></td>
+											<td><image ng-src="{{row.com_chamber_img}}" height='25' width='25'/>&nbsp;{{row.com_chamber}}</td>
+											<td>{{row.com_id}}</td>
+											<td>{{row.com_name}}</td>
+											<td>{{row.com_parent}}</td>
+											<td>{{row.com_contact}}</td>
+											<td>{{row.com_office}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<center>
+									<dir-pagination-controls  max-size="10" boundary-links="true" direction-links="true"
+											pagination-id="com_house_rows" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+								</center>
+								</div>
+							</div><!-- panel_body -->
+						</div>
+
+						<!-- ******************************************************* -->
+
+				    	<!-- Senate panes -->
+				    	<div role="tabpanel" class="tab-pane" id="committees_senate" ng-controller="CommitteeController">
+					    	<div class="panel-heading" style="overflow:hidden;">
+								<div class='col-xs-5'><span class="panel_heading_text">Senate</span></div>
+								<div class='col-xs-5 col-xs-offset-2'><span style="float:right;">
+									<input style="height: 30px;" ng-model="q" id="search" class="form-control" placeholder="Search">
+									<input value="10" class="form-control" ng-model="pageSize" type="hidden">
+								</span></div>
+							</div><!-- panel_heading -->
+
+						<!-- PUT THE DATA HERE **************************************************-->
+							<div class="panel-body">
+								<div class="table-responsive">
+								<table class="table table-hover" id="all_committees_senate_table">
+									<thead>
+										<tr>
+											<th>&nbsp;&nbsp;&nbsp;</th><th>Chamber</th><th>Committee<br/>ID</th><th>Name</th><th>Parent<br/>Committee</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr dir-paginate="row in com_senate_rows | filter:q | itemsPerPage: pageSize" pagination-id="com_senate_rows" current-page="currentPage">
+											<td><button class='glyphicon glyphicon-star-empty btn btn-default' title='deactivated' id='{{row.index}}'></button></td>
+											<td><image ng-src="{{row.com_chamber_img}}" height='25' width='25'/>&nbsp;{{row.com_chamber}}</td>
+											<td>{{row.com_id}}</td>
+											<td>{{row.com_name}}</td>
+											<td>{{row.com_parent}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<center>
+									<dir-pagination-controls  max-size="10" boundary-links="true" direction-links="true"
+											pagination-id="com_senate_rows" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+								</center>
+								</div>
+							</div><!-- panel_body -->
+				    	</div><!-- Senate panes -->
+
+				    	<!-- Joint panes -->
+				    	<div role="tabpanel" class="tab-pane" id="committees_joint" ng-controller="CommitteeController">
+					    	<div class="panel-heading" style="overflow:hidden;">
+								<div class='col-xs-5'><span class="panel_heading_text">Joint</span></div>
+								<div class='col-xs-5 col-xs-offset-2'><span style="float:right;">
+									<input style="height: 30px;" ng-model="q" id="search" class="form-control" placeholder="Search">
+									<input value="10" class="form-control" ng-model="pageSize" type="hidden">
+								</span></div>
+							</div><!-- panel_heading -->
+
+						<!-- PUT THE DATA HERE **************************************************-->
+							<div class="panel-body">
+								<div class="table-responsive">
+								<table class="table table-hover" id="all_committees_joint_table">
+									<thead>
+										<tr>
+											<th>&nbsp;&nbsp;&nbsp;</th><th>Chamber</th><th>Committee<br/>ID</th><th>Name</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr dir-paginate="row in com_joint_rows | filter:q | itemsPerPage: pageSize " pagination-id="com_joint_rows" current-page="currentPage">
+											<td><button class='glyphicon glyphicon-star-empty btn btn-default' title='deactivated' id='{{row.index}}'></button></td>
+											<td><image ng-src="{{row.com_chamber_img}}" height='25' width='25'/>&nbsp;{{row.com_chamber}}</td>
+											<td>{{row.com_id}}</td>
+											<td>{{row.com_name}}</td>
+										</tr>
+									</tbody>
+								</table>
+								<center>
+									<dir-pagination-controls  max-size="10" boundary-links="true" direction-links="true"
+											pagination-id="com_joint_rows" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+								</center>
+								</div>
+							</div><!-- panel_body -->
+				    	</div><!-- Joint panes -->
+
+
+			  		</div><!-- tab-content -->
+		  			</div><!-- panel panel-default item active -->
+
+		  	<!-- DETAILDED PAGE******************************************************* -->
+		  			<!-- <div class="panel item">
+		  				<div class="panel-heading row" id="committee_panel_heading_with_white_bg">
+							<div>
+								<div style="float:left; margin-left:15px;"><button href="#myCarousel" data-slide="prev" class="glyphicon glyphicon-chevron-left btn btn-default" id="committee_prev_button"></button></div>
+								<div class="page-header" style="font-size: 20px; padding-top: 5px; padding-bottom: 12px;"> Details</div>
+							</div>
+						</div>
+					</div> -->
+		  			</div><!-- carousel-inner -->
+		  			</div><!-- carousel slide -->
+				</div>
+			<!-- </div> -->
+			</div><!-- main_committees -->
+
+			<!-- student content -->
+			<div id="stu" class="toggle" style="display: none;">
+				<div class="page-header">
+					<h3>Students</h3>
+				</div>
+				<div class="well well-sm">
+					<!-- CAROUSEL START HERE **************************************************-->
+					<div id="stuCarousel" class="carousel slide" data-ride="carousel" data-interval="false" data-wrap="false">
+						<!-- <div id="stuCarousel" class="carousel carousel-slider center"> -->
+					<!-- Wrapper for slides -->
+						<div class="carousel-inner" role="listbox">
+						<div class="panel panel-default item active">
+							<!-- Nav tabs -->
+					  	<ul class="nav nav-tabs" role="tablist">
+						    <li role="presentation" class="active"><a href="#student" aria-controls="student" role="tab" data-toggle="tab">Students</a></li>
+					  	</ul>
+					  	<!-- Tab panes -->
+					  	<div class="tab-content">
+					  		<!-- student panes -->
+						    <div role="tabpanel" class="tab-pane active" id="student" ng-controller="StuController">
+						    	<div class="panel-heading" style="overflow:hidden;">
+										<div class='col-xs-5'></div>
+										<div class='col-xs-5 col-xs-offset-2'><span style="float:right;">
+											<select style="height: 30px;" ng-model="q" class="form-control">
+												<option value="" selected>All States</option>
+												<option value="Alabama">Alabama</option>
+												<option value="Alaska">Alaska</option>
+												<option value="Arizona">Arizona</option>
+												<option value="Arkansas">Arkansas</option>
+												<option value="American Samoa">American Samoa</option>
+												<option value="California">California</option>
+												<option value="Colorado">Colorado</option>
+												<option value="Connecticut">Connecticut</option>
+												<option value="Delaware">Delaware</option>
+												<option value="District Of Columbia">District Of Columbia</option>
+												<option value="Florida">Florida</option>
+												<option value="Georgia">Georgia</option>
+												<option value="Guam">Guam</option>
+												<option value="Hawaii">Hawaii</option>
+												<option value="Idaho">Idaho</option>
+												<option value="Illinois">Illinois</option>
+												<option value="Indiana">Indiana</option>
+												<option value="Iowa">Iowa</option>
+												<option value="Kansas">Kansas</option>
+												<option value="Kentucky">Kentucky</option>
+												<option value="Louisiana">Louisiana</option>
+												<option value="Maine">Maine</option>
+												<option value="Maryland">Maryland</option>
+												<option value="Massachusetts">Massachusetts</option>
+												<option value="Michigan">Michigan</option>
+												<option value="Minnesota">Minnesota</option>
+												<option value="Mississippi">Mississippi</option>
+												<option value="Missouri">Missouri</option>
+												<option value="Montana">Montana</option>
+												<option value="Nebraska">Nebraska</option>
+												<option value="Nevada">Nevada</option>
+												<option value="New Hampshire">New Hampshire</option>
+												<option value="New Jersey">New Jersey</option>
+												<option value="New Mexico">New Mexico</option>
+												<option value="New York">New York</option>
+												<option value="North Carolina">North Carolina</option>
+												<option value="North Dakota">North Dakota</option>
+												<option value="Northern Mariana Islands">Northern Mariana Islands</option>
+												<option value="Ohio">Ohio</option>
+												<option value="Oklahoma">Oklahoma</option>
+												<option value="Oregon">Oregon</option>
+												<option value="Pennsylvania">Pennsylvania</option>
+												<option value="Puerto">Puerto</option>
+												<option value="Rhode Island">Rhode Island</option>
+												<option value="South Carolina">South Carolina</option>
+												<option value="South Dakota">South Dakota</option>
+												<option value="Tennessee">Tennessee</option>
+												<option value="Texas">Texas</option>
+												<option value="US Virgin Islands">US Virgin Islands</option>
+												<option value="Utah">Utah</option>
+												<option value="Vermont">Vermont</option>
+												<option value="Virginia">Virginia</option>
+												<option value="Washington">Washington</option>
+												<option value="West Virginia">West Virginia</option>
+												<option value="Wisconsin">Wisconsin</option>
+												<option value="Wyoming">Wyoming</option>
+											</select>
+											<input value="10" class="form-control" ng-model="pageSize" type="hidden">
+										</span></div>
+									</div><!-- panel_heading -->
+									<!-- STUDENTS **************************************************-->
+									<div class="panel-body">
+										<div class='table-responsive'>
+										<table class="table table-hover" id="stu_table">
+											<thead>
+												<tr>
+													<th>     </th><th>Chinese Name</th><th>Family Name</th><th>Given Name</th><th>English Name</th><th>Preferred Name</th><th>Gender</th><th>Counselor</th><th>City, State</th><th>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr dir-paginate="row in stu_rows | filter:q | itemsPerPage: pageSize | filter:{state:q}" pagination-id="stu_rows" current-page="currentPage">
+													<!-- <td><image ng-src="{{row.photo}}" height='25' width='25'/></td> -->
+													<td>{{row.cname}}</td>
+													<td>{{row.fam_name}}</td>
+													<td>{{row.giv_name}}</td>
+													<td>{{row.eng_name}}</td>
+													<td>{{row.pre_name}}</td>
+													<td>{{row.gender}}</td>
+													<td>{{row.counselor}}</td>
+													<td>{{row.state}}</td>
+													<td>
+														<button id="{{row.index}}" type="button" class="btn btn-primary bio_btn" onclick="$('#stuCarousel').carousel('next');"> View Details</button>
+													</td>
+												</tr>
+											</tbody>
+										</table>
+										<center>
+											<dir-pagination-controls  max-size="10" boundary-links="true" direction-links="true"
+													pagination-id="stu_rows" on-page-change="pageChangeHandler(newPageNumber)"></dir-pagination-controls>
+										</center>
+									</div>
+									</div><!-- panel_body -->
+								</div>
+							</div>
+						</div>
+							<!-- ******************************************************* -->
+
+			  			<!-- BIO DETAILDED PAGE for students******************************************************* -->
+						<div class="panel item">
+							<div class="panel-heading row" id="stu_panel_heading_with_white_bg">
+								<div>
+									<div style="float:left; margin-left:15px;"><button href="#stuCarousel" data-slide="prev" class="glyphicon glyphicon-chevron-left btn btn-default" style="z-index: 1;"></button></div>
+									<div class="page-header" style="font-size: 20px; padding-top: 5px; padding-bottom: 12px;"> Details</div>
+								</div>
+							</div>
+							<div class="panel panel-default item active panel_stu_detail">
+								<!-- Nav tabs -->
+						  	<ul class="nav nav-tabs nav_tab_stu_detail" role="tablist">
+							    <li role="presentation" class="active" style="padding-left: 200px;"><a href="#stu_student_tab" aria-controls="stu_general" role="tab" data-toggle="tab">Summary</a></li>
+									<li role="presentation"><a href="#stu_team" aria-controls="std_family" role="tab" data-toggle="tab">Team</a></li>
+							    <li id="stu_bio" role="presentation"><a href="#stu_background_info_tab" aria-controls="std_acdamic" role="tab" data-toggle="tab">Background Info</a></li>
+							    <li role="presentation"><a href="#stu_personal_interests_tab" aria-controls="std_family" role="tab" data-toggle="tab">Personal Interests</a></li>
+									<li role="presentation"><a href="#stu_skills_badges_tab" aria-controls="std_family" role="tab" data-toggle="tab">Skills Badges</a></li>
+									<li role="presentation"><a href="#stu_extracurricalr_log" aria-controls="std_family" role="tab" data-toggle="tab">Extracurricalr Log</a></li>
+									<li role="presentation"><a href="#stu_todo_list" aria-controls="std_family" role="tab" data-toggle="tab">Todo List Log</a></li>
+						  	</ul>
+
+						  	<!-- Tab panes -->
+				  			<div class="tab-content">
+							  	<!-- student genernal info panes -->
+							    <div id="stu_student_tab" role="tabpanel" class="tab-pane active tab-pane-detail">
+										<!-- ****************PUT THE DATA HERE*******************************-->
+										<div class="panel-body">
+											<div class='table-responsive'>
+												<!-- first col -->
+												<div class="row" id="details_tables">
+													<div class="col-md-6">
+														<div class="col-md-12">
+															<table class="table" id="stu_bio_table">
+															</table>
+														</div>
+
+														<div class="col-md-6 col-sm-6">
+													      <div id="GPA" class="flip-container">
+													      	<div class="flipper">
+													      		<div class="front">
+													            <h3>Grade Portal Access</h3>
+													            <div>
+													              <table>
+													                <tr><th>Website: </th><td><input type='text' name='GPA_website'></input></td></tr>
+													                <tr><th>Username: </th><td><input type='text' name='GPA_username'></input></td></tr>
+													                <tr><th>Password: </th><td> <input type='text' name='GPA_password'></input></td></tr>
+													                <tr><td><button onclick="set('GPA')" class="sexyButton">Set</button></td></tr>
+													              </table>
+													            </div>
+													      		</div>
+													      		<div class="back">
+													            <table>
+													              <tr><th>Website: </th><td id='GPA_website'></td></tr>
+													              <tr><th>Username: </th><td id='GPA_username'></td></tr>
+													              <tr><th>Password: </th><td id='GPA_password'></td></tr>
+													              <tr><td><button onclick="flip('GPA')" class="sexyButton">flip</button></td></tr>
+													            </table>
+													      		</div>
+													      	</div>
+													      </div>
+													  </div>
+												    <div class="col-md-6 col-sm-6">
+												      <div id="WMTA" class="flip-container">
+												      	<div class="flipper">
+												      		<div class="front">
+												            <h4>Weekly Meeting Time Availability</h4>
+												            <div>
+												              <table>
+												                <tr><th>Day(s): </th><td><input type='text' name='WMTA_day'></input></td></tr>
+												                <tr><th>Time(s): </th><td><input type='text' name='WMTA_time'></input></td></tr>
+												                <tr><th>Location: </th><td> <input type='text' name='WMTA_location'></input></td></tr>
+												                <tr><td><button onclick="set('WMTA')" class="sexyButton">Set</button></td></tr>
+												              </table>
+												            </div>
+												      		</div>
+												      		<div class="back">
+												            <table>
+												              <tr><th>Day(s): </th><td id='WMTA_day'></td></tr>
+												              <tr><th>Time(s): </th><td id='WMTA_time'></td></tr>
+												              <tr><th>Location: </th><td id='WMTA_location'></td></tr>
+												              <tr><td><button onclick="flip('WMTA')" class="sexyButton">flip</button></td></tr>
+												            </table>
+												      		</div>
+												      	</div>
+												      </div>
+												    </div>
+												    <div class="col-md-6 col-sm-6">
+												      <div id="VoM" class="flip-container">
+												        <div class="flipper">
+												          <div class="front">
+												            <h4>VolunteerMatch Account</h4>
+												            <div>
+												              <table>
+												                <tr><th>Username: </th><td><input type='text' name='VoM_username'></input></td></tr>
+												                <tr><th>Password: </th><td><input type='text' name='VoM_password'></input></td></tr>
+												                <tr><td><button onclick="set('VoM')" class="sexyButton">Set</button></td></tr>
+												              </table>
+												            </div>
+												          </div>
+												          <div class="back">
+												            <table>
+												              <tr><th>Username: </th><td id='VoM_username'></td></tr>
+												              <tr><th>Password: </th><td id='VoM_password'></td></tr>
+												              <tr><td><button onclick="flip('VoM')" class="sexyButton">flip</button></td></tr>
+												            </table>
+												          </div>
+												        </div>
+												      </div>
+												    </div>
+												    <div class="col-md-6 col-sm-6">
+												      <div id="WyZ" class="flip-container">
+												      	<div class="flipper">
+												          <div class="front">
+												            <h4>Wyzant Account</h4>
+												            <div>
+												              <table>
+												                <tr><th>Username: </th><td><input type='text' name='WyZ_username'></input></td></tr>
+												                <tr><th>Password: </th><td><input type='text' name='WyZ_password'></input></td></tr>
+												                <tr><td><button onclick="set('WyZ')" class="sexyButton">Set</button></td></tr>
+												              </table>
+												            </div>
+												          </div>
+												          <div class="back">
+												            <table>
+												              <tr><th>Username: </th><td id='WyZ_username'></td></tr>
+												              <tr><th>Password: </th><td id='WyZ_password'></td></tr>
+												              <tr><td><button onclick="flip('WyZ')" class="sexyButton">flip</button></td></tr>
+												            </table>
+												          </div>
+												        </div>
+												      	</div>
+												     </div>
+											    </div>
+													<!-- </div> -->
+
+													<!-- second col -->
+													<!-- <div id="second_detail_table"> -->
+													<div class="col-md-6 second_detail_table_style">
+														<h3>Student Todo List</h3>
+														<div class="todoTable_inner">
+															<table id="summary_todo" class="todolist todo">
+																<th>Week</th>
+																<th>Content</th>
+																<th>Due Date</th>
+															</table>
+														</div>
+														<h3>Student Activity Tracker</h3>
+														<div class="col-md-7">
+															<div id="myChart" style="max-height: 300px; max-width: 300px" class="box-shadow"></div>
+														</div>
+														<div class="col-md-5" style="height:100%;">
+															<table class="activityTable fillInHeight">
+											          <tbody>
+											            <tr class="totalHours"><th>Total hours</th><td id="totalhours"></td></tr>
+											            <tr class="volunteerHours"><th>Volunteer Hours</th><td id="volunteerhours"></td></tr>
+											            <tr class="happiestactivity"><th>Happiest Activity</th><td id="happinestactivity"></td></tr>
+											            <tr class="MostPopular"><th>Most Popular</th><td id="mostpopular"></td></tr>
+											          </tbody>
+											        </table>
+														</div>
+														<div class="col-md-12"><h3>Happy Meter</h3></div>
+														<div id="happimeter" class="col-md-12 white_bg"></div>
+														<div class="col-md-12">
+														    <h4>Badges status</h4>
+														    <table class="fillInHeight">
+														      <tbody>
+														        <tr><th>Total number of Available Badges</th><td id="totalnum">60</td></tr>
+														        <tr><th>Complete Percent</th><td id="completepercent">32</td></tr>
+																		<tr><th>Complete Percent</th><td id="recentbadge"></td></tr>
+														      </tbody>
+																</table>
+														</div>
+													</div><!--second col -->
+
+													<!-- <div class="col-md-12">
+
+													</div> -->
+
+													<!-- <div class="col-md-12">
+														<h3>Student bind table</h3>
+
+
+													</div> -->
+
+													<!-- <div class="container"> -->
+											    <!-- <div id="staffRow"class="col-md-12"></div> -->
+												  <!-- </div> -->
+										    </div>
+											</div>
+										</div><!-- panel_body -->
+									</div>
+									<!-- ******************************************************************* -->
+
+									<div id="stu_team" role="tabpanel" class="tab-pane tab-pane-detail">
+										<div class="myrow">
+											<div class="row">
+										    <div id="PMC_info" class="col-md-12  triheight">
+										      <div class="col-md-2  pic_container normalcell">
+										          <img class="hidden" alt="PMC photo">
+										          <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div>
+										      </div>
+										      <div class="col-md-3 normalcell">
+										        <table class="staff_info hidden">
+															<tr><th>Name:</th><td id='name'></td></tr>
+										          <tr><th>Email:</th><td id='email'></td></tr>
+										          <tr><th>Phone:</th><td id='phone'></td></tr>
+										          <tr><th>Role:</th><td id='role'></td></tr>
+										          <tr><td><button onclick="">unbind</button></td></tr>
+										        </table>
+										        <div class="noinfo ">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div>
+										      </div>
+										      <div class="normalcell col-md-6">
+										          <div class="todoTable_inner hidden">
+																<table id="team_todolist" class="todolist todo">
+																	<tbody>
+																		<tr class="todocell">
+																			<th>Week</th>
+																			<th>Content</th>
+																			<th>Due Date</th>
+																		</tr>
+																	</tbody>
+																</table>
+															</div>
+
+
+										      </div>
+										    </div>
+
+										    <div id="DOE_info" class="col-md-12 triheight">
+										      <div class="col-md-2 pic_container normalcell">
+										        <img class="hidden" alt="DOE photo" src="trump.png">
+										        <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div>
+										      </div>
+										      <div class="col-md-3 normalcell">
+										        <!-- <button onclick="unbind('doe_info')">unbind</button> -->
+										        <table class="staff_info hidden">
+															<tr><th>Name:</th><td id='name'></td></tr>
+										          <tr><th>Email:</th><td id='email'></td></tr>
+										          <tr><th>Phone:</th><td id='phone'></td></tr>
+										          <tr><th>Role:</th><td id='role'></td></tr>
+										          <tr><td><button onclick="">unbind</button></td></tr>
+										        </table>
+										        <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div>
+										      </div>
+										      <div class="col-md-6 normalcell">
+										        Admin conteact info
+										        company address
+										      </div>
+										    </div>
+										    <div id="FT_info" class="col-md-12  triheight">
+										      <div class="col-md-2  pic_container normalcell">
+										          <img class="hidden" alt="FT photo" src="trump.png">
+										          <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div>
+										      </div>
+										      <div class="col-md-3 normalcell">
+										        <!-- <button onclick="unbind('ft_info')">unbind</button> -->
+										        <table class="staff_info hidden">
+															<tr><th>Name:</th><td id='name'></td></tr>
+										          <tr><th>Email:</th><td id='email'></td></tr>
+										          <tr><th>Phone:</th><td id='phone'></td></tr>
+										          <tr><th>Role:</th><td id='role'></td></tr>
+										          <tr><td><button onclick="">unbind</button></td></tr>
+										        </table>
+										        <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div>
+										      </div>
+										      <div class="col-md-6  normalcell">
+										        <table class="staff_info">
+															<tr><th class="text_red">Bind Counselor and Student</th><td><form id="bindPMC"><input type = "text" name = "email" placeholder="Username"><input type="hidden" name="role" value= "PMC"/></form></td><td><button onclick="sendForm('bind','POST','/admin','bindPMC')">Bind!</button></td></tr>
+															<tr><th class="text_red">Bind DOE and Student</th><td><form id="bindDOE"><input type = "text" name = "email" placeholder="Username"><input type="hidden" name="role" value= "DOE"/></form></td><td><button onclick="sendForm('bind','POST','/admin','bindDOE')">Bind!</button></td></tr>
+															<tr><th class="text_red">Bind Family translater and Student</th><td><form id="bindFT"><input type = "text" name = "email" placeholder="Username"><input type="hidden" name="role" value= "FT" /></form></td><td><button onclick="sendForm('bind','POST','/admin','bindFT')">Bind!</button></td></tr>
+														</table>
+										      </div>
+										    </div>
+										  </div>
+										</div>
+									</div>
+									<!-- student biographical information panel -->
+							    <div id="stu_background_info_tab" role="tabpanel" class="tab-pane tab-pane-detail">
+										<!-- ****************PUT THE DATA HERE*******************************-->
+										<div class="panel-body">
+											<div class='table-responsive'>
+												<!-- first col -->
+												<div class="row" id="details_tables">
+													<div class="col-md-6">
+														<table class="table first_detail_table" id="stu_acdamic_his_table">
+														</table>
+													</div>
+
+													<!-- second col -->
+													<div id="second_detail_table">
+														<div class="col-md-6">
+														<p>Other Information</p>
+														</div>
+													</div><!--second col -->
+										    	</div>
+											</div>
+										</div><!-- panel_body -->
+									</div>
+									<!-- ******************************************************************* -->
+
+									<!-- student personal interests pannel-->
+								  <div id="stu_personal_interests_tab" role="tabpanel" class="tab-pane tab-pane-detail">
+											<!-- ****************PUT THE DATA HERE*******************************-->
+												<div class="panel-body">
+													<div class='table-responsive'>
+														<!-- first col -->
+														<div class="row" id="details_tables">
+															<div class="col-md-6">
+																<table class="table first_detail_table" id="stu_family_bio_table">
+																</table>
+															</div>
+
+															<!-- second col -->
+															<div id="second_detail_table">
+																<div class="col-md-6">
+																<p>Other Information</p>
+																	<!-- <table class="table" id="academic_his"></table> -->
+
+																	<!-- <p class="stu_p">Family Biographical Information</p> -->
+																	<!-- <table class="table" id="fam_bio_info"></table> -->
+																</div>
+															</div><!--second col -->
+												    </div>
+													</div>
+												</div><!-- panel_body -->
+									</div>
+									<!-- ******************************************************************* -->
+
+									<div id="stu_skills_badges_tab" role="tabpanel" class="tab-pane tab-pane-detail">
+								    <div id="PM_pop" class="overlay">
+								      <div class="popup">
+								        <a class="close" href="#">&times;</a>
+								        <div class="content">
+								        <table class="fillInHeight">
+								          <tbody>
+								            <tr><td class='a1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('a1')">GoogleCalendar app--Planning Ahead</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+								              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+								            <tr><td class="a2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('a2')">GoogleCalendar app--Making a To-Do List (e.g. Homework)</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+								              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+								            <tr><td class="a3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('a3')">Paper Editing Etiquette</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+								              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+								            <tr><td class="a4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('a4')">Organized Break Plans </td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+								              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+								            <tr><td class="a5"><i class="fa fa-users picsnap" aria-hidden="true"></i></i></td><td  onclick="setbadges('a5')">No Cancelled Meetings! --Badge for every half term</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+								              XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+								          </tbody>
+								        </table>
+								      </div>
+								      </div>
+								    </div>
+
+										<div id="PS_pop" class="overlay">
+								      <div class="popup">
+								        <a class="close" href="#">&times;</a>
+								        <div class="content">
+									        <table class="fillInHeight">
+									          <tbody>
+									            <tr><td class='b1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('b1')">Job/Internship Interview (Mock)</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									            <tr><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('b2')">College Admissions Interview (Mock)</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									            <tr><td class="b3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('b3')">Campaigning Etiquette</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									          </tbody>
+									        </table>
+								      	</div>
+								      </div>
+								    </div>
+
+										<div id="EI_pop" class="overlay">
+											 <div class="popup">
+												 <a class="close" href="#">&times;</a>
+												 <div class="content">
+												 <table class="fillInHeight">
+													 <tbody>
+														 <tr><td class='c1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('c1')">Mood Meter Quizzes--Beginner</td></tr>
+														 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														 <tr><td class="c2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('c2')">Mood Meter Quizzes--Intermediate</td></tr>
+														 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														 <tr><td class="c3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('c3')">Mood Meter Quizzes--Advance</td></tr>
+														 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														 <tr><td class="c4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('c4')">Mood Meter App </td></tr>
+														 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+													 </tbody>
+												 </table>
+											 </div>
+											 </div>
+									 	</div>
+
+										<div id="ME_pop" class="overlay">
+											 <div class="popup">
+												 <a class="close" href="#">&times;</a>
+												 <div class="content">
+													 <table class="fillInHeight">
+														 <tbody>
+															 <tr><td class='d1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('d1')">1 Year with MGE; 2 Years with MGE</td></tr>
+															 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															 <tr><td class="d2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('d2')">1 Term with MGE; 2 Terms with MGE</td></tr>
+															 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															 <tr><td class="d3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('d3')">Chose Interest of Study for MGE Customized Student Program </td></tr>
+															 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															 <tr><td class="d4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('d4')">Networking--MGE Introduce to 1 Person in Field of Interest </td></tr>
+															 <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														 </tbody>
+													 </table>
+											 		</div>
+											 </div>
+										 </div>
+
+										<div id="EX_pop" class="overlay">
+		 						     	<div class="popup">
+		 						        	<a class="close" href="#">&times;</a>
+		 						        	<div class="content">
+				 						        <table class="fillInHeight">
+				 						          <tbody>
+				 						            <tr ><td class='e1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('e1')">Volunteer Hour Milestones</td></tr>
+																<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+				 						            <tr><td class="e2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('e2')">Register--Volunteermatch</td></tr>
+																<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+				 						            <tr><td class="e3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('e3')">Joined New Club/Organization</td></tr>
+																<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+				 						            <tr><td class="e4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('e4')">Joined New Sport/Physical Activity</td></tr>
+																<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+				 						            <tr><td class="e5"><i class="fa fa-users picsnap" aria-hidden="true"></i></i></td><td onclick="setbadges('e5')">Established a New Club/Organization</td></tr>
+																<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+																<tr><td class="e6"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('e6')">Organized a Charity Drive </td></tr>
+																<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+				 						          </tbody>
+				 						        </table>
+		 						      		</div>
+		 						      	</div>
+		 						    	</div>
+
+										<div id="AC_pop" class="overlay">
+								      <div class="popup">
+								        <a class="close" href="#">&times;</a>
+								        <div class="content">
+								        <table class="fillInHeight">
+								          <tbody>
+								            <tr ><td class='f1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('f1')">Register--Collegeboard</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+								            <tr><td class="f2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('f2')">Register--Collegematch</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+								            <tr><td class="f3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f3')">Register--Wyzant</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+								            <tr><td class="f4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f4')">Registered Online Course(s)</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+								            <tr><td class="f5"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f5')">Draft UC Personal Statement Answers</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														<tr><td class="f6"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f6')">Academic ePortfolio</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														<tr><td class="f7"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f7')">Completed One University Program as an Outside Student</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														<tr><td class="f8"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f8')">Attended School University Fair</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														<tr><td class="f9"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f9')">Laid Out College Criteria -- Region</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														<tr><td class="f10"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f10')">Laid Out College Criteria -- Majors/Minors</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														<tr><td class="f11"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f11')">Laid Out College Criteria -- Housing</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+														<tr><td class="f12"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f12')">Laid Out College Criteria -- Facilities</td></tr>
+														<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+								          </tbody>
+								        </table>
+								      </div>
+								      </div>
+								    </div>
+
+										<div id="WE_pop" class="overlay">
+								      <div class="popup">
+								        <a class="close" href="#">&times;</a>
+								        <div class="content">
+									        <table class="fillInHeight">
+									          <tbody>
+									            <tr><td class='g1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('g1')">WeChat Etiquette</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									            <tr><td class="g2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('g2')">Resume Creation</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									          </tbody>
+									        </table>
+								      	</div>
+								      </div>
+								    </div>
+
+										<div id="QT_pop" class="overlay">
+								      <div class="popup">
+								        <a class="close" href="#">&times;</a>
+								        <div class="content">
+									        <table class="fillInHeight">
+									          <tbody>
+									            <tr><td class='h1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('h1')">Took Career Quiz</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									            <tr><td class="h2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('h2')">Took Personality Quiz</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															<tr><td class="h3"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('h3')">Broke Creation Scores and/or PRS</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															<tr><td class="h4"><i class="fa fa-question picsnap" aria-hidden="true"></i></td><td onclick="setbadges('h4')">Completed Test -- TOFEL</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															<tr><td class="h5"><i class="fa fa-question picsnap" aria-hidden="true"></i></td><td onclick="setbadges('h5')">Completed Test -- SAT</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															<tr><td class="h6"><i class="fa fa-question picsnap" aria-hidden="true"></i></td><td onclick="setbadges('h6')">Completed Test -- ACT</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									          </tbody>
+									        </table>
+								      	</div>
+								      </div>
+								    </div>
+
+										<div id="MI_pop" class="overlay">
+								      <div class="popup">
+								        <a class="close" href="#">&times;</a>
+								        <div class="content">
+									        <table class="fillInHeight">
+									          <tbody>
+									            <tr><td class='i1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('i1')">Personal Blog</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+									            <tr><td class="i2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('i2')">Driver's Ed</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															<tr><td class="i2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('i3')">Behind the Wheel Test</td></tr>
+															<tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+															<!-- <tr><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td>Completed Test TOFEL</td></tr>
+															<tr  onclick="setbadges('b2')"><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td>Completed Test SAT</td></tr>
+															<tr  onclick="setbadges('b2')"><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td>Completed Test ACT</td></tr> -->
+									          </tbody>
+									        </table>
+								      	</div>
+								      </div>
+								    </div>
+
+										<div class="badgesTable">
+											<div class="row">
+									      <div class="badgeCard col-md-4">
+									          <div class="badgesClassColor badgeCardCell">
+									            <a class="button badgeClass" href="#PM_pop">Personal Management</a>
+									            <div class="status">
+																<div class="gains"></div>
+									              <div class="complete"><span>0</span>% complete</div>
+									              <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">4</span></div>
+									            </div>
+									          </div>
+
+									      </div>
+									      <div class="badgeCard col-md-4">
+									          <div class="badgesClassColor badgeCardCell">
+									            <a class="button badgeClass" href="#PS_pop">Persentation Skills</a>
+									            <div class="status">
+																<div class="gains"></div>
+									              <div class="complete"><span>0</span>% complete</div>
+									              <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">3</span></div>
+									            </div>
+									          </div>
+									      </div>
+									      <div class="badgeCard col-md-4">
+									          <div class="badgesClassColor badgeCardCell">
+									            <a class="button badgeClass" href="#EI_pop">Emotional Intelligence</a>
+									            <div class="status">
+																<div class="gains"></div>
+									              <div class="complete"><span>0</span>% complete</div>
+									              <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">4</span></div>
+									            </div>
+									          </div>
+									      </div>
+
+									      <div class="badgeCard col-md-4">
+									          <div class="badgesClassColor badgeCardCell">
+									            <a class="button badgeClass" href="#ME_pop">Meiguo Education</a>
+									            <div class="status">
+																<div class="gains"></div>
+									              <div class="complete"><span>0</span>% complete</div>
+									              <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">4</span></div>
+									            </div>
+									          </div>
+									      </div>
+									      <div class="badgeCard col-md-4">
+									          <div class="badgesClassColor badgeCardCell">
+									            <a class="button badgeClass" href="#EX_pop">Extracurricular</a>
+									            <div class="status">
+																<div class="gains"></div>
+									              <div class="complete"><span>0</span>% complete</div>
+									              <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">6</span></div>
+									            </div>
+									          </div>
+									      </div>
+									      <div class="badgeCard col-md-4">
+									          <div class="badgesClassColor badgeCardCell">
+									            <a class="button badgeClass" href="#AC_pop">Academics</a>
+									            <div class="status">
+																<div class="gains"></div>
+									              <div class="complete"><span>0</span>% complete</div>
+									              <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">12</span></div>
+									            </div>
+									          </div>
+									      </div>
+
+									      <div class="badgeCard col-md-4">
+									        <div class="badgesClassColor badgeCardCell">
+									          <a class="button badgeClass" href="#WE_pop">Work Ethic</a>
+									          <div class="status">
+															<div class="gains"></div>
+									            <div class="complete"><span>0</span>% complete</div>
+									            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">2</span></div>
+									          </div>
+									        </div>
+									      </div>
+									      <div class="badgeCard col-md-4">
+									        <div class="badgesClassColor badgeCardCell">
+									          <a class="button badgeClass" href="#QT_pop">Quizzes/Testing</a>
+									          <div class="status">
+															<div class="gains"></div>
+									            <div class="complete"><span>0</span>% complete</div>
+									            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">6</span></div>
+									          </div>
+									        </div>
+									      </div>
+									      <div class="badgeCard col-md-4">
+									        <div class="badgesClassColor badgeCardCell">
+									          <a class="button badgeClass" href="#MI_pop">Misc</a>
+									          <div class="status">
+															<div class="gains"></div>
+									            <div class="complete"><span>0</span>% complete</div>
+									            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">3</span></div>
+									          </div>
+									        </div>
+									      </div>
+
+									    </div>
+									  </div>
+									</div>
+
+
+									<div id="stu_extracurricalr_log" role="tabpanel" class="tab-pane tab-pane-detail">
+										<div class="row">
+											<div class="col-md-12 white_bg stu_p">
+												<h3>Student Activities Records</h3>
+												<table>
+													<tbody id="activityLog">
+													<tr>
+														<th><button class="btn btn-default" onclick='mysort("activityLog","week")'>Date</button></th>
+														<th><button class="btn btn-default" onclick='mysort("activityLog","type")'>Activity Type</button></th>
+														<th><button class="btn btn-default" onclick='mysort("activityLog","name")'>Activity Name</button></th>
+														<th><button class="btn btn-default" onclick='mysort("activityLog","position")'>Position</button></th>
+														<th><button class="btn btn-default" onclick='mysort("activityLog","hours")'>Total Hours</button></th>
+														<th><button class="btn btn-default" onclick='mysort("activityLog","happi")'>Happiness</button></th>
+														<th><button class="btn btn-default" onclick='mysort("activityLog","describe")'>Describe Tasks/Project/Award</button></th>
+													</tr>
+												</tbody>
+												</table>
+											</div>
+									</div>
+									</div>
+
+									<div id="stu_todo_list" role="tabpanel" class="tab-pane tab-pane-detail">
+										<div class="row">
+											<div class="col-md-12">
+													<h3>Student's Todo List</h3>
+													<div class="todoTable_inner">
+														<table id="todolist" class="todolist todo">
+															<tbody>
+																<tr class="todocell">
+																	<th>Week</th>
+																	<th>Content</th>
+																	<th>Due Date</th>
+																	<th></th>
+																	<th></th>
+																</tr>
+																<tr id='control' class="todocell">
+																	<td ><input id="weekNum" type="week"/></td>
+																	<td ><input id='content' type="text"/></td>
+																	<td ><input id='dueDate' type="date"/></td>
+																	<td><button onclick="addRow('todolist','weekNum','content','dueDate','','student','donetodolist')">add</button></td>
+																	<td></td>
+																</tr>
+															</tbody>
+														</table>
+														<table id="donetodolist" class="todolist done">
+															<tbody>
+																<!-- <tr class="todocell">
+																	<th>Week</th>
+																	<th>Content</th>
+																	<th>Due Date</th>
+																	<th></th>
+																</tr> -->
+															</tbody>
+														</table>
+													</div>
+													<h3>Counselor's Todo List</h3>
+													<div class="todoTable_inner">
+														<table id="coun_todolist" class="todolist todo">
+															<tbody>
+																<tr class="todocell">
+																	<th>Week</th>
+																	<th>Content</th>
+																	<th>Due Date</th>
+																	<th></th>
+																	<th></th>
+																</tr>
+																<tr id='coun_todo_control' class="todocell">
+																	<td ><input id="coun_w" type="week"/></td>
+																	<td ><input id='coun_c' type="text"/></td>
+																	<td ><input id='coun_d' type="date"/></td>
+																	<td><button onclick="addRow('coun_todolist','coun_w','coun_c','coun_d','','counselor','c_done_todo')">add</button></td>
+																	<td></td>
+																</tr>
+															</tbody>
+														</table>
+													<!-- </div> -->
+														<table id="c_done_todo" class="todolist done">
+															<tbody>
+															</tbody>
+														</table>
+													</div>
+											</div>
+
+										</div>
+									</div>
+						    </div><!-- tab-content -->
+					    </div><!-- panel panel-default item active -->
+			  		</div>
+			  		<!-- BIO DETAILDED PAGE for favorite******************************************************* -->
+
+
+						<!-- PERSONAL DETAILDED PAGE for students******************************************************* -->
+			     	<div class="panel item">
+				      <div class="panel-heading row" id="stu_panel_heading_with_white_bg">
+					     <div>
+						      <div style="float:left; margin-left:15px;"><button href="#stuCarousel" class="glyphicon glyphicon-chevron-left btn btn-default" style="z-index: 1;" onclick="$('#stuCarousel').carousel(0)"></button></div>
+						      <div class="page-header" style="font-size: 20px; padding-top: 5px; padding-bottom: 12px;"> Personal Details</div>
+					     </div>
+					     <h3>&nbsp;&nbsp;&nbsp;Strudent Extracurricular</h3>
+					     <div class='table-responsive'>
+					      <!-- first col -->
+						      <div class="row" id="details_tables">
+						       <div class="col-md-6">
+						        <table class="table first_detail_table" id="stu_personal_table">
+						        </table>
+						       </div>
+						      </div>
+					     </div><!--class='table-responsive'-->
+				    </div><!--class="panel-heading row"-->
+				   </div>
+
+
+		  			</div><!-- carousel-inner -->
+		  		</div><!-- carousel slide -->
+				</div>
+			</div><!-- main_favorite -->
+
+			<!-- management page-->
+			<div id="setting" class="toggle" style="display: none;">
+				<div class="page-header">
+					<h3>Admin</h3>
+				</div>
+				<div class="well well-sm manage_well">
+					<h4 class="text_red">Create User</h4>
+					<form id = 'createUser' action="" method = "post">
+						Username: <input type = "text" name = "username">
+						Password: <input type = "text" name = "password">
+						Role:
+							<select type="text" name="role" required>
+								<option value="Student">Student</option>
+								<option value="PMC">PMC</option>
+								<option value="DOE">DOE</option>
+								<option value="Admin">Admin</option>
+							</select>
+						<br/>
+						<input type = "button" class="manage_btn btn btn-default" onclick = "sendForm('user','POST','/admin','createUser')" value = "Create"/>
+					</form>
+					<br/>
+					<h4 class="text_red">Delete User</h4>
+					<form id="deleteUser" action="" method="post">
+						Username: <input type = "text" name = "username">
+						<br/>
+						<input type = "button" class="manage_btn btn btn-default" onclick = "sendForm('user','DELETE','/admin','deleteUser')" value = "Delete"/>
+					</form>
+					<br/>
+					<!-- <form id="bind" action="" method="post">
+						<h4 class="text_red">Bind Counsellor and Student</h4>
+						Counsellor Email:  <input type = "text" name = "coun_email"> Student Email: <input type = "text" name = "email"/>
+						<br/>
+						<input type = "button" class="manage_btn btn btn-default" onclick = "sendForm('bind','POST','/admin','bind')" value = "Bind"/>
+					</form> -->
+				</div>
+			</div>
+			<!--end of management-->
+
+
+	</div><!-- row -->
+
+
+
+
+<!-- my js sheet -->
+<script>
+  function set (id) {
+    // $('#'+id)[0].classList.toggle('hover');
+    var data = $('#'+id+' .front input');
+    // console.log(data,cell);
+		var dataElement = {};
+    for (var i = 0; i < data.length; i++) {
+      console.log(data[i].value,data[i].name);
+      // cell[i].innerHTML = data[i].value;
+			if (data[i].value != "") {
+				dataElement[data[i].name] = data[i].value;
+			}
+      // $('#'+data[i].name).html(data[i].value);
+    }
+
+		var send = {'_id':$studdetail['related'],'id':id,'data':dataElement};
+
+		if (Object.keys(dataElement).length == 0) {
+			sendFlip('flip','POST','/admin',send,fillFlip,send,false);
+		} else {
+			sendFlip('flip','POST','/admin',send,fillFlip,send,true);
+		}
+		console.log(send);
+
+  }
+
+	function sendFlip (mfunc,mtype,murl,value,callback,call_in1,call_in2) {
+		var sendValue = {'func':mfunc,'data':value};
+		console.log(sendValue);
+		$.ajax({
+			url:murl,
+			type:mtype,
+			data: JSON.stringify(sendValue),
+			success: function(data){
+				console.log(data,call_in2);
+				if (data == '200') {
+
+					if (call_in2) {
+						callback(call_in1);
+					}
+				}
+			}
+		});
+	}
+
+	function fillFlip (data) {
+		console.log(data);
+		flip(data.id);
+		var val = data.data;
+		for (var i in val) {
+			$('#'+i).html(val[i]);
+		}
+	}
+  function flip(id) {
+    $('#'+id)[0].classList.toggle('hover');
+  }
+	function initialFlip(id) {
+		if ($studdetail[id]) {
+			// flip(id);
+			console.log('in initial:',$studdetail[id]);
+			fillFlip({'id':id,'data':$studdetail[id]});
+		}
+	}
+</script>
+<script src="/utility/draw.js"></script>
+<script src="/utility/status.js"></script>
+<script src="/forAdmin/todo.js"></script>
+<script src="/forAdmin/script.js"></script>
+
+</body>
+</html>

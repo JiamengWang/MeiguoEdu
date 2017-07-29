@@ -42,7 +42,6 @@ CREATE TABLE "activity" (
   "relation_id" uuid NOT NULL DEFAULT NULL
 )
 ;
-ALTER TABLE "activity" OWNER TO "wjm-harry";
 COMMENT ON COLUMN "activity"."detail" IS 'include description/name/position';
 
 -- ----------------------------
@@ -58,7 +57,6 @@ CREATE TABLE "login" (
   "nickName" varchar(16) COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL
 )
 ;
-ALTER TABLE "login" OWNER TO "wjm-harry";
 COMMENT ON COLUMN "login"."id" IS 'MD5 OF EMAIL';
 COMMENT ON COLUMN "login"."username" IS 'UNIQUE EMAIL ADDRESS';
 COMMENT ON COLUMN "login"."role" IS 'STU/DOE/PMC/FT/ADMIN';
@@ -79,7 +77,6 @@ CREATE TABLE "relation" (
   "stu_id" uuid NOT NULL DEFAULT NULL
 )
 ;
-ALTER TABLE "relation" OWNER TO "wjm-harry";
 COMMENT ON COLUMN "relation"."id" IS 'should as same as id in student table';
 
 -- ----------------------------
@@ -93,7 +90,6 @@ CREATE TABLE "staff" (
   "relation_id" uuid[] NOT NULL
 )
 ;
-ALTER TABLE "staff" OWNER TO "wjm-harry";
 COMMENT ON COLUMN "staff"."relation_id" IS 'length can be 0';
 
 
@@ -116,7 +112,6 @@ CREATE TABLE "student" (
   "VOM" jsonb DEFAULT NULL
 )
 ;
-ALTER TABLE "student" OWNER TO "wjm-harry";
 
 -- ----------------------------
 -- Table structure for todo
@@ -132,7 +127,6 @@ CREATE TABLE "todo" (
   "content" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL
 )
 ;
-ALTER TABLE "todo" OWNER TO "wjm-harry";
 
 -- ----------------------------
 -- Alter sequences owned by

@@ -186,7 +186,7 @@ INSERT INTO "student" VALUES(
   '{"GPA_website":"whwh","GPA_username":"hdgfjh","GPA_password":"hjkh"}'
 );
 
-INSERT INTO ""("id", "pmc", "doe", "ft", "stu_id") VALUES ('b967e409-eb43-7131-7c18-728bb4414547', '01a0acbb-a29f-3988-9f5d-9e48658b10e3', 'f9ad9931-87a9-9ea1-9d69-b9a3cd53002b', NULL, 'b967e409-eb43-7131-7c18-728bb4414547');
+INSERT INTO "relation" ("id", "pmc", "doe", "ft", "stu_id") VALUES ('b967e409-eb43-7131-7c18-728bb4414547', '01a0acbb-a29f-3988-9f5d-9e48658b10e3', 'f9ad9931-87a9-9ea1-9d69-b9a3cd53002b', NULL, 'b967e409-eb43-7131-7c18-728bb4414547');
 
 INSERT INTO "todo" VALUES(
   '33a731343b81270b988b118cb04ed6bb',

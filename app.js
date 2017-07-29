@@ -4,12 +4,22 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
+var api = require('./routes/v1');
 
 var app = express();
+
+app.use(session({
+    secret: 'recommand 128 bytes random string',
+    cookie: { maxAge: 5*60*1000},
+    resave: true,
+    saveUninitialized: true,
+    rolling:true
+}));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -24,8 +34,9 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
-app.use('/users', users);
-app.use('/admin',admin);
+// app.use('/users', users);
+// app.use('/admin',admin);
+app.use('/v1',api);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

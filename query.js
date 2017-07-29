@@ -8,7 +8,7 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://localhost:5432/puppies';
+var connectionString = 'postgres://localhost:5432/wjm';
 var db = pgp(connectionString);
 
 // add query functions
@@ -21,11 +21,11 @@ module.exports = {
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
     createStudent:createStudent,
-    createStaff:createStaff,
+    // createStaff:createStaff,
 
     getOneStudent: getoneStudent,
     getOneStaff: getoneStaff,
-    getOneActivityRecord:getoneActivityRecord,
+    // getOneActivityRecord:getoneActivityRecord,
 
 };
 
@@ -60,7 +60,10 @@ function getallStaffs(req,res,next) {
 
 
 function getoneStudent(req,res,next) {
-    var stuID = parseInt(req.params.id);
+    console.log(req.params);
+    // var stuID = parseInt(req.params.id);
+    // console.log(stuID);
+    var stuID = req.params.id;
     db.one('select * from student where id = $1',stuID)
         .then(function (data) {
             res.status(200).json({
@@ -74,7 +77,7 @@ function getoneStudent(req,res,next) {
 }
 
 function getoneStaff(req,res,next) {
-    var stuID = parseInt(req.params.id);
+    var stuID = req.params.id;
     db.one('select * from staff where id = $1',stuID)
         .then(function (data) {
             res.status(200).json({
@@ -89,7 +92,6 @@ function getoneStaff(req,res,next) {
 
 
 function createPuppy(req, res, next) {
-
     req.body.age = parseInt(req.body.age);
     db.none('insert into pups(name, breed, age, sex)' +
         'values(${name}, ${breed}, ${age}, ${sex})',

@@ -8,7 +8,7 @@ var options = {
 };
 
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://localhost:5432/wjm';
+var connectionString = 'postgres://localhost:5432/meiguoedu';
 var db = pgp(connectionString);
 
 // add query functions
@@ -31,6 +31,7 @@ module.exports = {
 
 
 function getallStudents(req,res,next) {
+    console.log(req.cookies);
     db.any('select * from student')
         .then(function (data) {
             res.status(200).json(

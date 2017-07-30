@@ -1,0 +1,1964 @@
+<!doctype html>
+<html>
+<head>
+    <title>This is a test of badges system</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <!-- Font awesome -->
+    <!-- <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css"> -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+    <!-- custome box -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+    <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+    <!-- Vue.js -->
+    <script src="https://unpkg.com/vue"></script>
+
+    <!-- chart js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+    <!-- icon -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=PT Sans Narrow' rel='stylesheet'>
+
+    <script src="https://use.fontawesome.com/08baf95b95.js"></script>
+
+
+
+
+    <!-- Latest compiled and minified CSS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
+
+    <!-- Optional theme -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> -->
+
+    <!-- Latest compiled and minified JavaScript -->
+    <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
+
+    <link rel="stylesheet" href="../stylesheets/newLayout.css">
+    <link rel="stylesheet" href="badges.css">
+
+</head>
+
+<body>
+<div class="mheader">
+    <div class="row">
+        <div class="col m1"><a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons white-text">menu</i></a></div>
+        <div class="col m10 center white-text"><span class="white-text">MeiguoEdu</span></div>
+        <div class="col m1"><a href="#"><i class="material-icons white-text">exit_to_app</i></a></div>
+    </div>
+</div>
+<!-- <div class="placeholder"></div> -->
+
+<div class="display">
+    <a id="DOE_slider_top" class="top"></a>
+    <div id="DOE_slider" class="block doe-color">
+        <nav class="pushpin-demo-nav pinned mcontent-title pushpin" data-target="DOE_slider" style="top:15px;">
+            <div class="nav-wrapper doe-color">
+                <div class="container">
+                    <a href="#DOE_slider_top"  class="brand-logo">DOE List</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <div class="switch">
+                                <label class="white-text">
+                                    Lock Off
+                                    <input onclick="print('DOE_content')" type="checkbox">
+                                    <span class="lever"></span>
+                                    Lock On
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div id="DOE_content" class="mcontent">
+            <p>This is a test</p>
+            <p>This is a test</p>
+        </div>
+    </div>
+
+    <a id="PMC_slider_top" class="top"></a>
+    <div id="PMC_slider" class="block pmc-color lighten-1">
+        <nav class="pushpin-demo-nav pin-top mcontent-title pushpin" data-target="PMC_slider" >
+            <div class="nav-wrapper pmc-color">
+                <div class="container">
+                    <a href="#PMC_slider_top" class="brand-logo">PMC List</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <div class="switch">
+                                <label class="white-text">
+                                    Lock Off
+                                    <input onclick="print('PMC_content')" type="checkbox">
+                                    <span class="lever"></span>
+                                    Lock On
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="PMC_content" class="mcontent">
+            <p>This is a test</p>
+            <p>This is a test</p>
+        </div>
+    </div>
+
+    <a id="FT_slider_top" class="top"></a>
+    <div id="FT_slider" class="block ft-color lighten-1">
+        <nav class="pushpin-demo-nav pin-top mcontent-title pushpin" data-target="FT_slider" >
+            <div class="nav-wrapper ft-color">
+                <div class="container">
+                    <a href="#FT_slider_top" class="brand-logo">FT List</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <div class="switch">
+                                <label class="white-text">
+                                    Lock Off
+                                    <input onclick="print('FT_content')" type="checkbox">
+                                    <span class="lever"></span>
+                                    Lock On
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="FT_content" class="mcontent">
+            <p>This is a test</p>
+            <p>This is a test</p>
+        </div>
+    </div>
+
+    <a id="Student_slider_top" class="top"></a>
+    <div id="Student_slider" class="block stu-color lighten-1">
+        <nav class="pushpin-demo-nav pin-top mcontent-title pushpin" data-target="Student_slider" >
+            <div class="nav-wrapper stu-color">
+                <div class="container">
+                    <a href="#Student_slider_top" class="brand-logo">Student List</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <div class="switch">
+                                <label class="white-text">
+                                    Lock Off
+                                    <input onclick="print('STU_content')" type="checkbox">
+                                    <span class="lever"></span>
+                                    Lock On
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="STU_content" class="mcontent">
+            <div class="row">
+                <div class="col m12">
+                    <div class="carousel carousel-slider center">
+                        <div id="stuList" class="carousel-item greyback black-text" href="#one!">
+                            <div  class="row detail_top">
+                                <!-- <h2>Students List</h2> -->
+                                <!-- <p class="white-text">This is your first panel</p> -->
+                                <table class="bordered responsive-table">
+                                    <thead>
+                                    <tr>
+                                        <th>Chinese Name</th>
+                                        <th>Chinese Name in Pinyin</th>
+                                        <th>English Name</th>
+                                        <th>Gender</th>
+                                        <th>HomeTown</th>
+                                        <th>Counselor</th>
+                                        <th>DOE</th>
+                                        <th>FT</th>
+                                        <th></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr v-for="(stu,index) in students">
+                                        <td>{{stu.chinese_name}}</td>
+                                        <td>{{stu.family_name + ' '+stu.given_name}}</td>
+                                        <td>{{stu.english_name}}</td>
+                                        <td>{{stu.gender}}</td>
+                                        <td>{{stu.birthCity}}</td>
+                                        <td>{{stu.PMC}}</td>
+                                        <td>{{stu.DOE}}</td>
+                                        <td>{{stu.FT}}</td>
+                                        <td><a href="#" onclick="next();return false;" class="waves-effect waves-light btn">DETAIL</a></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div id="stuDetail" class="carousel-item white-text" href="#two!">
+                            <!-- <div  class="container"> -->
+                            <a href="#" onclick="prev();return false;" class="waves-effect waves-light btn">GO BACK</a>
+                            <!-- <p class="white-text">This is your second panel</p> -->
+                            <ul id="tabs-swipe-demo margin-top-small" class="tabs">
+                                <!-- <li><a href="#" onclick="prev();return false;" class="waves-effect waves-light btn">GO BACK</a></li> -->
+                                <li class="tab"><a class="active medium-text" href="#stu_student_tab" >Summary</a></li>
+                                <li class="tab"><a href="#stu_team" class="medium-text">Team</a></li>
+                                <li class="tab"><a href="#stu_background_info_tab" class="medium-text">Background Info</a></li>
+                                <li class="tab"><a href="#stu_personal_interests_tab" class="medium-text">Personal Interests</a></li>
+                                <li class="tab"><a href="#stu_skills_badges_tab" class="medium-text">Skills Badges</a></li>
+                                <li class="tab"><a href="#stu_extracurricalr_log" class="medium-text">Extracurricalr Log</a></li>
+                                <li class="tab"><a href="#stu_todo_list" class="medium-text">Todo List Log</a></li>
+                            </ul>
+
+                            <div id="stu_student_tab" class="col s12 greyback margin-top-small">
+                                <div class="row detail_top">
+                                    <!-- left pannel -->
+                                    <div class="col s6">
+                                        <!-- <div class="row"> -->
+                                        <!-- <div class="card horizontal"> -->
+                                        <div class="row">
+                                            <!-- stu photo -->
+                                            <div class="col s6 info-cell-short" style="padding-left:0px;margin-bottom: 10px;">
+                                                <div class=" info-cell stu_photo "></div>
+                                            </div>
+                                            <!-- divider -->
+                                            <!--<div class="card-stacked col s1 greyback"></div>-->
+                                            <!-- stu name/birthday/city -->
+                                            <div class="col s6 info-cell-short" style="padding-right:0px;margin-bottom: 10px;">
+                                                <!-- <div class="card-content black-text"> -->
+                                                <table class=" card-stacked info-cell responsive-table info-text info-cell-short">
+                                                    <tbody class="info-cell-short">
+                                                    <tr><th>Name:</th><td>Jiameng Wang</td></tr>
+                                                    <tr><th>Chinese Name:</th><td>王佳梦</td></tr>
+                                                    <tr><th>Birthday:</th><td>07/01/1993</td></tr>
+                                                    <tr><th>Counselor:</th><td>Harrison</td></tr>
+                                                    <tr><th>DOE:</th><td>Harrison</td></tr>
+                                                    <tr><th>Family Translator:</th><td>Harrison</td></tr>
+                                                    </tbody>
+                                                </table>
+                                                <!-- </div> -->
+                                            </div>
+
+                                            <!-- stu address/email/contact -->
+                                            <div class="card-stacked col s12 info-cell ">
+                                                <table class="responsive-table info-text alltextright">
+                                                    <tr><th>Home Adderss:</th><td>227 Zhongshan N Rd, Xu Zhou,JiangSu Province, 221000, China,Earh, Solar System, Galaxy</td></tr>
+                                                    <tr><th>Current Living Adderss:</th><td>325 W Adams Blvd, Los Angeles, CA 90007</td></tr>
+                                                    <tr>
+                                                        <table class="responsive-table info-text alltextright">
+                                                            <tr><th>Email:</th><td>jiameng@usc.edu</td><th>Phone:</th><td>213-2967823</td></tr>
+                                                            <tr><th>Wechat:</th><td>JiamengWang</td><th>Skype:</th><td>None</td></tr>
+                                                            <tr><th>Religion:</th><td>None</td><th>Primary Language:</th><td>Chinese</td></tr>
+                                                        </table>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
+
+                                            <!-- seperate survey -->
+                                            <div class="card-stacked col s12 info-cell info-text">
+                                                <ul class="collapsible" data-collapsible="expandable">
+                                                    <li>
+                                                        <div class="collapsible-header"><i class="material-icons">contacts</i>Grade Portal Access</div>
+                                                        <div class="collapsible-body">
+
+                                                            <form class="row">
+                                                                <div class="input-field col s3">
+                                                                    <input id="GPA_website" type="text">
+                                                                    <label class="active" for="GPA_website">Website</label>
+                                                                </div>
+
+                                                                <div class="input-field col s3">
+                                                                    <input id="GPA_username" type="text">
+                                                                    <label class="active" for="GPA_username">Username</label>
+                                                                </div>
+
+                                                                <div class="input-field col s4">
+                                                                    <input id="GPA_password" type="text">
+                                                                    <label class="active" for="GPA_password">Password</label>
+                                                                </div>
+                                                                <div class="col s2">
+                                                                    <a href="#" onclick="set('GPA')" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                                                                    <!-- <a href="#" onclick="set('GPA')" class="waves-effect waves-light btn">Set</a> -->
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="collapsible-header"><i class="material-icons">question_answer</i>Weekly Meeting Time Availability</div>
+                                                        <div class="collapsible-body">
+
+                                                            <form class="row">
+                                                                <div class="input-field col s3">
+                                                                    <input id="WMTA_day" type="text">
+                                                                    <label class="active" for="WMTA_day">Day</label>
+                                                                </div>
+
+                                                                <div class="input-field col s3">
+                                                                    <input id="WMTA_time" type="text">
+                                                                    <label class="active" for="WMTA_time">Time</label>
+                                                                </div>
+
+                                                                <div class="input-field col s4">
+                                                                    <input id="WMTA_location" type="text">
+                                                                    <label class="active" for="WMTA_location">Location</label>
+                                                                </div>
+
+                                                                <div class="col s2">
+                                                                    <!-- <a href="#" onclick="set('WMTA')" class="waves-effect waves-light btn">Set</a> -->
+                                                                    <a href="#" onclick="set('WMTA')" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="collapsible-header"><i class="material-icons">receipt</i>Volunteer Account</div>
+                                                        <div class="collapsible-body">
+
+                                                            <form class="row">
+                                                                <div class="input-field col s5">
+                                                                    <input id="VoM_username" type="text">
+                                                                    <label class="active" for="VoM_username">Username</label>
+                                                                </div>
+
+                                                                <div class="input-field col s5">
+                                                                    <input id="VoM_password" type="text">
+                                                                    <label class="active" for="VoM_password">Password</label>
+                                                                </div>
+
+                                                                <div class="col s2">
+                                                                    <!-- <a href="#" onclick="set('VoM')" class="waves-effect waves-light btn">Set</a> -->
+                                                                    <!-- <a href="#" onclick="set('VoM')" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a> -->
+                                                                    <a href="#" onclick="set('VoM')"  class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </li>
+                                                    <li>
+                                                        <div class="collapsible-header"><i class="material-icons">android</i>Wyzant Account</div>
+                                                        <div class="collapsible-body">
+
+                                                            <form class="row">
+                                                                <div class="input-field col s5">
+                                                                    <input id="WyZ_username" type="text">
+                                                                    <label class="active" for="WyZ_username">Username</label>
+                                                                </div>
+
+                                                                <div class="input-field col s5">
+                                                                    <input id="WyZ_password" type="text">
+                                                                    <label class="active" for="WyZ_password">Password</label>
+                                                                </div>
+
+                                                                <div class="col s2">
+                                                                    <!-- <a href="#" onclick="set('WyZ')" class="waves-effect waves-light btn">Set</a> -->
+                                                                    <a href="#" onclick="set('WyZ')"  class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+
+                                                                </div>
+                                                            </form>
+
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <!-- </div> -->
+                                    </div>
+
+                                    <!-- right panel -->
+                                    <div class="col s6">
+                                        <div class="row">
+
+                                            <div class="card-stacked col s12 info-cell">
+                                                <h5>Student Todo List</h5>
+                                                <table>
+                                                    <thead>
+                                                    <tr><th>Created Week</th><th>Content</th><th>Due Date</th></tr>
+                                                    </thead>
+                                                </table>
+                                                <div class="todo-list-medium">
+                                                    <table class="responsive-table striped info-text">
+                                                        <tr v-for="(todo,index) in todoList">
+                                                            <td>{{todo.week}}</td><td>{{todo.content}}</td><td>{{todo.dueDate}}</td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-stacked col s12 info-cell">
+                                                <h5>Student Activity Tracker</h5>
+                                                <div class="row">
+                                                    <div class="col s6 info-cell-tall">
+                                                        <div id="myChart"> this is chart</div>
+                                                    </div>
+                                                    <div class="col s6 info-cell-tall">
+                                                        <table class="info-text line-height-tall">
+                                                            <tr><th>Total Hours:</th><td>6</td></tr>
+                                                            <tr><th>Volunteer Hours:</th><td>2</td></tr>
+                                                            <tr><th>Happiest Activity:</th><td>Skill</td></tr>
+                                                            <tr><th>Most Popular:</th><td>Skill</td></tr>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="card-stacked col s12 info-cell">
+                                                <h5 >Happy Meter</h5>
+                                                <div id="happimeter" class="col s12"></div>
+                                            </div>
+
+                                            <div class="card-stacked col s12 info-cell">
+                                                <h5 >Badge Status</h5>
+                                                <div class="col s12 info-cell-tall">
+                                                    <table class="info-text line-height-tall">
+                                                        <tr><th>Total number of Available Badges:</th><td>6</td></tr>
+                                                        <tr><th>Complete Percent:</th><td>2</td></tr>
+                                                        <tr><th>Recent Get:</th><td>Skill</td></tr>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div id="stu_team" class="col s12 greyback margin-top-small">
+                                <div class="row detail_top">
+                                    <!-- <div class="col s12"> -->
+                                    <!-- <div class="row"> -->
+                                    <div class="col s12 m2">
+                                        <div class="teamCell card-stacked info"><div class="stu_photo"></div></div>
+                                        <!-- <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div> -->
+                                    </div>
+                                    <div class="col s12 m3">
+                                        <div class="teamCell card-stacked">
+                                            <div class="info">
+                                                <table class="info-text-short">
+                                                    <tr><th>Name:</th><td>Jiameng Wang</td></tr>
+                                                    <tr><th>Email:</th><td>jiameng@usc.edu</td></tr>
+                                                    <tr><th>Phone:</th><td>2132967823</td></tr>
+                                                    <tr><th>Role:</th><td>FT</td></tr>
+                                                </table>
+                                                <a href="#" class="waves-effect waves-light btn">UNBIND</a>
+                                            </div>
+                                            <!-- <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m7">
+                                        <div class="teamCell card-stacked">
+                                            <table class="responsive-table striped info-text info">
+                                                <tr><th>Created Week</th><th>Content</th><th>Due Date</th></tr>
+                                                <tr v-for="(todo,index) in todoList">
+                                                    <td>{{todo.week}}</td><td>{{todo.content}}</td><td>{{todo.dueDate}}</td>
+                                                </tr>
+                                            </table>
+                                            <!-- <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="col s12 m2">
+                                        <div class="teamCell card-stacked">
+                                            <div class="stu_photo info"></div>
+                                            <!-- <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m3">
+                                        <div class="teamCell card-stacked">contact
+                                            <!-- <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div> -->
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m7">
+                                        <div class="teamCell card-stacked">company info</div>
+                                    </div>
+
+                                    <div class="col s12 m2">
+                                        <div class="teamCell card-stacked info">FT Picture</div>
+                                        <!-- <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div> -->
+                                    </div>
+                                    <div class="col s12 m3">
+                                        <div class="teamCell card-stacked">FT contact</div>
+                                        <!-- <div class="noinfo">If you see this, it means you don't have assigned PMC or DOE, Please contact Admin</div> -->
+                                    </div>
+                                    <div class="col s12 m7">
+                                        <div class="teamCell card-stacked">
+
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-field">
+                                                            <input id="bindsc" type="text">
+                                                            <label class="active" for="bindsc">Bind Counselor and Student</label>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <button class="btn" onclick="sendForm('bind','POST','/admin','bindPMC')">Bind!</button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-field">
+                                                            <input id="bindsd" type="text">
+                                                            <label class="active" for="bindsd">Bind DOE and Student</label>
+                                                        </div>
+                                                    </td>
+                                                    <td><button class="btn" onclick="sendForm('bind','POST','/admin','bindDOE')">Bind!</button>
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <div class="input-field">
+                                                            <input id="bindsf" type="text">
+                                                            <label class="active" for="bindsf">Bind Family translater and Student</label>
+                                                        </div>
+                                                    </td>
+                                                    <td><button class="btn" onclick="sendForm('bind','POST','/admin','bindFT')">Bind!</button></td>
+                                                </tr>
+
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <!-- </div> -->
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+
+                            <div id="stu_background_info_tab" class="col s12 greyback margin-top-small">
+                                <div class="row detail_top black-text">
+                                    <div class="col s12 m6">
+                                        <ul class="collapsible info-cell" data-collapsible="expandable">
+                                            <li>
+                                                <div class="collapsible-header"><i class="material-icons">library_add</i>Current School</div>
+                                                <div class="collapsible-body">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr>
+                                                            <th>School English Name</th><td>gfdsgfd </td>
+                                                        </tr><tr>
+                                                            <th>School Chinese Name</th>
+                                                            <td>dsaf </td>
+                                                        </tr><tr>
+                                                            <th>School Chinese Pinyin</th>
+                                                            <td>gfdsg </td>
+                                                        </tr>
+                                                        <tr><th>School Address</th><td>wjm , wjm , wjm  wjm </td></tr>
+                                                        <tr><th>School Phone</th><td>wjm </td></tr>
+                                                        <tr><th>School Type of Attendance</th><td>Day </td></tr>
+                                                        <tr><th>Current Grade Level</th><td>1st year College/University </td></tr>
+                                                        <tr><th>Current Grade</th><td>1st year College/University </td></tr>
+                                                        <tr><th>Dates of Attendance</th><td>2017-05-09 </td></tr>
+                                                        <tr><th >Principal </th></tr><tr  ><th>Principal English Name</th><td>wjm </td></tr>
+                                                        <tr><th>Principal Chinese Pinyin</th><td>wjm </td></tr>
+                                                        <tr><th>Principal Chinese Name</th><td>wjm </td></tr>
+
+
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="collapsible-header"><i class="material-icons">library_add</i>Previous School</div>
+                                                <div class="collapsible-body">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr><th>School English Name</th><td>N.A</td></tr>
+                                                        <tr><th>School Chinese Name</th><td>N.A</td></tr>
+                                                        <tr><th>School Chinese Pinyin</th><td>N.A</td></tr>
+                                                        <tr><th>School Address</th><td>N.A</td></tr>
+                                                        <tr><th>School Phone</th><td>N.A</td></tr>
+                                                        <tr><th>School Type of Attendance</th><td>N.A</td></tr>
+                                                        <tr><th>School Grades Completed</th><td></td></tr>
+                                                        <tr><th>School Start Date</th><td>N.A</td></tr>
+                                                        <tr><th>School End Date</th><td>N.A</td></tr>
+                                                        <tr ><th >Principal </th></tr><tr ><th>Principal English Name</th><td>N.A</td></tr>
+                                                        <tr><th>Principal Chinese Name</th><td>N.A</td></tr>
+                                                        <tr><th>Principal Chinese Name</th><td>N.A</td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="collapsible-header"><i class="material-icons">assignment_ind</i>Personal Experience</div>
+                                                <div class="collapsible-body">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr><th>Ever skipped a grade?</th><td>N.A</td></tr>
+                                                        <tr><th>Ever repeated a grade?</th><td>N.A</td></tr>
+                                                        <tr><th>Ever been withdrawn or dismissed from <br>an academic institution or program?</th><td>wjm </td></tr>
+                                                        <tr><th>Ever received severe disciplinary action <br>at school or from the community?</th><td>wjm </td></tr>
+                                                        <tr><th>Any learning difficulties?</th><td>wjm </td></tr>
+                                                        <tr><th>College Courses taken</th><td>undefined</td></tr>
+                                                        <tr><th>AP Courses taken</th><td>undefined</td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </li>
+                                            <li>
+                                                <div class="collapsible-header"><i class="material-icons">assignment</i>Family Biographical Infomation</div>
+                                                <div class="collapsible-body">
+                                                    <table>
+                                                        <tbody>
+                                                        <tr><th>Current Live with</th><td></td></tr>
+                                                        <tr><th >Main parent</th><td></td></tr>
+                                                        <tr><th>Relationship</th><td>N.A</td></tr>
+                                                        <tr><th>Chinese_name</th><td>N.A</td></tr>
+                                                        <tr><th>Family_name</th><td>N.A</td></tr>
+                                                        <tr><th>Given_name</th><td>N.A</td></tr>
+                                                        <tr><th>English_name</th><td>N.A</td></tr>
+                                                        <tr><th>Preferred_name</th><td>N.A</td></tr>
+                                                        <tr><th>Relationship_status</th><td>N.A</td></tr>
+                                                        <tr><th>Birthday</th><td>N.A</td></tr>
+                                                        <tr><th>Birth City</th><td>N.A</td></tr>
+                                                        <tr><th>Citizenship</th><td>N.A</td></tr>
+                                                        <tr><th>Address</th><td></td></tr>
+                                                        <tr><th>Phone</th><td>N.A</td></tr>
+                                                        <tr><th>Email</th><td>N.A</td></tr>
+                                                        <tr><th>Wechat</th><td>N.A</td></tr>
+                                                        <tr><th>Skype</th><td>N.A</td></tr>
+                                                        <tr><th>Work</th><td>N.A</td></tr>
+                                                        <tr><th >Company Info</th><td></td></tr>
+                                                        <tr><td>Chinese Pinying: undefined</td></tr>
+                                                        <tr><th >Degree</th><td></td></tr>
+                                                        <tr><td>Degree: N.A </td></tr>
+                                                        <tr><td>Chinese Pinying: undefined</td></tr>
+                                                        <tr><th >Siblings: </th><td>N.Apage </td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
+                                    <div class="col s12 m6">
+                                        other Information
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="stu_personal_interests_tab" class="col s12 greyback margin-top-small">personal interest
+                                <div class="row detail_top">
+                                </div>
+                            </div>
+
+                            <div id="stu_skills_badges_tab" class="col s12 greyback margin-top-small">
+                                <div class="row detail_top">
+                                    <div class="col s12 m12">
+
+                                        <div id="PM_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr><td class='a1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('a1')">GoogleCalendar app--Planning Ahead</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+                                                        <tr><td class="a2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('a2')">GoogleCalendar app--Making a To-Do List (e.g. Homework)</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+                                                        <tr><td class="a3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('a3')">Paper Editing Etiquette</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+                                                        <tr><td class="a4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('a4')">Organized Break Plans </td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+                                                        <tr><td class="a5"><i class="fa fa-users picsnap" aria-hidden="true"></i></i></td><td  onclick="setbadges('a5')">No Cancelled Meetings! --Badge for every half term</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+                                                            XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="PS_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr><td class='b1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('b1')">Job/Internship Interview (Mock)</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('b2')">College Admissions Interview (Mock)</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="b3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('b3')">Campaigning Etiquette</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="EI_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr><td class='c1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('c1')">Mood Meter Quizzes--Beginner</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="c2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('c2')">Mood Meter Quizzes--Intermediate</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="c3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('c3')">Mood Meter Quizzes--Advance</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="c4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('c4')">Mood Meter App </td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="ME_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr><td class='d1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('d1')">1 Year with MGE; 2 Years with MGE</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="d2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('d2')">1 Term with MGE; 2 Terms with MGE</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="d3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('d3')">Chose Interest of Study for MGE Customized Student Program </td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="d4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('d4')">Networking--MGE Introduce to 1 Person in Field of Interest </td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="EX_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr ><td class='e1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('e1')">Volunteer Hour Milestones</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="e2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('e2')">Register--Volunteermatch</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="e3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('e3')">Joined New Club/Organization</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="e4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('e4')">Joined New Sport/Physical Activity</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="e5"><i class="fa fa-users picsnap" aria-hidden="true"></i></i></td><td onclick="setbadges('e5')">Established a New Club/Organization</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="e6"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('e6')">Organized a Charity Drive </td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="AC_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr ><td class='f1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('f1')">Register--Collegeboard</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('f2')">Register--Collegematch</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f3"><i class="fa fa-paperclip picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f3')">Register--Wyzant</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f4"><i class="fa fa-bars picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f4')">Registered Online Course(s)</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f5"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f5')">Draft UC Personal Statement Answers</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f6"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f6')">Academic ePortfolio</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f7"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f7')">Completed One University Program as an Outside Student</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f8"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f8')">Attended School University Fair</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f9"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f9')">Laid Out College Criteria -- Region</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f10"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f10')">Laid Out College Criteria -- Majors/Minors</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f11"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f11')">Laid Out College Criteria -- Housing</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="f12"><i class="fa fa-users picsnap" aria-hidden="true"></i></td><td onclick="setbadges('f12')">Laid Out College Criteria -- Facilities</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="WE_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr><td class='g1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('g1')">WeChat Etiquette</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="g2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('g2')">Resume Creation</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="QT_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr><td class='h1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('h1')">Took Career Quiz</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="h2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('h2')">Took Personality Quiz</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="h3"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('h3')">Broke Creation Scores and/or PRS</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="h4"><i class="fa fa-question picsnap" aria-hidden="true"></i></td><td onclick="setbadges('h4')">Completed Test -- TOFEL</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="h5"><i class="fa fa-question picsnap" aria-hidden="true"></i></td><td onclick="setbadges('h5')">Completed Test -- SAT</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="h6"><i class="fa fa-question picsnap" aria-hidden="true"></i></td><td onclick="setbadges('h6')">Completed Test -- ACT</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="MI_pop" class="overlay black-text">
+                                            <div class="popup">
+                                                <a class="close" href="#">&times;</a>
+                                                <div class="content">
+                                                    <table class="fillInHeight">
+                                                        <tbody>
+                                                        <tr><td class='i1'><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('i1')">Personal Blog</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="i2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('i2')">Driver's Ed</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <tr><td class="i2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td onclick="setbadges('i3')">Behind the Wheel Test</td></tr>
+                                                        <tr class="explain"><td></td><td><div class="explain">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX xxxxxxxxxxxxxxxxxxxxx</div></td></tr>
+                                                        <!-- <tr><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td>Completed Test TOFEL</td></tr>
+                                                        <tr  onclick="setbadges('b2')"><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td>Completed Test SAT</td></tr>
+                                                        <tr  onclick="setbadges('b2')"><td class="b2"><i class="fa fa-dropbox picsnap" aria-hidden="true" ></i></td><td>Completed Test ACT</td></tr> -->
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="badgesTable">
+                                            <div class="row">
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#PM_pop">Personal Management</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">4</span></div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#PS_pop">Persentation Skills</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">3</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#EI_pop">Emotional Intelligence</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">4</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#ME_pop">Meiguo Education</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">4</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#EX_pop">Extracurricular</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">6</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#AC_pop">Academics</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">12</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#WE_pop">Work Ethic</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">2</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#QT_pop">Quizzes/Testing</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">6</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="badgeCard col m4 info-cell">
+                                                    <div class="badgesClassColor badgeCardCell">
+                                                        <a class="button badgeClass" href="#MI_pop">Misc</a>
+                                                        <div class="status">
+                                                            <div class="gains"></div>
+                                                            <div class="complete"><span>0</span>% complete</div>
+                                                            <div class="complete_num"><span class="numerator">0</span>/<span class="denominator">3</span></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="stu_extracurricalr_log" class="col s12 info-text greyback margin-top-small">
+                                <div class="row detail_top">
+                                    <!-- <div class="col s12"> -->
+                                    <h5 class="col s12">Student Activities Records</h5>
+                                    <!-- <div class="col s1"></div>
+                                    <table class="col s10 responsive-table info-cell card-stacked">
+                                      <tbody id="activityLog">
+                                      <tr>
+                                        <th><a href="#" class="sort" onclick='mysort("activityLog","week")'>Date</a></th>
+                                        <th><a href="#" class="sort"onclick='mysort("activityLog","type")'>Activity Type</a></th>
+                                        <th><a href="#" class="sort" onclick='mysort("activityLog","name")'>Activity Name</a></th>
+                                        <th><a href="#" class="sort" onclick='mysort("activityLog","position")'>Position</a></th>
+                                        <th><a href="#" class="sort" onclick='mysort("activityLog","hours")'>Total Hours</a></th>
+                                        <th><a href="#" class="sort" onclick='mysort("activityLog","happi")'>Happiness</a></th>
+                                        <th><a href="#" class="sort" onclick='mysort("activityLog","describe")'>Describe Tasks/Project/Award</a></th>
+                                      </tr>
+                                      <template v-for="(item,index) in extracurricalr">
+                                        <tr v-for="cell in item" v-bind:week="index" v-bind:type="cell.type" v-bind:name="cell.name" v-bind:hours="cell.hours" v-bind:happi="cell.happi" class="data">
+                                          <td>{{index}}</td>
+                                          <td>{{cell.type}}</td>
+                                          <td>{{cell.name}}</td>
+                                          <td>{{cell.position}}</td>
+                                          <td>{{cell.hours}}</td>
+                                          <td>{{cell.happi}}</td>
+                                          <td>{{cell.describe}}</td>
+                                        </tr>
+                                      </template>
+                                      </tbody>
+                                    </table>
+                                    <div class="col s1"></div> -->
+
+                                    <div class="col m12 card-stacked info-cell">
+                                        <div id="extracurricalr_contorller" class="col s12 m12 center">
+
+                                            <div class="input-field col m1">
+                                                <input id="extraWeek" type="date" class="datepicker" placeholder="Date">
+                                            </div>
+
+                                            <div class="input-field col m1">
+                                                <input id="type" type="text" v-model="type">
+                                                <label for="type">Activity Type</label>
+                                            </div>
+                                            <div class="input-field col m2">
+                                                <input id="name" type="text" v-model="name">
+                                                <label for="name" >Activity Name</label>
+                                            </div>
+                                            <div class="input-field col m1">
+                                                <input id="position" type="text" v-model="position">
+                                                <label for="position" >Position</label>
+                                            </div>
+                                            <div class="input-field col m1">
+                                                <input id="hours" type="text" v-model="hours">
+                                                <label for="hours" >Totoal Hours</label>
+                                            </div>
+                                            <div class="input-field col m1">
+                                                <!-- <input id="happi" type="text" >
+                                                <label for="happi" >Happiness Rating</label> -->
+                                                <select id="happi">
+                                                    <option value="" disabled selected>Happiness</option>
+                                                    <option value="1">1</option>
+                                                    <option value="2">2</option>
+                                                    <option value="3">3</option>
+                                                    <option value="4">4</option>
+                                                    <option value="5">5</option>
+                                                </select>
+                                                <!-- <label>Happiness Rating</label> -->
+                                            </div>
+                                            <div class="input-field col m4">
+                                                <input id="extra_content" type="text" v-model="activity_content">
+                                                <label for="extra_content" >Content</label>
+                                            </div>
+
+
+                                            <div class="input-field col m1">
+                                                <a @click="insertActivity()" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                                            </div>
+
+                                        </div>
+                                        <div class="input-field col m12">
+                                            <input id="extra_search" type="text" name="query" v-model="extracurricalr_searchQuery">
+                                            <label class="active" for="extra_search">Search</label>
+                                        </div>
+                                        <extracurricalr-grid
+                                                :data="flatten_extracurricalr"
+                                                :columns="extracurricalrColumns"
+                                                :names="extracurricalrNames"
+                                                :filter-key="extracurricalr_searchQuery"
+                                                :role="extra"
+                                        >
+                                        </extracurricalr-grid>
+                                    </div>
+                                    <!-- </div> -->
+                                </div>
+                            </div>
+
+                            <div id="stu_todo_list" class="col s12 greyback">
+                                <div class="row detail_top black-text">
+                                    <div id="logcontorller" class="col s12 m10 offset-m1 center">
+                                        <div class="input-field col m1">
+                                            <input id="weekNum" type="date" class="datepicker" placeholder="Create Week">
+                                            <!-- <label for="weekNum" class="">Week</label> -->
+                                        </div>
+                                        <div class="input-field col m2">
+                                            <input id="todo_date" type="date" class="datepicker" placeholder="Due Date">
+                                            <!-- <label for="todo_date" class="">Due Date</label> -->
+                                        </div>
+
+                                        <div class="input-field col m5">
+                                            <input id="todo_content" type="text" v-model="content">
+                                            <label for="todo_content" class="">Content</label>
+                                        </div>
+
+                                        <div class="input-field col m2">
+                                            <a href="#" @click="bindstu()" class="waves-effect waves-light btn">To&nbspStudent</a>
+                                        </div>
+
+                                        <div class="input-field col m2">
+                                            <a href="#" @click="bindpmc" class="waves-effect waves-light btn">For&nbspCounselor</a>
+                                        </div>
+
+                                        <div class="col m12">
+                                            <div class="input-field col m12">
+                                                <input id="todo_search" type="text" name="query" v-model="searchQuery">
+                                                <label class="active" for="todo_search">Search</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <h5 class="col s12 center">Student's Todo List Log</h5>
+                                        <div class="row">
+                                            <div class="col m12 card-stacked info-cell">
+                                                <todolist-grid
+                                                        :data="todoList"
+                                                        :columns="gridColumns"
+                                                        :colname="gridColName"
+                                                        :filter-key="searchQuery"
+                                                        :role='stu'>
+                                                </todolist-grid>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col s12 m6">
+                                        <h5 class="col s12 center">Counselor's Todo List Log</h5>
+                                        <div class="row">
+                                            <div class="col m12 card-stacked info-cell">
+                                                <todolist-grid
+                                                        :data="pmc_todolist"
+                                                        :columns="gridColumns"
+                                                        :colname="gridColName"
+                                                        :filter-key="searchQuery"
+                                                        :role='pmc'>
+                                                </todolist-grid>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a id="manage_slider_top" class="top"></a>
+    <div id="manage_slider" class="block mamge-color lighten-1">
+
+        <nav class="pushpin-demo-nav pin-top mcontent-title pushpin" data-target="Manage_slider" >
+            <div class="nav-wrapper mamge-color">
+                <div class="container">
+                    <a href="#manage_slider_top" class="brand-logo">Manage</a>
+                    <ul class="right hide-on-med-and-down">
+                        <li>
+                            <div class="switch">
+                                <label class="white-text">
+                                    Lock Off
+                                    <input onclick="print('manage_content')" type="checkbox">
+                                    <span class="lever"></span>
+                                    Lock On
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div id="manage_content" class="mcontent">
+            <div class="container">
+                <div class="row">
+                    <div class="input-field col m3"><h5>Create User</h5></div>
+                    <!-- <div class="col m3"></div> -->
+                    <div class="input-field col m3">
+                        <input id="new_username" type="email" class="validate">
+                        <label for="new_username">Username</label>
+                        <!-- <input id="new_username" type="text">
+                        <label class="active" for="new_username">Username</label> -->
+                    </div>
+                    <div class="input-field col m3">
+                        <input id="new_password" type="text">
+                        <label class="active" for="new_password">Password</label>
+                    </div>
+                    <div class="input-field col m3"><a href="#" onclick="" class="waves-effect waves-light btn">CREATE</a></div>
+                </div>
+
+                <div class="row">
+                    <div class="col m3"><h5>Delete User</h5></div>
+                    <div class="input-field col m3">
+                        <input id="delete_username" type="email" class="validate">
+                        <label class="active" for="delete_username">Username</label>
+                    </div>
+
+                    <div class="input-field col m3"><a href="#" onclick="" class="waves-effect waves-light btn">CREATE</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<ul id="slide-out" class="side-nav">
+    <li><div class="user-view">
+        <div class="background">
+            <!-- <img src="617227.jpg"> -->
+        </div>
+        <a href="#user"><img class="circle" src="../images/s1.png"></a>
+        <a href="#name"><span class="white-text name">John Doe</span></a>
+        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+    </div></li>
+
+    <li><a href="#DOE_slider_top"><i class="material-icons">group</i>Directors Of Education</a></li>
+    <li><a href="#PMC_slider_top"><i class="material-icons">people</i>Counselors</a></li>
+    <li><a href="#FT_slider_top"><i class="material-icons">adb</i>Family Translators</a></li>
+    <li><a href="#Student_slider_top"><i class="material-icons">school</i>Students</a></li>
+
+    <li><div class="divider"></div></li>
+
+
+    <li><a class="subheader">Subheader</a></li>
+    <li><a class="waves-effect" href="#manage_slider_top"><i class="material-icons">vpn_key</i>Manage</a></li>
+</ul>
+
+<div id="deletelAlert" class="modal">
+    <div class="modal-content">
+        <h4>NOTICE</h4>
+        <p>If you want to delete the record, click agree. If not, click anywhere else. Once deleted, the record cannot be retrieved.</p>
+    </div>
+    <div class="modal-footer">
+        <a onclick="stuDetail.removeItem()" class="modal-action modal-close waves-effect waves-green btn-flat">Agree</a>
+    </div>
+</div>
+
+</body>
+<script>
+    // global var
+    var removeFlag = {'list':'','todo':''};
+    var bodylock = 0;
+
+
+    var print = function(id) {
+        console.log(bodylock);
+        // carousel-item
+        var content = $('#'+id).css('overflow-y');
+        var body = $('body').css('overflow-y');
+        if (content != 'scroll') {
+            $('#'+id).css('overflow-y','scroll');
+            $('.carousel-item').css('overflow-y','scroll');
+            bodylock += 1;
+            $('body').css('overflow-y','hidden');
+        } else {
+            $('#'+id).css('overflow-y','hidden');
+            $('.carousel-item').css('overflow-y','hidden');
+            bodylock -= 1;
+            if (bodylock == 0) {
+                $('body').css('overflow-y','scroll');
+            }
+        }
+        console.log('--',bodylock);
+    }
+
+    var setBody = function () {
+        if (bodylock > 0) {
+            $('body').css('overflow-y','hidden');
+        } else {
+            $('body').css('overflow-y','scroll');
+        }
+    }
+</script>
+
+<script type="text/x-template" id="grid-template">
+    <div>
+        <table class="todo-list-head">
+            <thead>
+            <tr>
+                <th v-for="(key,index) in columns"
+                    @click="sortBy(key)"
+                    :class="{ active: sortKey == key ,date:key=='dueDate'}">
+                    {{ colname[index] | capitalize }}
+                    <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+            </span>
+                </th>
+                <th class="modecontrol">
+            <span>
+              <input :name= "role" type="radio" :id="role+1" value="Todo+Done" v-model="mode"/>
+              <label :for="role+1" style="padding-left:21px">Todo+Done</label>
+            </span>
+                    <span>
+              <input :name="role" type="radio" :id="role+2" value="Done" v-model="mode"/>
+              <label :for="role+2" style="padding-left:21px">Done</label>
+            </span>
+                    <span>
+              <input :name="role" type="radio" :id="role+3" value="Todo" v-model="mode"/>
+              <label :for="role+3" style="padding-left:21px">Todo</label>
+            </span>
+                </th>
+                <!-- <th>
+                  <span>
+                    <input :name="role" type="radio" :id="role+3" value="Todo" v-model="mode"/>
+                    <label :for="role+3">Todo</label>
+                  </span>
+                </th> -->
+            </tr>
+            </thead>
+        </table>
+
+        <div class="todo-list-high">
+            <table class="todo-list-head">
+                <tbody>
+                <tr v-for="(entry,index) in filteredData" v-if=showOrNot(entry)>
+                    <td v-for="key in columns" :class="{date:key=='dueDate'}">
+                        <div :class="checkFocus(index,key)">
+                            <div class="view" @dblclick="editTodo(index,key)">
+                                {{entry[key]}}
+                            </div>
+                            <input class="edit" type="text"
+                                   v-model="entry[key]"
+                                   v-focus="checkFocus(index,key)"
+                                   @blur="doneEdit(index,key)"
+                                   @keyup.enter="doneEdit(index,key)"
+                                   @keyup.esc="cancelEdit(index,key)"
+                            >
+                        </div>
+                    </td>
+                    <td class="modecontrol">
+                        <div class="row">
+                            <div class="col m6">
+                                <input type="checkbox" v-bind:id="entry._id" v-bind:checked="check(entry)" @change="checkinNout(entry)"/>
+                                <label v-bind:for=entry._id>{{entry.active | notificate}}</label>
+                            </div>
+                            <!-- <a href="#" @click="remove(entry)" class="destroy"><i class="fa fa-trash fa-2x" aria-hidden="true"></i></a> -->
+                            <div class="col m6 destroy">
+                                <!-- <a href="#deletelAlert" @click="remove(entry)"><i class="material-icons">clear</i></a> -->
+                                <a href="#deletelAlert" @click="remove(role,entry)"><i class="material-icons">clear</i></a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</script>
+
+
+<script type="text/x-template" id="extracurricalr-grid">
+    <div>
+        <div class="todo-list-high">
+            <table class="todo-list-head">
+                <thead>
+                <tr>
+                    <th class="table-head-min" v-for="(key,index) in columns"
+                        @click="sortBy(key)"
+                        :class="{ active: sortKey == key}">
+                        {{ names[index] | capitalize}}
+                        <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'">
+              </span>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr v-for="(entry,index) in filteredData">
+                    <td v-for="key in columns">
+                        {{entry[key]}}
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</script>
+
+<script>
+    Vue.prototype.$consoleLog = function() {console.log(...arguments)}
+    var stuList = new Vue({
+        el: '#stuList',
+        data: {
+            students:[
+                {
+                    'chinese_name':'王佳梦',
+                    'family_name':'Wang',
+                    'given_name':'Jiameng',
+                    'english_name':'Harrison',
+                    'gender':'M',
+                    'birthCity':'XuZhou',
+                    'PMC':'',
+                    'DOE':'',
+                    'FT':''
+                },{
+                    'chinese_name':'李思远',
+                    'family_name':'Li',
+                    'given_name':'Siyuan',
+                    'english_name':'Jack',
+                    'gender':'M',
+                    'birthCity':'Guang Zhou',
+                    'PMC':'',
+                    'DOE':'',
+                    'FT':''
+                },{
+                    'chinese_name':'张吉惠',
+                    'family_name':'Zhang',
+                    'given_name':'Jihui',
+                    'english_name':'Dawn',
+                    'gender':'F',
+                    'birthCity':'Dong Ying',
+                    'PMC':'',
+                    'DOE':'',
+                    'FT':''
+                },
+
+            ],
+        },
+        methods:{
+            getIndex:function(index){
+                // this.click = 1;
+                console.log(1,index);
+            },
+            fav:function() {
+                console.log('you like this resturant!');
+            }
+        }
+    });
+</script>
+
+<script>
+    Vue.component('extracurricalr-grid',{
+        template:'#extracurricalr-grid',
+        props: {
+            // data: Object,
+            data:Array,
+            columns: Array,
+            names:Array,
+            filterKey: String,
+            role:String
+        },
+        data: function () {
+            var sortOrders = {}
+
+            this.columns.forEach(function (key) {
+                sortOrders[key] = 1
+            })
+
+            // var flatten = [];
+            // for (var i in this.data) {
+            //   for (var j in this.data[i]) {
+            //     this.data[i][j]['date'] = i;
+            //     flatten.push(this.data[i][j]);
+            //   }
+            // }
+            // console.log(flatten);
+
+            return {
+                sortKey: '',
+                sortOrders: sortOrders,
+                editedTodo: null,
+                // newdata:data
+                // role:''
+            }
+        },
+        computed: {
+            filteredData: function () {
+                var sortKey = this.sortKey
+                var filterKey = this.filterKey && this.filterKey.toLowerCase()
+                var order = this.sortOrders[sortKey] || 1
+                var data = this.data
+                // console.log(data);
+                if (filterKey) {
+                    data = data.filter(function (row) {
+                        return Object.keys(row).some(function (key) {
+                            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                        })
+                    })
+                }
+                if (sortKey) {
+                    data = data.slice().sort(function (a, b) {
+                        a = a[sortKey]
+                        b = b[sortKey]
+                        return (a === b ? 0 : a > b ? 1 : -1) * order
+                    })
+                }
+                return data
+            },
+        },
+        filters: {
+            capitalize: function (str) {
+                return str.charAt(0).toUpperCase() + str.slice(1)
+            },
+            notificate: function(str) {
+                return str == true ? 'Todo' : 'Done';
+            }
+        },
+        methods: {
+            sortBy: function (key) {
+                this.sortKey = key
+                this.sortOrders[key] = this.sortOrders[key] * -1
+                // console.log(this.sortOrders);
+            },
+            checkinNout:function(data){
+                // this.data[index].active = this.data[index].active == true ? false : true;
+                data.active = data.active ? false : true;
+            },
+            check:function(todo){
+                return todo.active != true;
+            },
+            checkFocus:function(index,key) {
+                return index+key+'' != this.cellid ? "editable_cell" : "editable_cell_editing";
+            },
+            showOrNot:function(cell) {
+                return (this.mode==='Todo+Done') || (this.mode=='Todo' && cell.active) || (this.mode=='Done' && !cell.active);
+            },
+            editTodo:function(index,key) {
+                this.cellid = index+key+'';
+                this.beforeEditCache = this.filteredData[index][key];
+                this.editedTodo = this.filteredData[index];
+                // console.log(this.beforeEditCache);
+            },
+            doneEdit: function (index,key) {
+                if (!this.editedTodo) {
+                    return
+                }
+                this.editedTodo = null;
+                this.cellid = null;
+                this.filteredData[index][key] = this.filteredData[index][key].trim()
+                // todo.title = todo.title.trim()
+                if (!this.filteredData[index][key] || this.filteredData[index][key].length == 0) {
+                    this.remove(this.filteredData[index])
+                }
+            },
+            cancelEdit: function (index,key) {
+                this.editedTodo = null;
+                this.cellid = null;
+                // todo.title = this.beforeEditCache
+                this.filteredData[index][key] = this.editedTodo;
+            }
+
+        },
+        directives: {
+            focus: function (el, binding) {
+                // console.log(el);
+                if (binding.value) {
+                    el.focus()
+                }
+            }
+        }
+    });
+
+    Vue.component('todolist-grid', {
+        template: '#grid-template',
+        props: {
+            data: Array,
+            columns: Array,
+            colname: Array,
+            filterKey: String,
+            role:String
+        },
+        data: function () {
+            var sortOrders = {}
+
+            this.columns.forEach(function (key) {
+                sortOrders[key] = 1
+            })
+            return {
+                sortKey: '',
+                sortOrders: sortOrders,
+                mode:'Todo+Done',
+                editedTodo: null,
+                cellid:'',
+                // role:''
+            }
+        },
+        computed: {
+            filteredData: function () {
+                var sortKey = this.sortKey
+                var filterKey = this.filterKey && this.filterKey.toLowerCase()
+                var order = this.sortOrders[sortKey] || 1
+                var data = this.data
+                if (filterKey) {
+                    data = data.filter(function (row) {
+                        return Object.keys(row).some(function (key) {
+                            return String(row[key]).toLowerCase().indexOf(filterKey) > -1
+                        })
+                    })
+                }
+                if (sortKey) {
+                    data = data.slice().sort(function (a, b) {
+                        a = a[sortKey]
+                        b = b[sortKey]
+                        return (a === b ? 0 : a > b ? 1 : -1) * order
+                    })
+                }
+                return data
+            },
+        },
+        filters: {
+            capitalize: function (str) {
+                return str.charAt(0).toUpperCase() + str.slice(1)
+            },
+            notificate: function(str) {
+                return str == true ? 'Todo' : 'Done';
+            }
+        },
+        methods: {
+            sortBy: function (key) {
+                this.sortKey = key
+                this.sortOrders[key] = this.sortOrders[key] * -1
+                // console.log(this.sortOrders);
+            },
+            checkinNout:function(data){
+                // this.data[index].active = this.data[index].active == true ? false : true;
+                data.active = data.active ? false : true;
+            },
+            check:function(todo){
+                // console.log(todo.active);
+                // return this.active == true ? 'checked' : '';
+                return todo.active != true;
+            },
+            checkFocus:function(index,key) {
+                return index+key+'' != this.cellid ? "editable_cell" : "editable_cell_editing";
+            },
+            showOrNot:function(cell) {
+                return (this.mode==='Todo+Done') || (this.mode=='Todo' && cell.active) || (this.mode=='Done' && !cell.active);
+            },
+            setremove:function(todo) {
+
+            },
+            remove:function(role,todo) {
+                // this.filteredData.splice(index,1);
+                // alert('Once you delete this record, there is no way to restore data back');
+                // window.location = window.location.origin+window.location.pathname+'#deletelAlert';
+                // location.href = '#deletelAlert';
+                // console.log('removed',window.location.origin+window.location.pathname+'#deletelAlert');
+                // console.log(window.location);
+                //   bootbox.confirm({
+                //     message: "This is a confirm with custom button text and color! Do you like it?",
+                //     buttons: {
+                //         confirm: {
+                //             label: 'Yes',
+                //             className: 'btn-success'
+                //         },
+                //         cancel: {
+                //             label: 'No',
+                //             className: 'btn-danger'
+                //         }
+                //     },
+                //     callback: function (result) {
+                //         console.log('This was logged in the callback: ' + result);
+                //     }
+                // });
+                // this.data.splice(this.data.indexOf(todo), 1);
+                removeFlag.list = role;
+                removeFlag.todo = todo;
+                console.log(removeFlag);
+            },
+
+            editTodo:function(index,key) {
+                this.cellid = index+key+'';
+                this.beforeEditCache = this.filteredData[index][key];
+                this.editedTodo = this.filteredData[index];
+                // console.log(this.beforeEditCache);
+            },
+            doneEdit: function (index,key) {
+                if (!this.editedTodo) {
+                    return
+                }
+                this.editedTodo = null;
+                this.cellid = null;
+                this.filteredData[index][key] = this.filteredData[index][key].trim()
+                // todo.title = todo.title.trim()
+                if (!this.filteredData[index][key] || this.filteredData[index][key].length == 0) {
+                    this.remove(this.filteredData[index])
+                }
+            },
+            cancelEdit: function (index,key) {
+                this.editedTodo = null;
+                this.cellid = null;
+                // todo.title = this.beforeEditCache
+                this.filteredData[index][key] = this.editedTodo;
+            }
+
+        },
+        directives: {
+            focus: function (el, binding) {
+                // console.log(el);
+                if (binding.value) {
+                    el.focus()
+                }
+            }
+        }
+    });
+
+    var stuDetail = new Vue({
+        el: '#stuDetail',
+        data: {
+            content:'',
+            type:'',
+            name:'',
+            position:'',
+            hours:'',
+            happi:'',
+            activity_content:'',
+            date:'',
+            stu:"stu",
+            pmc:"pmc",
+            extra:"extracurricalr",
+            options: [
+                { text: 'Todo+Done', value: '1' },
+                { text: 'Todo', value: '2' },
+                { text: 'Done', value: '3' }
+            ],
+            todoList:[
+                {
+                    "_id" : "c5bad896da58b903882f6fa242e5bb28",
+                    "week" : "2017-W23",
+                    "content" : " s",
+                    "dueDate" : "2017-06-13",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : false
+                },
+                {
+                    "_id" : "a711bbbc399ec19d8f648a766ca4337b",
+                    "week" : "2017-W23",
+                    "content" : "ssssssssss",
+                    "dueDate" : "2017-06-14",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : false
+                },
+                {
+                    "_id" : "d805b4b949ed88b91fd97f4e4f9426a3",
+                    "week" : "2017-W24",
+                    "content" : "ssss",
+                    "dueDate" : "2017-08-18",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : true
+                },
+                {
+                    "_id" : "5d61e1a8698d0580f4ea6441aae04402",
+                    "week" : "2017-W24",
+                    "content" : "ssss",
+                    "dueDate" : "2017-08-18",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : true
+                },
+                {
+                    "_id" : "b371136947acc9c1b3107e6c8078a0b0",
+                    "week" : "2017-W24",
+                    "content" : "ssss",
+                    "dueDate" : "2017-08-18",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : true
+                },
+                {
+                    "_id" : "784dd5a03723a8479d2c9c7768676f70",
+                    "week" : "2017-W23",
+                    "content" : "ccccc",
+                    "dueDate" : "2017-06-28",
+                    "r_id" : "4a8a08f09d37b73795649038408b5f33",
+                    "active" : true
+                },
+                {
+                    "_id" : "878e126055b823f13e04c26112f7bf8e",
+                    "week" : "2017-W23",
+                    "content" : "cscscc",
+                    "dueDate" : "2017-05-30",
+                    "r_id" : "4a8a08f09d37b73795649038408b5f33",
+                    "active" : false
+                },
+                {
+                    "_id" : "10b6ff8cc5c81ccb74b67f1983edcc13",
+                    "week" : "2017-W23",
+                    "content" : "cscscc",
+                    "dueDate" : "2017-05-30",
+                    "r_id" : "4a8a08f09d37b73795649038408b5f33",
+                    "active" : true
+                },
+                {
+                    "_id" : "5e840797189ae4867a2f53894db71e55",
+                    "week" : "2017-W23",
+                    "content" : "cscscc",
+                    "dueDate" : "2017-05-30",
+                    "r_id" : "4a8a08f09d37b73795649038408b5f33",
+                    "active" : true
+                },
+                {
+                    "_id" : "25a3a7b0f13f6908e7a3ebee92fce5c3",
+                    "week" : "2017-W23",
+                    "content" : "cscscc",
+                    "dueDate" : "2017-05-30",
+                    "r_id" : "4a8a08f09d37b73795649038408b5f33",
+                    "active" : true
+                },
+                {
+                    "_id" : "0254a223c6506914edf1d441213848b7",
+                    "week" : "2017-W23",
+                    "content" : "cscscc",
+                    "dueDate" : "2017-05-30",
+                    "r_id" : "4a8a08f09d37b73795649038408b5f33",
+                    "active" : false
+                },
+                {
+                    "_id" : "29b62960f159918a5d0d98dedcbc3533",
+                    "week" : "2017-W23",
+                    "content" : "cscscc",
+                    "dueDate" : "2017-05-30",
+                    "r_id" : "4a8a08f09d37b73795649038408b5f33",
+                    "active" : true
+                }
+            ],
+            flatten_extracurricalr:[
+                {
+                    'date':'2017-05-02',
+                    'describe':'sadhjagd',
+                    'happi':'1',
+                    'hours':'2',
+                    'name':'dsf',
+                    'position':'csdfs',
+                    'type':'Skill'
+                },{
+                    'date':'2017-05-02',
+                    'describe':'fdsaf',
+                    'happi':'2',
+                    'hours':'5',
+                    'name':'dsfds',
+                    'position':'sdjfh',
+                    'type':'Skill'
+                },{
+                    'date':'2017-05-10',
+                    'describe':'dsfdfsfhjdskhfj he wq  egwdfsv ew fdhgfhds f ehg hfwdg egw fgfjdhgfew  dsaggeqw ds chv sgygfywf d dgsh sdf waf dssfdsafds  fdshajf  fdhsagyw  fhdgs a cv dhg fdhswhfg wye',
+                    'happi':'1',
+                    'hours':'2',
+                    'name':'dsjhfs',
+                    'position':'fdsafwe',
+                    'type':'Volunteer'
+                }
+            ],
+            extracurricalr:{
+                '2017-05-02':[
+                    {
+                        'describe':'sadhjagd',
+                        'happi':'1',
+                        'hours':'2',
+                        'name':'dsf',
+                        'position':'csdfs',
+                        'type':'Skill'
+                    },{
+                        'describe':'fdsaf',
+                        'happi':'2',
+                        'hours':'5',
+                        'name':'dsfds',
+                        'position':'sdjfh',
+                        'type':'Skill'
+                    }
+                ],
+                '2017-05-10':[
+                    {
+                        'describe':'dsfdfsfhjdskhfj he wq  egwdfsv ew fdhgfhds f ehg hfwdg egw fgfjdhgfew  dsaggeqw ds chv sgygfywf d dgsh sdf waf dssfdsafds  fdshajf  fdhsagyw  fhdgs a cv dhg fdhswhfg wye',
+                        'happi':'1',
+                        'hours':'2',
+                        'name':'dsjhfs',
+                        'position':'fdsafwe',
+                        'type':'Volunteer'
+                    }
+                ]
+            },
+            extracurricalrColumns:['date','describe','happi','hours','name','position','type'],
+            extracurricalrNames:['Date','Describe tasks/Project/Award','Happiness Rating','Total Hours',"Activity Name",'Position','Activity Type'],
+            extracurricalr_searchQuery:'',
+            searchQuery: '',
+            gridColumns: ['dueDate','content'],
+            gridColName:['Due Date','Content'],
+            // gridColumns: ['week', 'dueDate','content'],
+            // gridColName:['Create Week','Due Date','Content'],
+            pmc_todolist: [
+                {
+                    "_id" : "c5bad896da59032f6fa242e5bb28",
+                    "week" : "2017-W23",
+                    "content" : "Counselor",
+                    "dueDate" : "2016-10-03",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : false
+                },
+                {
+                    "_id" : "a711bbbc399ec19d8f648a6ca4337b",
+                    "week" : "2017-W23",
+                    "content" : "Counselor meet with stu",
+                    "dueDate" : "2017-01-14",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : false
+                },
+                {
+                    "_id" : "d805b4b949ed88b91fd97f4e9426a3",
+                    "week" : "2017-W24",
+                    "content" : "Counselor wechat thier family's",
+                    "dueDate" : "2017-05-28",
+                    "r_id" : "8ddf878039b70767c4a5bcf4f0c4f65e",
+                    "active" : true
+                }
+            ],
+        },
+        methods:{
+            getIndex:function(index){
+                // this.click = 1;
+                console.log(1,index);
+            },
+            fav:function() {
+                console.log('you like this resturant!');
+            },
+            showOrNot:function(cell) {
+                return (this.mode==='Todo+Done') || (this.mode=='Todo' && cell.active) || (this.mode=='Done' && !cell.active);
+            },
+            check:function(todo){
+                // console.log(todo.active);
+                // return this.active == true ? 'checked' : '';
+                return todo.active == true;
+            },
+            checkinNout:function(index){
+                // console.log(index,this.todoList[index].active);
+                this.todoList[index].active = this.todoList[index].active == true ? false : true;
+                // console.log(this.todoList[index].active);
+            },
+            bindstu: function() {
+                var data = {'week':$('#weekNum').val(),'content':this.content,'dueDate':$('#todo_date').val(),'r_id':'8ddf878039b70767c4a5bcf4f0c4f65e','active':true,"_id" : "29b62960f1533143214"};
+                this.todoList.push(data);
+            },
+            bindpmc:function() {
+                var data = {'week':$('#weekNum').val(),'content':this.content,'dueDate':$('#todo_date').val(),'r_id':'8ddf878039b70767c4a5bcf4f0c4f65e','active':true,"_id" : "29b62960f15fdsah4332"};
+                this.pmc_todolist.push(data);
+                console.log('insert from parent');
+            },
+            insertActivity:function() {
+                var hap = $('#happi').val();
+                var date = $('#extraWeek').val();
+                var data = {'date':date,'describe':this.activity_content,'happi':hap,'hours':this.hours,'name':this.name,'position':this.position,'type':this.type};
+                console.log(data,date);
+                this.flatten_extracurricalr.push(data);
+                // if (!this.extracurricalr[date]) {
+                //   this.extracurricalr[date] = [];
+                // }
+                // this.extracurricalr[date].push(data);
+            },
+            removeItem: function() {
+                console.log('you want to remove item');
+                if (removeFlag.list == 'stu') {
+                    this.todoList.splice(this.todoList.indexOf(removeFlag.todo), 1);
+                } else if (removeFlag.list == 'pmc') {
+                    this.pmc_todoList.splice(this.pmc_todoList.indexOf(removeFlag.todo), 1);
+                }
+                removeFlag.list = '';
+                removeFlag.todo = null;
+                console.log(removeFlag);
+            }
+
+        },
+        computed: {
+            check:function(){
+                return this.active == true;
+            },
+            flatten:function() {
+                var flatten = [];
+                for (var i in this.extracurricalr) {
+                    for (var j in this.extracurricalr[i]) {
+                        this.extracurricalr[i][j]['date'] = i;
+                        flatten.push(this.extracurricalr[i][j]);
+                    }
+                }
+                this.flatten_extracurricalr = flatten;
+                console.log(flatten);
+                return flatten;
+            }
+        }
+    });
+</script>
+
+<script src="../javascripts/admin.js"></script>
+
+</html>

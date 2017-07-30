@@ -12,7 +12,7 @@ var admin = require('./routes/admin');
 var api = require('./routes/v1');
 
 var app = express();
-
+app.enable('trust proxy');
 app.use(session({
     secret: 'recommand 128 bytes random string',
     cookie: { maxAge: 5*60*1000},

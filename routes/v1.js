@@ -11,5 +11,6 @@ router.get('/student',db.getAllStudents);
 router.get('/student/:id',db.getOneStudent);
 router.get('/staff',db.getAllStaffs);
 router.get('/staff/:id',db.getOneStaff);
+router.get('/login/:username',db.getOneFromLogin);
 
 module.exports = router;

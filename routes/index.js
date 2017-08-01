@@ -2,6 +2,14 @@ var express = require('express');
 var fs = require('fs');
 var router = express.Router();
 var dp = require('../utility/rawdataProcess');
+
+var db = require('../query.js');
+
+
+
+/**
+ * @see https://www.npmjs.com/package/jsonwebtoken
+ * */
 var jwt = require('jsonwebtoken');
 var cert = fs.readFileSync('private.key');
 // var session = require('express-session');
@@ -11,18 +19,19 @@ var cert = fs.readFileSync('private.key');
 router.get(/(^\/$)|(^\/login)$/, function(req, res, next) {
 // router.get('/', function(req, res, next) {
     // res.render('index', { title: 'Express' ,name:'wjm'});
-    console.log(req.session.visit);
-    if (!req.session.visit) {
-        req.session.visit = 0;
-    } else {
-        req.session.visit += 1;
-    }
+    // console.log(req.session.visit);
+    // if (!req.session.visit) {
+    //     req.session.visit = 0;
+    // } else {
+    //     req.session.visit += 1;
+    // }
 
-    res.sendfile('/Users/wjm-harry/Documents/MeiguoEdu/public/Login/login.html');
+    res.sendFile('/Users/wjm-harry/Documents/MeiguoEdu/public/Login/login.html');
 
 });
 
 router.get('/test',function(req,res,next){
+
     res.end('test');
 });
 
@@ -53,9 +62,22 @@ router.post('/login',function (req,res,next) {
         exp:Math.floor(Date.now() / 1000)+ 10,
     }, cert);
 
-    res.cookie('jwt',token);
-    res.redirect('/admin');
+    res.cookie('jwt',token,{httpOnly:true});
+    res.json({
+        code:'302',
+        url:'admin'
+    });
+    // res.redirect('/admin');
 });
+
+
+// router.post('/logintest',
+//     passport.authenticate('local', { failureRedirect: '/',
+//                                      failureFlash: true }),
+//     function (req,res) {
+//         res.redirect('/admin');
+//     }
+// );
 
 router.get('/admin',function (req,res,next) {
     validateRoleAndSendFile(res,req.cookies.jwt,'Admin','/Users/wjm-harry/Documents/MeiguoEdu/public/forAdmin/admin.html');
@@ -86,7 +108,7 @@ var validateRoleAndSendFile = function (res,cookie,role,path) {
             return;
         }
         if (decode.role == role) {
-            res.sendfile(path);
+            res.sendFile(path);
         } else {
             res.redirect('/');
             res.end();

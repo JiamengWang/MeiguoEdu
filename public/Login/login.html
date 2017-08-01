@@ -33,6 +33,9 @@
   <link rel="stylesheet" href="../stylesheets/newLayout.css">
   <!--<link rel="stylesheet" href="badges.css">-->
 
+  <!--axios ajax library-->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
   <style>
     .displayContent{
       height: 500px;
@@ -57,34 +60,15 @@
       <div class="col m4"></div>
       <div class="col m4 center"><h5 class="center white-text">MeiguoEdu</h5></div>
       <div class="col m4">
-        <form action="/login" method="post">
-          <div style="margin-top:8px;" class="row">
-            <div class="col m5 right-align "><input style="height:2rem;" class="login-item white-text" type="text" placeholder="Username" name="username"></div>
-            <div class="col m5 right-align "><input style="height:2rem;" class="login-item white-text" type="text" placeholder="Password" name="password"></div>
-            <div class="col m2 right-align "><button class="login-item"><i class="material-icons white-text">lock</i></button></div>
+        <div id="login">
+          <div action="#" style="margin-top:8px;" class="row">
+            <div class="col m3 right-align "><input style="height:2rem;" class="login-item white-text" type="text" placeholder="Username" name="username" v-model="username"></div>
+            <div class="col m3 right-align "><input style="height:2rem;" class="login-item white-text" type="password" placeholder="Password" name="password" v-model="password"></div>
+            <div class="col m3 right-align"><button class="login-item" @click="cleanAll()"><i  class="material-icons white-text">undo</i></button></div>
+            <div class="col m2 right-align "><button class="login-item" @click="signin()"><i class="material-icons white-text">lock</i></button></div>
           </div>
-        </form>
-      </div>
-      <!-- <div class="col m4">
-          <ul class="collapsible" data-collapsible="accordion">
-            <li>
-              <div class="row">
-                <div class="col m4 collapsible-header"><i class="material-icons white-text">lock</i></div>
-                <div class="col m8 collapsible-body">
-                  <div class="input-field col m6">
-                    <input id="username" type="text" class="validate">
-                    <label for="username">Username</label>
-                  </div>
-                  <div class="input-field col m6">
-                    <input id="password" type="text" class="validate">
-                    <label for="password">Password</label>
-                  </div>
-                </div>
-            </li>
-          </ul>
-
         </div>
-    </div> -->
+      </div>
     </div>
 
 
@@ -144,7 +128,94 @@
     <div class="parallax"><img src="https://github.com/JiamengWang/ImageStore/raw/master/twilight_island_beach_sunset-2560x1600.jpg"></div>
   </div>
 
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Footer Content</h5>
+          <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        © 2014 Copyright Text
+        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+      </div>
+    </div>
+  </footer>
 </body>
+
+
+<script>
+    Vue.prototype.$http = axios;
+    var login = new Vue({
+        el:'#login',
+        data:{
+            username:null,
+            password:null,
+        },
+        methods: {
+            passwordValidateor:function(pass) {
+                if (!pass) {
+                    return false;
+                }
+                pass = pass.replace(/\s/g, '');
+                var DEFAULT_PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8}/;
+                if (pass.match(DEFAULT_PASSWORD_PATTERN)){
+                    return pass;
+                }
+                return false;
+            },
+            userNameValidateor:function(name){
+                if (!name) {
+                    return false;
+                }
+                name = name.replace(/\s/g,'');
+                if (name.length >0) {
+                    return name;
+                }
+                return false;
+            },
+            signin: function () {
+                var name = this.userNameValidateor(this.username);
+                var pass = this.passwordValidateor(this.password);
+                if (!name || !pass) {
+                    alert('wrong format!');
+                    this.username="";
+                    this.password="";
+                    return;
+                }
+                this.$http.post('/login', {
+                    username: name,
+                    password: pass,
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.data.code == '302') {
+                        console.log(this.location);
+                        window.location.replace(this.location + res.data.url);
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            },
+            cleanAll: function(){
+                this.password = "";
+                this.username = "";
+            }
+
+        }
+    });
+</script>
 <script>
   $(document).ready(function(){
       $('.collapsible').collapsible();

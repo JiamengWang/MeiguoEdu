@@ -11,6 +11,7 @@ var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://localhost:5432/meiguoedu';
 var db = pgp(connectionString);
 
+
 // add query functions
 
 module.exports = {
@@ -27,8 +28,47 @@ module.exports = {
     getOneStaff: getoneStaff,
     // getOneActivityRecord:getoneActivityRecord,
 
+    getOneFromLogin:getoneFromLogin,
+    passportValidator:PassportValidator,
 };
+function getoneFromLogin (req,res,next) {
+    // console.log(req.cookies);
+    console.log(req.params);
+    var username = req.params.username;
+    db.one('select * from login where username = $1',username)
+        .then(function(data){
+            res.status(200).json(
+                {
+                    status:'success',
+                    data:data,
+                    message:'Retrieved one record from login'
+                }
+            );
+        }).catch(function (err) {
+        return next(err);
+    })
+}
 
+function PassportValidator (username,password,done) {
+    console.log('this is passport validator',username,password,done);
+    db.one('select * from login where username = $1',username)
+        .then(function(user){
+            console.log(user);
+            if (!user) {
+                return done(null, false, { message: 'Incorrect username.' });
+            }
+            // if (!user.validPassword(password)) {
+            //     return done(null, false, { message: 'Incorrect password.' });
+            // }
+            if (user.password != password) {
+                return done(null, false, { message: 'Incorrect password.' });
+            }
+            console.log('validate success');
+            return done(null, user);
+        }).catch(function (err) {
+            return done(err);
+        })
+}
 
 function getallStudents(req,res,next) {
     console.log(req.cookies);

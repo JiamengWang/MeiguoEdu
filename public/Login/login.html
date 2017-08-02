@@ -1,0 +1,229 @@
+<!doctype html>
+<html>
+<head>
+  <title>This is a test of badges system</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <!-- Font awesome -->
+  <!-- <link rel="stylesheet" href="./font-awesome-4.7.0/css/font-awesome.min.css"> -->
+  <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script> -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+  <!-- custome box -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootbox.js/4.4.0/bootbox.min.js"></script>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.99.0/js/materialize.min.js"></script>
+
+  <!-- Vue.js -->
+  <script src="https://unpkg.com/vue"></script>
+
+  <!-- chart js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+
+  <!-- icon -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='//fonts.googleapis.com/css?family=PT Sans Narrow' rel='stylesheet'>
+
+  <script src="https://use.fontawesome.com/08baf95b95.js"></script>
+
+  <link rel="stylesheet" href="../stylesheets/newLayout.css">
+  <!--<link rel="stylesheet" href="badges.css">-->
+
+  <!--axios ajax library-->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+  <style>
+    .displayContent{
+      height: 500px;
+    }
+    .right-align {
+      text-align: right;
+    }
+
+    .login-item {
+      background-color:rgba(0, 0, 0, 0);
+      border: none;
+      margin: auto;
+      /*opacity:0;*/
+    }
+    input:focus{background:transparent}
+  </style>
+</head>
+
+<body>
+  <div class="mheader">
+    <div class="row">
+      <div class="col m4"></div>
+      <div class="col m4 center"><h5 class="center white-text">MeiguoEdu</h5></div>
+      <div class="col m4">
+        <div id="login">
+          <div style="margin-top:8px;" class="row">
+            <div class="col m3 right-align "><input style="height:2rem;" class="login-item white-text" type="text" placeholder="Username" name="username" v-model="username"></div>
+            <div class="col m3 right-align "><input style="height:2rem;" class="login-item white-text" type="password" placeholder="Password" name="password" v-model="password"></div>
+            <div class="col m3 right-align"><button class="login-item" @click="cleanAll()"><i  class="material-icons white-text">undo</i></button></div>
+            <div class="col m2 right-align "><button class="login-item" @click="signin()"><i class="material-icons white-text">lock</i></button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="parallax-container">
+      <div class="parallax"><img src="https://github.com/JiamengWang/ImageStore/raw/master/winter_scenery_2-wallpaper-1920x1200.jpg"></div>
+  </div>
+  <div class="section white displayContent">
+    <div class="row container">
+      <h2 class="header">Parallax</h2>
+      <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+    </div>
+  </div>
+
+  <div class="parallax-container slider">
+   <ul class="slides">
+     <li>
+       <!--<img src="http://meiguola.com/wp-content/uploads/2012/04/homeslider2.png">-->
+       <img src="https://lorempixel.com/580/250/nature/1">
+       <div class="caption center-align">
+         <h3>This is our big Tagline!</h3>
+         <h5 class="light grey-text text-lighten-3 black-text">With us never worry about your homestay situation again</h5>
+       </div>
+     </li>
+     <li>
+       <img src="https://lorempixel.com/580/250/nature/2"> <!-- random image -->
+       <div class="caption left-align">
+         <h3>Left Aligned Caption</h3>
+         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+       </div>
+     </li>
+     <li>
+       <img src="https://lorempixel.com/580/250/nature/3"> <!-- random image -->
+       <div class="caption right-align">
+         <h3>Right Aligned Caption</h3>
+         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+       </div>
+     </li>
+     <li>
+       <img src="https://lorempixel.com/580/250/nature/4"> <!-- random image -->
+       <div class="caption center-align">
+         <h3>This is our big Tagline!</h3>
+         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+       </div>
+     </li>
+   </ul>
+ </div>
+
+  <div class="section white displayContent">
+    <div class="row container">
+      <h2 class="header">Parallax</h2>
+      <p class="grey-text text-darken-3 lighten-3">Parallax is an effect where the background content or image in this case, is moved at a different speed than the foreground content while scrolling.</p>
+    </div>
+  </div>
+
+  <div class="parallax-container">
+    <div class="parallax"><img src="https://github.com/JiamengWang/ImageStore/raw/master/twilight_island_beach_sunset-2560x1600.jpg"></div>
+  </div>
+
+  <footer class="page-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col l6 s12">
+          <h5 class="white-text">Footer Content</h5>
+          <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+          <h5 class="white-text">Links</h5>
+          <ul>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 1</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 2</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 3</a></li>
+            <li><a class="grey-text text-lighten-3" href="#!">Link 4</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      <div class="container">
+        © 2014 Copyright Text
+        <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+      </div>
+    </div>
+  </footer>
+</body>
+
+
+<script>
+    Vue.prototype.$http = axios;
+    var login = new Vue({
+        el:'#login',
+        data:{
+            username:null,
+            password:null,
+        },
+        methods: {
+            passwordValidateor:function(pass) {
+                if (!pass) {
+                    return false;
+                }
+                pass = pass.replace(/\s/g, '');
+                var DEFAULT_PASSWORD_PATTERN = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8}/;
+                if (pass.match(DEFAULT_PASSWORD_PATTERN)){
+                    return pass;
+                }
+                return false;
+            },
+            userNameValidateor:function(name){
+                if (!name) {
+                    return false;
+                }
+                name = name.replace(/\s/g,'');
+                if (name.length >0) {
+                    return name;
+                }
+                return false;
+            },
+            signin: function () {
+                var name = this.userNameValidateor(this.username);
+                var pass = this.passwordValidateor(this.password);
+                if (!name || !pass) {
+                    alert('wrong format!');
+                    this.username="";
+                    this.password="";
+                    return;
+                }
+                this.$http.post('/login', {
+                    username: name,
+                    password: pass,
+                }).then(function (res) {
+                    console.log(res);
+                    if (res.data.code == '302') {
+                        console.log(this.location);
+                        window.location.replace(this.location + res.data.url);
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            },
+            cleanAll: function(){
+                this.password = "";
+                this.username = "";
+            }
+
+        }
+    });
+</script>
+<script>
+  $(document).ready(function(){
+      $('.collapsible').collapsible();
+      $('.slider').slider();
+      $('.parallax').parallax();
+    });
+</script>
+
+
+</html>

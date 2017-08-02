@@ -11,6 +11,12 @@ var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://localhost:5432/meiguoedu';
 var db = pgp(connectionString);
 
+var fs = require('fs');
+var jwt = require('jsonwebtoken');
+// var cert = fs.readFileSync('./private.key');
+var cert = 'wjm';
+
+var util = require('./utility/rawdataProcess');
 
 // add query functions
 
@@ -18,6 +24,8 @@ module.exports = {
     createPuppy: createPuppy,
     updatePuppy: updatePuppy,
     removePuppy: removePuppy,
+
+    createUser:createOneUser,
 
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
@@ -31,6 +39,7 @@ module.exports = {
     getOneFromLogin:getoneFromLogin,
     passportValidator:PassportValidator,
 };
+
 function getoneFromLogin (req,res,next) {
     // console.log(req.cookies);
     console.log(req.params);
@@ -113,6 +122,7 @@ function getoneStudent(req,res,next) {
                 message: 'Retrieved ONE student'
             });
         }).catch(function (err) {
+            console.log(err);
             return next(err);
     });
 }
@@ -149,8 +159,78 @@ function createPuppy(req, res, next) {
         });
 }
 
+function createOneUser(req,res,next) {
+    console.log('in create user!',cert);
+    console.log(req.cookies.jwt);
+    jwt.verify(req.cookies.jwt,cert,function (err,decode) {
+        if (err) {
+            res.json({
+                status:'fail',
+                message:'token verify fail',
+            });
+            return;
+        }
+        if (decode.role != 'admin') {
+            res.json({
+                status:'fail',
+                message:'authorize fail'
+            });
+            return;
+        }
+
+        var data = standardizeIn(req.body,'newuser');
+        console.log('in create login',data);
+        db.none('insert into login (id,username,role,password,isvisited,nickname)'+
+            'values(${id},${username},${role},${password},${isvisited},${nickname})',
+            data)
+            .then(function () {
+                // we need to send email at here
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        message: 'Inserted one user'
+                    });
+            }).catch(function (err) {
+                console.log(err);
+                return next(err);
+            });
+    });
+    // res.end('this is end of the data');
+}
+
+function createOneUser(req,thenfunc,catchfunc) {
+    jwt.verify(req.cookies.jwt,cert,function (err,decode) {
+        if (err) {
+            res.json({
+                status:'fail',
+                message:'token verify fail',
+            });
+            return;
+        }
+        if (decode.role != 'admin') {
+            res.json({
+                status:'fail',
+                message:'authorize fail'
+            });
+            return;
+        }
+
+        var data = standardizeIn(req.body,'newuser');
+        console.log('in create login',data);
+        db.none('insert into login (id,username,role,password,isvisited,nickname)'+
+            'values(${id},${username},${role},${password},${isvisited},${nickname})',
+            data)
+            .then(
+                thenfunc
+            ).catch(function (err) {
+                catchfunc(err);
+        });
+    });
+}
+
+
 function createStudent(req,res,next) {
-    db.none('insert into ')
+    db.none('insert into student()')
 }
 
 function updatePuppy(req, res, next) {
@@ -185,4 +265,25 @@ function removePuppy(req, res, next) {
         .catch(function (err) {
             return next(err);
         });
+}
+
+
+// utility functions used for this database
+function standardizeIn(body,mode) {
+    var out = {};
+    if (mode == 'student') {
+
+    } else if (mode == 'staff') {
+
+    } else if (mode == 'newuser') {
+        out['id'] = util.md5(body.username);
+        out['username'] =body.username;
+        out['role'] = body.role;
+        out['password'] = body.password;
+        out['isvisited'] = 0;
+        out['nickname'] = '';
+    }
+    // ...more modes
+
+    return out;
 }

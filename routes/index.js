@@ -11,12 +11,13 @@ var db = require('../query.js');
  * @see https://www.npmjs.com/package/jsonwebtoken
  * */
 var jwt = require('jsonwebtoken');
-var cert = fs.readFileSync('private.key');
+// var cert = fs.readFile('../private.key');
+var cert = 'wjm';
 // var session = require('express-session');
 
 
 /* GET home page. */
-router.get(/(^\/$)|(^\/login)$/, function(req, res, next) {
+router.get(/(^\/$)|(^\/login$)/, function(req, res, next) {
 // router.get('/', function(req, res, next) {
     // res.render('index', { title: 'Express' ,name:'wjm'});
     // console.log(req.session.visit);
@@ -53,13 +54,13 @@ router.get('/testJWT',function (req,res,next) {
 
 router.post('/login',function (req,res,next) {
     console.log(req.body);
-
+    console.log(cert);
     // validate success， then set jwt with different role according to role from login db
     var token = jwt.sign({
         role:'Admin',
         sub:'jiameng@usc.edu',
         idt:Math.floor(Date.now() / 1000),
-        exp:Math.floor(Date.now() / 1000)+ 10,
+        exp:Math.floor(Date.now() / 1000)+ 1000,
     }, cert);
 
     res.cookie('jwt',token,{httpOnly:true});
@@ -70,6 +71,33 @@ router.post('/login',function (req,res,next) {
     // res.redirect('/admin');
 });
 
+// router.post('/v1/user',function (req,res,next) {
+//     console.log('/user',req.body);
+//     res.end('end');
+// })
+
+router.get('/logout',function (req,res,next) {
+
+    jwt.verify(req.cookies.jwt,cert,function (err,decode) {
+        if(err) {
+            console.log(err);
+            res.redirect('/');
+            res.end();
+            return;
+        }
+        var token = jwt.sign({
+            role:'TimeOut',
+            sub:decode.sub,
+            idt:Math.floor(Date.now() / 1000),
+            exp:Math.floor(Date.now() / 1000) - 1000,
+        }, cert);
+        res.cookie('jwt',token,{httpOnly:true});
+        res.json({
+            code:'302',
+            url:''
+        });
+    });
+});
 
 // router.post('/logintest',
 //     passport.authenticate('local', { failureRedirect: '/',

@@ -31,6 +31,8 @@
     <script src="https://use.fontawesome.com/08baf95b95.js"></script>
 
 
+    <!--axios ajax library-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 
     <!-- Latest compiled and minified CSS -->
@@ -50,9 +52,9 @@
 <body>
 <div class="mheader">
     <div class="row">
-        <div class="col m1"><a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons white-text">menu</i></a></div>
-        <div class="col m10 center white-text"><span class="white-text">MeiguoEdu</span></div>
-        <div class="col m1"><a href="#"><i class="material-icons white-text">exit_to_app</i></a></div>
+        <div class="col m6"><a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons white-text">menu</i></a></div>
+        <div class="col m5 white-text"><h5 class="white-text">MeiguoEdu</h5></div>
+        <div id="logout" class="col m1"><a @click="logout()"><i class="material-icons white-text">exit_to_app</i></a></div>
     </div>
 </div>
 <!-- <div class="placeholder"></div> -->
@@ -1157,29 +1159,41 @@
         <div id="manage_content" class="mcontent">
             <div class="container">
                 <div class="row">
-                    <div class="input-field col m3"><h5>Create User</h5></div>
+                    <div class="input-field col m2"><h5>Create User</h5></div>
                     <!-- <div class="col m3"></div> -->
-                    <div class="input-field col m3">
-                        <input id="new_username" type="email" class="validate">
+                    <div class="input-field col m2">
+                        <input id="new_username" type="email" class="validate" v-model="newemail">
                         <label for="new_username">Username</label>
                         <!-- <input id="new_username" type="text">
                         <label class="active" for="new_username">Username</label> -->
                     </div>
-                    <div class="input-field col m3">
-                        <input id="new_password" type="text">
+                    <div class="input-field col m2">
+                        <input id="new_password" type="text" v-model="newpass">
                         <label class="active" for="new_password">Password</label>
                     </div>
-                    <div class="input-field col m3"><a href="#" onclick="" class="waves-effect waves-light btn">CREATE</a></div>
+
+                    <div class="input-field col m3">
+                        <select id="user_role">
+                            <option value="" disabled selected>Choose User roles</option>
+                            <option value="Student">Student</option>
+                            <option value="FT">Family Translator</option>
+                            <option value="DOE">Director of Education</option>
+                            <option value="PMC">Counselor</option>
+                            <option value="Admin">Administrator</option>
+                        </select>
+                        <!--<label>Role</label>-->
+                    </div>
+                    <div class="input-field col m3"><a @click="createUser('user_role')" class="waves-effect waves-light btn">CREATE</a></div>
                 </div>
 
                 <div class="row">
-                    <div class="col m3"><h5>Delete User</h5></div>
-                    <div class="input-field col m3">
-                        <input id="delete_username" type="email" class="validate">
+                    <div class="col m2"><h5>Delete User</h5></div>
+                    <div class="input-field col m4">
+                        <input id="delete_username" type="email" class="validate" v-model="deleteemail">
                         <label class="active" for="delete_username">Username</label>
                     </div>
 
-                    <div class="input-field col m3"><a href="#" onclick="" class="waves-effect waves-light btn">CREATE</a></div>
+                    <div class="input-field col m3"><a onclick="" class="waves-effect waves-light btn">DELETE</a></div>
                 </div>
             </div>
         </div>
@@ -1411,6 +1425,12 @@
 </script>
 
 <script>
+//    axios.defaults.baseURL = this.location.origin;
+//    console.log(axios.defaults.baseURL);
+    Vue.prototype.$http = axios.create({
+        baseURL: this.location.origin+'/v1'
+    });
+
     Vue.component('extracurricalr-grid',{
         template:'#extracurricalr-grid',
         props: {
@@ -1953,6 +1973,68 @@
                 this.flatten_extracurricalr = flatten;
                 console.log(flatten);
                 return flatten;
+            }
+        }
+    });
+
+    var logout = new Vue({
+        el:"#logout",
+        data:{
+
+        },
+        methods:{
+            logout:function() {
+                this.$http.get('/logout')
+                    .then(function (res) {
+                    console.log(res);
+                    if (res.data.code == '302') {
+                        console.log(this.location);
+                        window.location.replace(this.location.origin + '/' + res.data.url);
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
+            },
+        }
+    });
+
+    var manage = new Vue({
+        el:"#manage_content",
+        data:{
+            newemail:'',
+            newpass:'',
+            deleteemail:'',
+        },
+        methods:{
+            createUser:function(role_id) {
+//                console.log(role_id);
+//                console.log(this.$http);
+                var user = {};
+                user['role'] = $('#'+role_id).val();
+                user['password'] = this.newpass;
+                user['username'] = this.newemail;
+                console.log(user);
+//                this.$http.get('/user'
+//                ).then(function (res) {
+//                    console.log(res);
+//                    if (res.data.code == '302') {
+//                        console.log(this.location);
+//                        window.location.replace(this.location + res.data.url);
+//                    }
+//                }).catch(function (err) {
+//                    console.log(err);
+//                });
+                this.$http.post('/user',
+                    user
+                ).then(function (res) {
+                    console.log(res);
+                    if (res.data.code == '302') {
+//                        console.log(this.location);
+                        window.location.replace(this.location + res.data.url);
+                    }
+                }).catch(function (err) {
+                    console.log(err);
+                });
             }
         }
     });

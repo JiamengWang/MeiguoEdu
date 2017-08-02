@@ -53,8 +53,8 @@ CREATE TABLE "login" (
   "username" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
   "role" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
   "password" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
-  "isVisited" int4 NOT NULL DEFAULT nextval('meiguo."login_isVisited_seq"'::regclass),
-  "nickName" varchar(16) COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL
+  "isvisited" int4 NOT NULL DEFAULT nextval('meiguo."login_isVisited_seq"'::regclass),
+  "nickname" varchar(16) COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL
 )
 ;
 COMMENT ON COLUMN "login"."id" IS 'MD5 OF EMAIL';

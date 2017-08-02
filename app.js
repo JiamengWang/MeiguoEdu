@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var passport = require('passport');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -35,6 +36,13 @@ app.enable('trust proxy');
 //     saveUninitialized: true,
 //     rolling:true
 // }));
+
+app.use(passport.initialize());
+var localSignupStrategy = require('./passport/signup_local_strategy');
+var localLoginStrategy = require('./passport/login_local_strategy');
+passport.use('local-signup', localSignupStrategy);
+passport.use('local-login', localLoginStrategy);
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

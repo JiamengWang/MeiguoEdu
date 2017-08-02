@@ -1428,7 +1428,7 @@
 //    axios.defaults.baseURL = this.location.origin;
 //    console.log(axios.defaults.baseURL);
     Vue.prototype.$http = axios.create({
-        baseURL: this.location.origin+'/v1'
+        baseURL: this.location.origin
     });
 
     Vue.component('extracurricalr-grid',{
@@ -2024,7 +2024,7 @@
 //                }).catch(function (err) {
 //                    console.log(err);
 //                });
-                this.$http.post('/user',
+                this.$http.post('/v1/testuser',
                     user
                 ).then(function (res) {
                     console.log(res);

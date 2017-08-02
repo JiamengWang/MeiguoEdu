@@ -14,7 +14,7 @@ router.get('/staff/:id',db.getOneStaff);
 router.get('/login/:username',db.getOneFromLogin);
 
 // router.get('/user',db.getAllStudents);
-
+router.post('/testuser',db.test);
 router.post('/user',db.createUser);
 
 module.exports = router;

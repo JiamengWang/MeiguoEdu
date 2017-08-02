@@ -24,7 +24,7 @@ module.exports = {
     createPuppy: createPuppy,
     updatePuppy: updatePuppy,
     removePuppy: removePuppy,
-
+    test:test,
     createUser:createOneUser,
 
     getAllStudents: getallStudents,
@@ -170,7 +170,7 @@ function createOneUser(req,res,next) {
             });
             return;
         }
-        if (decode.role != 'admin') {
+        if (decode.role != 'Admin') {
             res.json({
                 status:'fail',
                 message:'authorize fail'
@@ -198,7 +198,19 @@ function createOneUser(req,res,next) {
     // res.end('this is end of the data');
 }
 
-function createOneUser(req,thenfunc,catchfunc) {
+function test(req,res,next) {
+    var func1 = function () {
+        console.log('1');
+    }
+
+    var func2 = function(err) {
+        console.log('2');
+        console.log(err);
+    }
+    testcreateOneUser(req,func1,func2);
+}
+
+function testcreateOneUser(req,thenfunc,catchfunc) {
     jwt.verify(req.cookies.jwt,cert,function (err,decode) {
         if (err) {
             res.json({
@@ -207,7 +219,7 @@ function createOneUser(req,thenfunc,catchfunc) {
             });
             return;
         }
-        if (decode.role != 'admin') {
+        if (decode.role != 'Admin') {
             res.json({
                 status:'fail',
                 message:'authorize fail'
@@ -266,6 +278,7 @@ function removePuppy(req, res, next) {
             return next(err);
         });
 }
+
 
 
 // utility functions used for this database

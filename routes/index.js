@@ -1,10 +1,9 @@
 var express = require('express');
 var fs = require('fs');
 var router = express.Router();
+var path = require('path');
 var dp = require('../utility/rawdataProcess');
-
 var db = require('../query.js');
-
 
 
 /**
@@ -17,28 +16,17 @@ var cert = 'wjm';
 
 
 /* GET home page. */
-router.get(/(^\/$)|(^\/login\/$)/, function(req, res, next) {
-// router.get('/', function(req, res, next) {
-    // res.render('index', { title: 'Express' ,name:'wjm'});
-    // console.log(req.session.visit);
-    // if (!req.session.visit) {
-    //     req.session.visit = 0;
-    // } else {
-    //     req.session.visit += 1;
-    // }
 
-    res.sendFile('/Users/wjm-harry/Documents/MeiguoEdu/public/Login/login.html');
-
+router.get(/(^\/$)|(^\/login$)/, function(req, res, next) {
+    res.sendFile('login.html', {root: path.join(__dirname, '../public/login')});
 });
 
 router.get('/test',function(req,res,next){
-
     res.end('test');
 });
 
 router.get('/testJWT',function (req,res,next) {
     console.log(req.cookies);
-
 
     try {
         var dec = jwt.verify(req.cookies.jwt, cert);

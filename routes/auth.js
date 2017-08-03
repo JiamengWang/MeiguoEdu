@@ -76,12 +76,12 @@ function checkForm(route, payload){
     let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
     if(route === '/signup'){
-        if(!payload || validator.isEmail(payload.email)){
-            message += 'email format incorrect';
+        if(!payload || !validator.isEmail(payload.username)){
+            message += 'email format incorrect. ';
             validate = false;
         }
         if(!payload || !passwordRegex.test(payload.password)){
-            message += 'password format incorrect';
+            message += 'password format incorrect. ';
             validate = false;
         }
 

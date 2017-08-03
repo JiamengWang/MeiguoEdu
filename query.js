@@ -16,14 +16,13 @@ var util = require('./utility/rawdataProcess');
 module.exports = {
     getoneFromLogin:getoneFromLogin,
     getoneFromLoginCB:getoneFromLoginCB,
-
     createUser:createOneUser,
     createOneUserCB:createOneUserCB,
 
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
     createStudent:createStudent,
-    removeStudent:removeOneStudent,
+    removeUser:removeOneUser,
     // createStaff:createStaff,
 
     getOneStudent: getoneStudent,
@@ -37,6 +36,7 @@ function getoneFromLogin (req,res,next) {
     var username = req.params.username;
     db.one('select * from login where username = $1',username)
         .then(function(data){
+            console.log(data);
             res.status(200).json(
                 {
                     status:'success',
@@ -55,6 +55,7 @@ function getoneFromLoginCB(req, thenCallBack, catchCallBack) {
         .then(function(data) { thenCallBack(data); })
         .catch(function (err) { catchCallBack(err); })
 }
+
 
 function getallStudents(req,res,next) {
     console.log(req.cookies);
@@ -104,8 +105,8 @@ function getoneStudent(req,res,next) {
 }
 
 function getoneStaff(req,res,next) {
-    var stuID = req.params.id;
-    db.one('select * from staff where id = $1',stuID)
+    var staffID = req.params.id;
+    db.one('select * from staff where id = $1',staffID)
         .then(function (data) {
             res.status(200).json({
                 status: 'success',
@@ -151,7 +152,7 @@ function createOneUserCB(req,thenCallBack,catchCallBack) {
 
 
 function createStudent(req,res,next) {
-    // console.log(req);
+    console.log(req);
     db.none('insert into student (id,createdate,bio,hours,happi,badges,summary_bio)'+
         'values (${id},${createdate},${bio},${hours},${happi},${badges},${summary_bio})',standardizeIn(req.body,'student')
     ).then(function () {
@@ -177,10 +178,37 @@ function createStudent(req,res,next) {
     })
 }
 
+function createStaff(req,res,next) {
+    // do.none();
+}
 
-function removeOneStudent(req,res,next) {
-    var stuID = req.body.id;
-    console.log(stuID);
+function removeOneUser(req,res,next) {
+    console.log(req.body);
+    var username = req.body.username;
+    if (!username) {
+        res.status(400).json({
+            status:'fail',
+            message:'need student id'
+        });
+        return;
+    }
+    db.one('delete from login where username = $1 returning *',username)
+        .then(function (result) {
+            var result = result;
+            console.log(result);
+            if (result.role == "student") {
+                removeOneStudent(result.id,res,next);
+            } else {
+                removeOneStaff(result.id,res,next);
+            }
+        }).catch(function (err) {
+            return next(err);
+    });
+}
+
+function removeOneStudent(stuID,res,next) {
+    // var stuID = req.body.id;
+    // console.log(stuID);
     if (!stuID) {
         res.status(400).json({
             status:'fail',
@@ -190,6 +218,7 @@ function removeOneStudent(req,res,next) {
     }
     db.result('delete from student where id = $1',stuID)
         .then(function (result) {
+            console.log(result);
             res.status(200).json({
                 status:'success',
                 message:'Removed:'+result
@@ -199,10 +228,32 @@ function removeOneStudent(req,res,next) {
         });
 }
 
+function removeOneStaff(staffID,res,next) {
+    // var staffID = req.body.id;
+    // console.log(staffID);
+    if (!staffID) {
+        res.status(400).json({
+            status:'fail',
+            message:'need staff id'
+        });
+        return;
+    }
+    db.result('delete from staff where id = $1',staffID)
+        .then(function (result) {
+            console.log(result);
+            res.status(200).json({
+                status:'success',
+                message:'Removed:'+result
+            });
+        }).catch(function (err) {
+            return next(err);
+    });
+}
+
 
 // utility functions used for this database
 function standardizeIn(body,mode) {
-    // console.log(body);
+    console.log(body);
     var out = {};
     if (mode == 'student') {
         var date = new Date();

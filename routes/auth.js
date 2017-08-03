@@ -15,7 +15,14 @@ router.post('/signup', function(req, res, next){
     passport.authenticate('local-signup', function(err) {
         if (err) {
             console.log(err);
-            //TODO DB duplicated username
+            // '23505' is duplicate email error in PostgreSQL
+            if(err.code && err.code === '23505'){
+                return res.status(409).json({
+                    success: false,
+                    message: 'this email is already taken'
+                });
+            }
+
             return res.status(400).json({
                 success: false,
                 message: err

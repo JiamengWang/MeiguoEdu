@@ -16,17 +16,17 @@
 */
 
 
--- ----------------------------
--- Sequence structure for login_isVisited_seq
--- ----------------------------
-DROP SEQUENCE IF EXISTS "login_isVisited_seq";
-CREATE SEQUENCE "login_isVisited_seq"
-INCREMENT 1
-MINVALUE  1
-MAXVALUE 9223372036854775807
- START 1
-CACHE 1;
-SELECT setval('"login_isVisited_seq"', 1, false);
+-- -- ----------------------------
+-- -- Sequence structure for login_isvisited_seq
+-- -- ----------------------------
+-- DROP SEQUENCE IF EXISTS "login_isvisited_seq";
+-- CREATE SEQUENCE "login_isvisited_seq"
+-- INCREMENT 1
+-- MINVALUE  1
+-- MAXVALUE 9223372036854775807
+--  START 1
+-- CACHE 1;
+-- SELECT setval('"login_isvisited_seq"', 1, false);
 
 -- ----------------------------
 -- Table structure for activity
@@ -53,7 +53,7 @@ CREATE TABLE "login" (
   "username" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
   "role" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
   "password" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
-  "isvisited" int4 NOT NULL DEFAULT nextval('meiguo."login_isVisited_seq"'::regclass),
+  "isvisited" int2 NOT NULL DEFAULT NULL,
   "nickname" varchar(16) COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL
 )
 ;
@@ -131,9 +131,9 @@ CREATE TABLE "todo" (
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
-ALTER SEQUENCE "login_isVisited_seq"
-OWNED BY "login"."isVisited";
-SELECT setval('"login_isVisited_seq"', 2, false);
+-- ALTER SEQUENCE "login_isvisited_seq"
+-- OWNED BY "login"."isvisited";
+-- SELECT setval('"login_isvisited_seq"', 2, false);
 
 
 -- ----------------------------

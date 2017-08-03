@@ -34,7 +34,7 @@ SELECT setval('"login_isVisited_seq"', 1, false);
 DROP TABLE IF EXISTS "activity";
 CREATE TABLE "activity" (
   "id" uuid NOT NULL DEFAULT NULL PRIMARY KEY,
-  "createDate" date NOT NULL DEFAULT NULL,
+  "createdate" date NOT NULL DEFAULT NULL,
   "type" varchar COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
   "hours" int2 NOT NULL DEFAULT NULL,
   "happi" int2 NOT NULL DEFAULT NULL,
@@ -85,7 +85,7 @@ COMMENT ON COLUMN "relation"."id" IS 'should as same as id in student table';
 DROP TABLE IF EXISTS "staff";
 CREATE TABLE "staff" (
   "id" uuid NOT NULL DEFAULT NULL PRIMARY KEY,
-  "createDate" date NOT NULL DEFAULT NULL,
+  "createdate" date NOT NULL DEFAULT NULL,
   "bio" jsonb NOT NULL DEFAULT NULL,
   "relation_id" uuid[] NOT NULL
 )
@@ -101,7 +101,7 @@ COMMENT ON COLUMN "staff"."relation_id" IS 'length can be 0';
 DROP TABLE IF EXISTS "student";
 CREATE TABLE "student" (
   "id" uuid NOT NULL DEFAULT NULL PRIMARY KEY,
-  "createDate" date NOT NULL DEFAULT NULL,
+  "createdate" date NOT NULL DEFAULT NULL,
   "bio" jsonb NOT NULL DEFAULT NULL,
   "hours" integer[] NOT NULL DEFAULT NULL,
   "happi" integer[] NOT NULL DEFAULT NULL,
@@ -119,7 +119,7 @@ CREATE TABLE "student" (
 DROP TABLE IF EXISTS "todo";
 CREATE TABLE "todo" (
   "id" uuid NOT NULL DEFAULT NULL PRIMARY KEY,
-  "createDate" date NOT NULL DEFAULT NULL,
+  "createdate" date NOT NULL DEFAULT NULL,
   "dueDate" date NOT NULL DEFAULT NULL,
   "complete" bool NOT NULL DEFAULT NULL,
   "relation_id" uuid NOT NULL DEFAULT NULL,

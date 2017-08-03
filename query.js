@@ -2,11 +2,7 @@
  * Created by wjm-harry on 7/25/17.
  */
 var promise = require('bluebird');
-
-var options = {
-    promiseLib: promise
-};
-
+var options = { promiseLib: promise };
 var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://localhost:5432/meiguoedu';
 var db = pgp(connectionString);
@@ -21,10 +17,10 @@ var util = require('./utility/rawdataProcess');
 // add query functions
 
 module.exports = {
-    createPuppy: createPuppy,
-    test:test,
+    getoneFromLogin:getoneFromLogin,
+    getoneFromLoginCB:getoneFromLoginCB,
     createUser:createOneUser,
-    testcreateOneUser:testcreateOneUser,
+    createOneUserCB:createOneUserCB,
 
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
@@ -35,8 +31,6 @@ module.exports = {
     getOneStudent: getoneStudent,
     getOneStaff: getoneStaff,
     // getOneActivityRecord:getoneActivityRecord,
-
-    getOneFromLogin:getoneFromLogin,
 };
 
 function getoneFromLogin (req,res,next) {
@@ -58,14 +52,11 @@ function getoneFromLogin (req,res,next) {
     })
 }
 
-function getoneFromLoginCB(req,res,callback) {
-    var username = req.params.username;
+function getoneFromLoginCB(req, thenCallBack, catchCallBack) {
+    var username = req.body.username;
     db.one('select * from login where username = $1',username)
-        .then(function(data){
-            callback(null,data);
-        }).catch(function (err) {
-        return callback(err);
-    })
+        .then(function(data) { thenCallBack(data); })
+        .catch(function (err) { catchCallBack(err); })
 }
 
 
@@ -81,7 +72,7 @@ function getallStudents(req,res,next) {
                 }
             );
         }).catch(function (err) {
-            return next(err);
+        return next(err);
     });
 }
 
@@ -98,7 +89,6 @@ function getallStaffs(req,res,next) {
     });
 }
 
-
 function getoneStudent(req,res,next) {
     console.log(req.params);
     // var stuID = parseInt(req.params.id);
@@ -112,8 +102,8 @@ function getoneStudent(req,res,next) {
                 message: 'Retrieved ONE student'
             });
         }).catch(function (err) {
-            console.log(err);
-            return next(err);
+        console.log(err);
+        return next(err);
     });
 }
 
@@ -131,57 +121,26 @@ function getoneStaff(req,res,next) {
     });
 }
 
-
-function createPuppy(req, res, next) {
-    req.body.age = parseInt(req.body.age);
-    db.none('insert into pups(name, breed, age, sex)' +
-        'values(${name}, ${breed}, ${age}, ${sex})',
-        req.body)
+function createOneUser(req,res,next) {
+    var data = standardizeIn(req.body,'newuser');
+    console.log('in create login',data);
+    db.none('insert into login (id,username,role,password,isvisited,nickname)'+
+        'values(${id},${username},${role},${password},${isvisited},${nickname})',
+        data)
         .then(function () {
+            // we need to send email at here
             res.status(200)
                 .json({
                     status: 'success',
-                    message: 'Inserted one puppy'
+                    message: 'Inserted one user'
                 });
-        })
-        .catch(function (err) {
-            return next(err);
-        });
-}
-
-function createOneUser(req,res,next) {
-        var data = standardizeIn(req.body,'newuser');
-        console.log('in create login',data);
-        db.none('insert into login (id,username,role,password,isvisited,nickname)'+
-            'values(${id},${username},${role},${password},${isvisited},${nickname})',
-            data)
-            .then(function () {
-                // we need to send email at here
-                res.status(200)
-                    .json({
-                        status: 'success',
-                        message: 'Inserted one user'
-                    });
-            }).catch(function (err) {
-                console.log(err);
-                return next(err);
-            });
-}
-
-function test(req,res,next) {
-    var func1 = function () {
-        console.log('1');
-    }
-
-    var func2 = function(err) {
-        console.log('2');
+        }).catch(function (err) {
         console.log(err);
-    }
-    testcreateOneUser(req,func1,func2);
+        return next(err);
+    });
 }
 
-
-function testcreateOneUser(req,thenCallBack,catchCallBack) {
+function createOneUserCB(req,thenCallBack,catchCallBack) {
     var data = standardizeIn(req.body,'newuser');
     console.log('in create login',data);
     db.none('insert into login (id,username,role,password,isvisited,nickname)'+
@@ -190,7 +149,7 @@ function testcreateOneUser(req,thenCallBack,catchCallBack) {
         .then(
             thenCallBack
         ).catch(function (err) {
-            catchCallBack(err);
+        catchCallBack(err);
     });
 }
 
@@ -205,7 +164,7 @@ function createStudent(req,res,next) {
         rel['id'] = id;
         rel['stu_id'] = id;
         db.none('insert into relation (id,stu_id) values' +
-                '(${id},${stu_id})',rel
+            '(${id},${stu_id})',rel
         ).then(function () {
             res.status(200)
                 .json({
@@ -246,7 +205,7 @@ function removeOneUser(req,res,next) {
                 removeOneStaff(result.id,res,next);
             }
         }).catch(function (err) {
-            return next(err);
+        return next(err);
     });
 }
 
@@ -268,8 +227,8 @@ function removeOneStudent(stuID,res,next) {
                 message:'Removed:'+result
             });
         }).catch(function (err) {
-            return next(err);
-        });
+        return next(err);
+    });
 }
 
 function removeOneStaff(staffID,res,next) {
@@ -290,7 +249,7 @@ function removeOneStaff(staffID,res,next) {
                 message:'Removed:'+result
             });
         }).catch(function (err) {
-            return next(err);
+        return next(err);
     });
 }
 
@@ -339,3 +298,5 @@ function getsummaryString(body,mode) {
     // console.log(out);
     return JSON.stringify(out);
 }
+
+

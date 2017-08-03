@@ -26,6 +26,7 @@ module.exports = {
     removePuppy: removePuppy,
     test:test,
     createUser:createOneUser,
+    testcreateOneUser:testcreateOneUser,
 
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
@@ -210,7 +211,7 @@ function test(req,res,next) {
     testcreateOneUser(req,func1,func2);
 }
 
-function testcreateOneUser(req,thenfunc,catchfunc) {
+function testcreateOneUser(req,thenCallBack,catchCallBack) {
     jwt.verify(req.cookies.jwt,cert,function (err,decode) {
         if (err) {
             res.json({
@@ -233,9 +234,9 @@ function testcreateOneUser(req,thenfunc,catchfunc) {
             'values(${id},${username},${role},${password},${isvisited},${nickname})',
             data)
             .then(
-                thenfunc
+                thenCallBack
             ).catch(function (err) {
-                catchfunc(err);
+                catchCallBack(err);
         });
     });
 }

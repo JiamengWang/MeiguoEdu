@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport');
 
 var index = require('./routes/index');
+var auth = require('./routes/auth');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
 
@@ -16,32 +17,15 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var db = require('./query.js');
 
-
-
-
 var app = express();
 
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        console.log('initialize: ',username,password,done);
-        db.passportValidator(username,password,done)
-    }
-));
-
 app.enable('trust proxy');
-// app.use(session({
-//     secret: 'recommand 128 bytes random string',
-//     cookie: { maxAge: 5*60*1000},
-//     resave: true,
-//     saveUninitialized: true,
-//     rolling:true
-// }));
 
 app.use(passport.initialize());
 var localSignupStrategy = require('./passport/signup_local_strategy');
-var localLoginStrategy = require('./passport/login_local_strategy');
 passport.use('local-signup', localSignupStrategy);
-passport.use('local-login', localLoginStrategy);
+// var localLoginStrategy = require('./passport/login_local_strategy');
+// passport.use('local-login', localLoginStrategy);
 
 
 // view engine setup
@@ -55,8 +39,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 // app.post('/logintest',
 //     passport.authenticate('local', { failureRedirect: '/admin',
@@ -66,9 +48,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //     });
 app.use('/v1',api);
 app.use('/', index);
+app.use('/auth', auth);
 // app.use('/users', users);
 // app.use('/admin',admin);
-
 
 
 // catch 404 and forward to error handler

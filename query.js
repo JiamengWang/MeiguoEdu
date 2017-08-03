@@ -25,6 +25,7 @@ module.exports = {
     updatePuppy: updatePuppy,
     test:test,
     createUser:createOneUser,
+    testcreateOneUser:testcreateOneUser,
 
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
@@ -190,16 +191,17 @@ function test(req,res,next) {
     testcreateOneUser(req,func1,func2);
 }
 
-function testcreateOneUser(req,thenfunc,catchfunc) {
+
+function testcreateOneUser(req,thenCallBack,catchCallBack) {
     var data = standardizeIn(req.body,'newuser');
     console.log('in create login',data);
     db.none('insert into login (id,username,role,password,isvisited,nickname)'+
         'values(${id},${username},${role},${password},${isvisited},${nickname})',
         data)
         .then(
-            thenfunc
+            thenCallBack
         ).catch(function (err) {
-            catchfunc(err);
+            catchCallBack(err);
     });
 }
 

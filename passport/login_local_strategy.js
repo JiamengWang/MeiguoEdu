@@ -2,6 +2,7 @@ var LocalStrategy = require('passport-local').Strategy;
 
 module.exports = new LocalStrategy({
     function(username, password, done){
+        return done(null, null, null, true);
         // check password correctness
         // if need to reset password
         // No

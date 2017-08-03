@@ -8,6 +8,7 @@ var session = require('express-session');
 var passport = require('passport');
 
 var index = require('./routes/index');
+var auth = require('./routes/auth');
 var users = require('./routes/users');
 var admin = require('./routes/admin');
 
@@ -16,25 +17,15 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var db = require('./query.js');
 
-
-
-
 var app = express();
-
-passport.use(new LocalStrategy(
-    function(username, password, done) {
-        console.log('initialize: ',username,password,done);
-        db.passportValidator(username,password,done)
-    }
-));
 
 app.enable('trust proxy');
 
 
-// app.use(passport.initialize());
-// var localSignupStrategy = require('./passport/signup_local_strategy');
+app.use(passport.initialize());
+var localSignupStrategy = require('./passport/signup_local_strategy');
+passport.use('local-signup', localSignupStrategy);
 // var localLoginStrategy = require('./passport/login_local_strategy');
-// passport.use('local-signup', localSignupStrategy);
 // passport.use('local-login', localLoginStrategy);
 
 
@@ -50,10 +41,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
 app.use('/v1',api);
 app.use('/', index);
-
+app.use('/auth', auth);
 
 
 // catch 404 and forward to error handler

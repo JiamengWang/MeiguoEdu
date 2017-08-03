@@ -1,12 +1,5 @@
-/**
- * Created by wjm-harry on 7/25/17.
- */
 var promise = require('bluebird');
-
-var options = {
-    promiseLib: promise
-};
-
+var options = { promiseLib: promise };
 var pgp = require('pg-promise')(options);
 var connectionString = 'postgres://localhost:5432/meiguoedu';
 var db = pgp(connectionString);
@@ -21,11 +14,8 @@ var util = require('./utility/rawdataProcess');
 // add query functions
 
 module.exports = {
-    createPuppy: createPuppy,
-    updatePuppy: updatePuppy,
-    test:test,
     createUser:createOneUser,
-    testcreateOneUser:testcreateOneUser,
+    createOneUserCB:createOneUserCB,
 
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
@@ -38,7 +28,6 @@ module.exports = {
     // getOneActivityRecord:getoneActivityRecord,
 
     getOneFromLogin:getoneFromLogin,
-    passportValidator:PassportValidator,
 };
 
 function getoneFromLogin (req,res,next) {
@@ -57,27 +46,6 @@ function getoneFromLogin (req,res,next) {
         }).catch(function (err) {
         return next(err);
     })
-}
-
-function PassportValidator (username,password,done) {
-    console.log('this is passport validator',username,password,done);
-    db.one('select * from login where username = $1',username)
-        .then(function(user){
-            console.log(user);
-            if (!user) {
-                return done(null, false, { message: 'Incorrect username.' });
-            }
-            // if (!user.validPassword(password)) {
-            //     return done(null, false, { message: 'Incorrect password.' });
-            // }
-            if (user.password != password) {
-                return done(null, false, { message: 'Incorrect password.' });
-            }
-            console.log('validate success');
-            return done(null, user);
-        }).catch(function (err) {
-            return done(err);
-        })
 }
 
 function getallStudents(req,res,next) {
@@ -108,7 +76,6 @@ function getallStaffs(req,res,next) {
         return next(err);
     });
 }
-
 
 function getoneStudent(req,res,next) {
     console.log(req.params);
@@ -142,24 +109,6 @@ function getoneStaff(req,res,next) {
     });
 }
 
-
-function createPuppy(req, res, next) {
-    req.body.age = parseInt(req.body.age);
-    db.none('insert into pups(name, breed, age, sex)' +
-        'values(${name}, ${breed}, ${age}, ${sex})',
-        req.body)
-        .then(function () {
-            res.status(200)
-                .json({
-                    status: 'success',
-                    message: 'Inserted one puppy'
-                });
-        })
-        .catch(function (err) {
-            return next(err);
-        });
-}
-
 function createOneUser(req,res,next) {
         var data = standardizeIn(req.body,'newuser');
         console.log('in create login',data);
@@ -179,20 +128,7 @@ function createOneUser(req,res,next) {
             });
 }
 
-function test(req,res,next) {
-    var func1 = function () {
-        console.log('1');
-    }
-
-    var func2 = function(err) {
-        console.log('2');
-        console.log(err);
-    }
-    testcreateOneUser(req,func1,func2);
-}
-
-
-function testcreateOneUser(req,thenCallBack,catchCallBack) {
+function createOneUserCB(req,thenCallBack,catchCallBack) {
     var data = standardizeIn(req.body,'newuser');
     console.log('in create login',data);
     db.none('insert into login (id,username,role,password,isvisited,nickname)'+
@@ -231,22 +167,6 @@ function createStudent(req,res,next) {
         console.log(err);
         return next(err);
     })
-}
-
-function updatePuppy(req, res, next) {
-    db.none('update pups set name=$1, breed=$2, age=$3, sex=$4 where id=$5',
-        [req.body.name, req.body.breed, parseInt(req.body.age),
-            req.body.sex, parseInt(req.params.id)])
-        .then(function () {
-            res.status(200)
-                .json({
-                    status: 'success',
-                    message: 'Updated puppy'
-                });
-        })
-        .catch(function (err) {
-            return next(err);
-        });
 }
 
 

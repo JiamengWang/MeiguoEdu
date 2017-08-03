@@ -15,16 +15,24 @@ router.post('/signup', function(req, res, next){
     passport.authenticate('local-signup', function(err) {
         if (err) {
             console.log(err);
-            //TODO DB duplicated username
+            // '23505' is duplicate email error in PostgreSQL
+            if(err.code && err.code === '23505'){
+                return res.status(409).json({
+                    success: false,
+                    message: 'this email is already taken.'
+                });
+            }
+
             return res.status(400).json({
                 success: false,
-                message: err
+                message: 'signup failed! please check error object.',
+                error: err
             });
         }
 
         return res.status(200).json({
             success: true,
-            message: 'signup success'
+            message: 'signup success!'
         });
     })(req, res, next);
 });
@@ -42,23 +50,31 @@ router.post('/login', function(req, res, next){
     passport.authenticate('local-login', function(err, token, userInfo, needReset) {
         if (err) {
             console.log(err);
+            if(err.message && err.message === 'No data returned from the query.'){
+                return res.status(400).json({
+                    success: false,
+                    message: 'login failed! invalid username or password.',
+                });
+            }
             return res.status(400).json({
                 success: false,
-                message: err
+                message: 'login failed! please check error object.',
+                error: err
             });
         }
 
         if(needReset){
             //TODO learn how to use res.status(307) redirection
             return res.status(307).end();
-        } else {
-            return res.status(200).json({
-                success: true,
-                message: 'login success',
-                token,
-                userInfo
-            });
         }
+
+        return res.status(200).json({
+            success: true,
+            message: 'login success!',
+            token,
+            userInfo
+        });
+
     })(req, res, next);
 });
 

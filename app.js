@@ -21,12 +21,11 @@ var app = express();
 
 app.enable('trust proxy');
 
-
 app.use(passport.initialize());
 var localSignupStrategy = require('./passport/signup_local_strategy');
 passport.use('local-signup', localSignupStrategy);
-// var localLoginStrategy = require('./passport/login_local_strategy');
-// passport.use('local-login', localLoginStrategy);
+var localLoginStrategy = require('./passport/login_local_strategy');
+passport.use('local-login', localLoginStrategy);
 
 
 // view engine setup

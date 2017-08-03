@@ -1,6 +1,3 @@
-/**
- * Created by wjm-harry on 7/25/17.
- */
 var promise = require('bluebird');
 var options = { promiseLib: promise };
 var pgp = require('pg-promise')(options);
@@ -72,7 +69,7 @@ function getallStudents(req,res,next) {
                 }
             );
         }).catch(function (err) {
-        return next(err);
+            return next(err);
     });
 }
 
@@ -102,8 +99,8 @@ function getoneStudent(req,res,next) {
                 message: 'Retrieved ONE student'
             });
         }).catch(function (err) {
-        console.log(err);
-        return next(err);
+            console.log(err);
+            return next(err);
     });
 }
 
@@ -122,22 +119,22 @@ function getoneStaff(req,res,next) {
 }
 
 function createOneUser(req,res,next) {
-    var data = standardizeIn(req.body,'newuser');
-    console.log('in create login',data);
-    db.none('insert into login (id,username,role,password,isvisited,nickname)'+
-        'values(${id},${username},${role},${password},${isvisited},${nickname})',
-        data)
-        .then(function () {
-            // we need to send email at here
-            res.status(200)
-                .json({
-                    status: 'success',
-                    message: 'Inserted one user'
-                });
-        }).catch(function (err) {
-        console.log(err);
-        return next(err);
-    });
+        var data = standardizeIn(req.body,'newuser');
+        console.log('in create login',data);
+        db.none('insert into login (id,username,role,password,isvisited,nickname)'+
+            'values(${id},${username},${role},${password},${isvisited},${nickname})',
+            data)
+            .then(function () {
+                // we need to send email at here
+                res.status(200)
+                    .json({
+                        status: 'success',
+                        message: 'Inserted one user'
+                    });
+            }).catch(function (err) {
+                console.log(err);
+                return next(err);
+            });
 }
 
 function createOneUserCB(req,thenCallBack,catchCallBack) {
@@ -149,7 +146,7 @@ function createOneUserCB(req,thenCallBack,catchCallBack) {
         .then(
             thenCallBack
         ).catch(function (err) {
-        catchCallBack(err);
+            catchCallBack(err);
     });
 }
 
@@ -164,7 +161,7 @@ function createStudent(req,res,next) {
         rel['id'] = id;
         rel['stu_id'] = id;
         db.none('insert into relation (id,stu_id) values' +
-            '(${id},${stu_id})',rel
+                '(${id},${stu_id})',rel
         ).then(function () {
             res.status(200)
                 .json({
@@ -205,7 +202,7 @@ function removeOneUser(req,res,next) {
                 removeOneStaff(result.id,res,next);
             }
         }).catch(function (err) {
-        return next(err);
+            return next(err);
     });
 }
 
@@ -227,8 +224,8 @@ function removeOneStudent(stuID,res,next) {
                 message:'Removed:'+result
             });
         }).catch(function (err) {
-        return next(err);
-    });
+            return next(err);
+        });
 }
 
 function removeOneStaff(staffID,res,next) {
@@ -249,7 +246,7 @@ function removeOneStaff(staffID,res,next) {
                 message:'Removed:'+result
             });
         }).catch(function (err) {
-        return next(err);
+            return next(err);
     });
 }
 
@@ -298,5 +295,3 @@ function getsummaryString(body,mode) {
     // console.log(out);
     return JSON.stringify(out);
 }
-
-

@@ -16,5 +16,8 @@ router.get('/login/:username',db.getOneFromLogin);
 // router.get('/user',db.getAllStudents);
 router.post('/testuser',db.test);
 router.post('/user',db.createUser);
+router.post('/student',db.createStudent);
+
+router.delete('/user',db.removeUser);
 
 module.exports = router;

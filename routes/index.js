@@ -17,7 +17,7 @@ var cert = 'wjm';
 
 
 /* GET home page. */
-router.get(/(^\/$)|(^\/login$)/, function(req, res, next) {
+router.get(/(^\/$)|(^\/login\/$)/, function(req, res, next) {
 // router.get('/', function(req, res, next) {
     // res.render('index', { title: 'Express' ,name:'wjm'});
     // console.log(req.session.visit);
@@ -63,11 +63,19 @@ router.post('/login',function (req,res,next) {
         exp:Math.floor(Date.now() / 1000)+ 1000,
     }, cert);
 
-    res.cookie('jwt',token,{httpOnly:true});
-    res.json({
-        code:'302',
-        url:'admin'
-    });
+    if (req.body.username="helen") {
+        res.cookie('jwt', token, {httpOnly: true});
+        res.json({
+            code: '302',
+            url: 'helen'
+        });
+    } else {
+        res.cookie('jwt', token, {httpOnly: true});
+        res.json({
+            code: '302',
+            url: 'admin'
+        });
+    }
     // res.redirect('/admin');
 });
 
@@ -106,7 +114,9 @@ router.get('/logout',function (req,res,next) {
 //         res.redirect('/admin');
 //     }
 // );
-
+router.get('/helen',function (req,res,next) {
+    res.sendFile('/Users/wjm-harry/Documents/MeiguoEdu/public/helen/helen.html');
+});
 router.get('/admin',function (req,res,next) {
     validateRoleAndSendFile(res,req.cookies.jwt,'Admin','/Users/wjm-harry/Documents/MeiguoEdu/public/forAdmin/admin.html');
 });

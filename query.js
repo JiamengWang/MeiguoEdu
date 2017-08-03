@@ -23,13 +23,13 @@ var util = require('./utility/rawdataProcess');
 module.exports = {
     createPuppy: createPuppy,
     updatePuppy: updatePuppy,
-    removePuppy: removePuppy,
     test:test,
     createUser:createOneUser,
 
     getAllStudents: getallStudents,
     getAllStaffs: getallStaffs,
     createStudent:createStudent,
+    removeStudent:removeOneStudent,
     // createStaff:createStaff,
 
     getOneStudent: getoneStudent,
@@ -160,24 +160,6 @@ function createPuppy(req, res, next) {
 }
 
 function createOneUser(req,res,next) {
-    console.log('in create user!',cert);
-    console.log(req.cookies.jwt);
-    jwt.verify(req.cookies.jwt,cert,function (err,decode) {
-        if (err) {
-            res.json({
-                status:'fail',
-                message:'token verify fail',
-            });
-            return;
-        }
-        if (decode.role != 'Admin') {
-            res.json({
-                status:'fail',
-                message:'authorize fail'
-            });
-            return;
-        }
-
         var data = standardizeIn(req.body,'newuser');
         console.log('in create login',data);
         db.none('insert into login (id,username,role,password,isvisited,nickname)'+
@@ -194,8 +176,6 @@ function createOneUser(req,res,next) {
                 console.log(err);
                 return next(err);
             });
-    });
-    // res.end('this is end of the data');
 }
 
 function test(req,res,next) {
@@ -211,38 +191,44 @@ function test(req,res,next) {
 }
 
 function testcreateOneUser(req,thenfunc,catchfunc) {
-    jwt.verify(req.cookies.jwt,cert,function (err,decode) {
-        if (err) {
-            res.json({
-                status:'fail',
-                message:'token verify fail',
-            });
-            return;
-        }
-        if (decode.role != 'Admin') {
-            res.json({
-                status:'fail',
-                message:'authorize fail'
-            });
-            return;
-        }
-
-        var data = standardizeIn(req.body,'newuser');
-        console.log('in create login',data);
-        db.none('insert into login (id,username,role,password,isvisited,nickname)'+
-            'values(${id},${username},${role},${password},${isvisited},${nickname})',
-            data)
-            .then(
-                thenfunc
-            ).catch(function (err) {
-                catchfunc(err);
-        });
+    var data = standardizeIn(req.body,'newuser');
+    console.log('in create login',data);
+    db.none('insert into login (id,username,role,password,isvisited,nickname)'+
+        'values(${id},${username},${role},${password},${isvisited},${nickname})',
+        data)
+        .then(
+            thenfunc
+        ).catch(function (err) {
+            catchfunc(err);
     });
 }
 
 
 function createStudent(req,res,next) {
-    db.none('insert into student()')
+    // console.log(req);
+    db.none('insert into student (id,createdate,bio,hours,happi,badges,summary_bio)'+
+        'values (${id},${createdate},${bio},${hours},${happi},${badges},${summary_bio})',standardizeIn(req.body,'student')
+    ).then(function () {
+        var id = util.md5(req.body.email);
+        var rel = {};
+        rel['id'] = id;
+        rel['stu_id'] = id;
+        db.none('insert into relation (id,stu_id) values' +
+                '(${id},${stu_id})',rel
+        ).then(function () {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Inserted one Student Bio'
+                });
+        }).catch(function (err) {
+            console.log(err);
+            return next(err);
+        })
+    }).catch(function (err) {
+        console.log(err);
+        return next(err);
+    })
 }
 
 function updatePuppy(req, res, next) {
@@ -262,29 +248,41 @@ function updatePuppy(req, res, next) {
 }
 
 
-function removePuppy(req, res, next) {
-    var pupID = parseInt(req.params.id);
-    db.result('delete from pups where id = $1', pupID)
+function removeOneStudent(req,res,next) {
+    var stuID = req.body.id;
+    console.log(stuID);
+    if (!stuID) {
+        res.status(400).json({
+            status:'fail',
+            message:'need student id'
+        });
+        return;
+    }
+    db.result('delete from student where id = $1',stuID)
         .then(function (result) {
-            /* jshint ignore:start */
-            res.status(200)
-                .json({
-                    status: 'success',
-                    message: 'Removed ${result.rowCount} puppy'
-                });
-            /* jshint ignore:end */
-        })
-        .catch(function (err) {
+            res.status(200).json({
+                status:'success',
+                message:'Removed:'+result
+            });
+        }).catch(function (err) {
             return next(err);
         });
 }
 
 
-
 // utility functions used for this database
 function standardizeIn(body,mode) {
+    // console.log(body);
     var out = {};
     if (mode == 'student') {
+        var date = new Date();
+        out['id'] = util.md5(body.email);
+        out['createdate'] = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+        out['bio'] = JSON.stringify(body);
+        out['summary_bio'] = getsummaryString(body,mode);
+        out['hours'] = '{0,0,0,0,0}';
+        out['happi'] = '{0,0,0,0,0}';
+        out['badges'] = '{"c1"}';
 
     } else if (mode == 'staff') {
 
@@ -297,6 +295,22 @@ function standardizeIn(body,mode) {
         out['nickname'] = '';
     }
     // ...more modes
-
+    console.log(out);
     return out;
+}
+
+function getsummaryString(body,mode) {
+    var out = {};
+    if (mode == 'student') {
+        out['chinese_name'] = body.chinese_name;
+        out['family_name'] = body.family_name;
+        out['given_name'] = body.given_name;
+        out['english_name'] = body.english_name;
+        out['gender'] = body.gender;
+        out['birthcity'] = body.birthCity;
+    } else if (mode == 'staff') {
+
+    }
+    // console.log(out);
+    return JSON.stringify(out);
 }

@@ -14,6 +14,9 @@ var util = require('./utility/rawdataProcess');
 // add query functions
 
 module.exports = {
+    getoneFromLogin:getoneFromLogin,
+    getoneFromLoginCB:getoneFromLoginCB,
+
     createUser:createOneUser,
     createOneUserCB:createOneUserCB,
 
@@ -26,8 +29,6 @@ module.exports = {
     getOneStudent: getoneStudent,
     getOneStaff: getoneStaff,
     // getOneActivityRecord:getoneActivityRecord,
-
-    getOneFromLogin:getoneFromLogin,
 };
 
 function getoneFromLogin (req,res,next) {
@@ -46,6 +47,13 @@ function getoneFromLogin (req,res,next) {
         }).catch(function (err) {
         return next(err);
     })
+}
+
+function getoneFromLoginCB(req, thenCallBack, catchCallBack) {
+    var username = req.body.username;
+    db.one('select * from login where username = $1',username)
+        .then(function(data) { thenCallBack(data); })
+        .catch(function (err) { catchCallBack(err); })
 }
 
 function getallStudents(req,res,next) {

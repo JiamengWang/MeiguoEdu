@@ -51,7 +51,7 @@ router.post('/login',function (req,res,next) {
         exp:Math.floor(Date.now() / 1000)+ 1000,
     }, cert);
 
-    if (req.body.username="helen") {
+    if (req.body.username == "helen") {
         res.cookie('jwt', token, {httpOnly: true});
         res.json({
             code: '302',
@@ -103,29 +103,30 @@ router.get('/logout',function (req,res,next) {
 //     }
 // );
 router.get('/helen',function (req,res,next) {
-    res.sendFile('/Users/wjm-harry/Documents/MeiguoEdu/public/helen/helen.html');
+    // res.sendFile('/Users/wjm-harry/Documents/MeiguoEdu/public/helen/helen.html');
+    res.sendFile('helen.html',{root: path.join(__dirname, '../public/helen')})
 });
 router.get('/admin',function (req,res,next) {
-    validateRoleAndSendFile(res,req.cookies.jwt,'Admin','/Users/wjm-harry/Documents/MeiguoEdu/public/forAdmin/admin.html');
+    validateRoleAndSendFile(res,req.cookies.jwt,'Admin','forAdmin/admin.html');
 });
 
 router.get('/doe',function (req,res,next) {
-    validateRoleAndSendFile(res,req.cookies.jwt,'DOE','/Users/wjm-harry/Documents/MeiguoEdu/public/forAdmin/admin.html');
-    res.end('request doe page');
+    validateRoleAndSendFile(res,req.cookies.jwt,'DOE','/forAdmin/admin.html');
+    // res.end('request doe page');
 });
 
 router.get('/pmc',function (req,res,next) {
-    validateRoleAndSendFile(res,req.cookies.jwt,'PMC','/Users/wjm-harry/Documents/MeiguoEdu/public/forAdmin/admin.html');
-    res.end('request pmc page');
+    validateRoleAndSendFile(res,req.cookies.jwt,'PMC','forAdmin/admin.html');
+    // res.end('request pmc page');
 });
 
 router.get('/student',function (req,res,next) {
-    validateRoleAndSendFile(res,req.cookies.jwt,'Student','/Users/wjm-harry/Documents/MeiguoEdu/public/forAdmin/admin.html');
-    res.end('request student page');
+    validateRoleAndSendFile(res,req.cookies.jwt,'Student','forAdmin/admin.html');
+    // res.end('request student page');
 });
 
 
-var validateRoleAndSendFile = function (res,cookie,role,path) {
+var validateRoleAndSendFile = function (res,cookie,role,file) {
     jwt.verify(cookie,cert,function (err,decode) {
         if (err) {
             console.log(err);
@@ -134,7 +135,7 @@ var validateRoleAndSendFile = function (res,cookie,role,path) {
             return;
         }
         if (decode.role == role) {
-            res.sendFile(path);
+            res.sendFile(file,{root: path.join(__dirname, '../public')});
         } else {
             res.redirect('/');
             res.end();

@@ -32,8 +32,8 @@
 
 
     <!--axios ajax library-->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
+    <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 
     <!-- Latest compiled and minified CSS -->
     <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"> -->
@@ -45,7 +45,8 @@
     <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> -->
 
     <link rel="stylesheet" href="../stylesheets/newLayout.css">
-    <link rel="stylesheet" href="badges.css">
+    <link rel="stylesheet" href="../stylesheets/badges.css">
+    <link rel="stylesheet" href="../stylesheets/snackbar.css">
 
 </head>
 
@@ -54,8 +55,9 @@
     <div class="row">
         <div class="col m6"><a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons white-text">menu</i></a></div>
         <div class="col m5 white-text"><h5 class="white-text">MeiguoEdu</h5></div>
-        <div id="logout" class="col m1"><a @click="logout()"><i class="material-icons white-text">exit_to_app</i></a></div>
+        <div id="logout" class="col m1"><a @click="logout()" class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="logout system" ><i class="material-icons white-text">exit_to_app</i></a></div>
     </div>
+    <div id="snackbar" class="snackbar">Some text some message..</div>
 </div>
 <!-- <div class="placeholder"></div> -->
 
@@ -1193,7 +1195,7 @@
                         <label class="active" for="delete_username">Username</label>
                     </div>
 
-                    <div class="input-field col m3"><a onclick="" class="waves-effect waves-light btn">DELETE</a></div>
+                    <div class="input-field col m3"><a @click="deleteUser()" class="waves-effect waves-light btn">DELETE</a></div>
                 </div>
             </div>
         </div>
@@ -1425,11 +1427,12 @@
 </script>
 
 <script>
-//    axios.defaults.baseURL = this.location.origin;
-//    console.log(axios.defaults.baseURL);
-    Vue.prototype.$http = axios.create({
-        baseURL: this.location.origin
-    });
+////    axios.defaults.baseURL = this.location.origin;
+////    console.log(axios.defaults.baseURL);
+//    Vue.prototype.$http = axios.create({
+//        baseURL: this.location.origin
+//    });
+    Vue.http.options.root = this.location.origin;
 
     Vue.component('extracurricalr-grid',{
         template:'#extracurricalr-grid',
@@ -2007,37 +2010,57 @@
         },
         methods:{
             createUser:function(role_id) {
-//                console.log(role_id);
-//                console.log(this.$http);
                 var user = {};
                 user['role'] = $('#'+role_id).val();
                 user['password'] = this.newpass;
                 user['username'] = this.newemail;
                 console.log(user);
-//                this.$http.get('/user'
-//                ).then(function (res) {
-//                    console.log(res);
-//                    if (res.data.code == '302') {
-//                        console.log(this.location);
-//                        window.location.replace(this.location + res.data.url);
-//                    }
-//                }).catch(function (err) {
-//                    console.log(err);
-//                });
-                this.$http.post('/v1/testuser',
+                this.$http.post('/auth/signup',
                     user
                 ).then(function (res) {
                     console.log(res);
-                    if (res.data.code == '302') {
-//                        console.log(this.location);
-                        window.location.replace(this.location + res.data.url);
+                    responseHandler(res);
+                    if (res.data.code == '409') {
+                        alert('this emial is already existed in database');
                     }
                 }).catch(function (err) {
+                    responseHandler(err);
+                    console.log(err);
+                });
+            },
+            deleteUser:function() {
+                var deleteu = {};
+                deleteu['username'] = this.deleteemail;
+                console.log(deleteu);
+                this.$http.delete('/v1/user/'+this.deleteemail
+                ).then(function (res) {
+                    console.log(res);
+                    responseHandler(res);
+                }).catch(function (err) {
+                    responseHandler(err);
                     console.log(err);
                 });
             }
         }
     });
+
+    var responseHandler = function (res) {
+        console.log('in response handler');
+        if (res.status == '200') {
+            toast('SUCCESS');
+        } else {
+            toast('FAILURE');
+        }
+    }
+
+
+    var toast = function (message) {
+        console.log('in toast');
+        var x = document.getElementById("snackbar")
+        x.className = "show";
+        x.innerHTML = message;
+        setTimeout(function(){ x.className = x.className.replace("show", ""); }, 3000);
+    }
 </script>
 
 <script src="../javascripts/admin.js"></script>

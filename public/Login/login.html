@@ -64,8 +64,8 @@
           <div style="margin-top:8px;" class="row">
             <div class="col m3 right-align "><input style="height:2rem;" class="login-item white-text" type="text" placeholder="Username" name="username" v-model="username"></div>
             <div class="col m3 right-align "><input style="height:2rem;" class="login-item white-text" type="password" placeholder="Password" name="password" v-model="password"></div>
-            <div class="col m3 right-align"><button class="login-item" @click="cleanAll()"><i  class="material-icons white-text">undo</i></button></div>
-            <div class="col m2 right-align "><button class="login-item" @click="signin()"><i class="material-icons white-text">lock</i></button></div>
+            <div class="col m3 right-align"><button class="login-item tooltipped" @click="cleanAll()" data-position="bottom" data-delay="50" data-tooltip="clear login information"><i  class="material-icons white-text">undo</i></button></div>
+            <div class="col m2 right-align "><button class="login-item tooltipped" @click="signin()" data-position="bottom" data-delay="50" data-tooltip="login system"><i class="material-icons white-text">lock</i></button></div>
           </div>
         </div>
       </div>
@@ -222,6 +222,7 @@
       $('.collapsible').collapsible();
       $('.slider').slider();
       $('.parallax').parallax();
+      $('.tooltipped').tooltip({delay: 50});
     });
 </script>
 

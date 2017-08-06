@@ -17,7 +17,8 @@ router.get('/staff/:id',db.getOneStaff);
 // router.post('/testuser',db.test);
 router.post('/user',db.createUser);
 router.post('/student',db.createStudent);
+router.post('/staff',db.createStaff);
 
-router.delete('/user',db.removeUser);
+router.delete('/user/:username',db.removeUser);
 
 module.exports = router;

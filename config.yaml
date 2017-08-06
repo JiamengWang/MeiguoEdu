@@ -1,0 +1,12 @@
+JWT : {
+  'EXP' : 600,
+  'SECRET' : 'wjm'
+}
+
+BCRYPT : {
+  'SALT_ROUND' : 10
+}
+
+POSTGRE : {
+  'URI' : 'postgres://localhost:5432/meiguoedu'
+}

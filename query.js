@@ -1,8 +1,12 @@
+var yaml = require('js-yaml');
+var fs = require('fs');
+var path = require('path');
+const config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './config.yaml'), 'utf8'));
+
 var promise = require('bluebird');
 var options = { promiseLib: promise };
 var pgp = require('pg-promise')(options);
-var connectionString = 'postgres://localhost:5432/meiguoedu';
-var db = pgp(connectionString);
+var db = pgp(config['POSTGRE']['URI']);
 
 var fs = require('fs');
 var jwt = require('jsonwebtoken');
@@ -139,7 +143,7 @@ function createOneUser(req,res,next) {
 
 function createOneUserCB(req,thenCallBack,catchCallBack) {
     var data = standardizeIn(req.body,'newuser');
-    console.log('in create login',data);
+    // console.log('in create login',data);
     db.none('insert into login (id,username,role,password,isvisited,nickname)'+
         'values(${id},${username},${role},${password},${isvisited},${nickname})',
         data)
@@ -253,7 +257,7 @@ function removeOneStaff(staffID,res,next) {
 
 // utility functions used for this database
 function standardizeIn(body,mode) {
-    console.log(body);
+    // console.log(body);
     var out = {};
     if (mode == 'student') {
         var date = new Date();
@@ -276,7 +280,7 @@ function standardizeIn(body,mode) {
         out['nickname'] = '';
     }
     // ...more modes
-    console.log(out);
+    // console.log(out);
     return out;
 }
 

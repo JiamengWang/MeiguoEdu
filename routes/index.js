@@ -40,32 +40,31 @@ router.get('/testJWT',function (req,res,next) {
     res.end('end');
 });
 
-router.post('/login',function (req,res,next) {
-    console.log(req.body);
-    console.log(cert);
-    // validate success， then set jwt with different role according to role from login db
-    var token = jwt.sign({
-        role:'Admin',
-        sub:'jiameng@usc.edu',
-        idt:Math.floor(Date.now() / 1000),
-        exp:Math.floor(Date.now() / 1000)+ 1000,
-    }, cert);
-
-    if (req.body.username == "helen") {
-        res.cookie('jwt', token, {httpOnly: true});
-        res.json({
-            code: '302',
-            url: 'helen'
-        });
-    } else {
-        res.cookie('jwt', token, {httpOnly: true});
-        res.json({
-            code: '302',
-            url: 'admin'
-        });
-    }
-    // res.redirect('/admin');
-});
+// router.post('/login',function (req,res,next) {
+//     console.log(req.body);
+//     console.log(cert);
+//     // validate success， then set jwt with different role according to role from login db
+//     var token = jwt.sign({
+//         role:'Admin',
+//         sub:'jiameng@usc.edu',
+//         exp:Math.floor(Date.now() / 1000)+ 1000,
+//     }, cert);
+//
+//     if (req.body.username == "helen") {
+//         res.cookie('jwt', token, {httpOnly: true});
+//         res.json({
+//             code: '302',
+//             url: 'helen'
+//         });
+//     } else {
+//         res.cookie('jwt', token, {httpOnly: true});
+//         res.json({
+//             code: '302',
+//             url: 'admin'
+//         });
+//     }
+//     // res.redirect('/admin');
+// });
 
 // router.post('/v1/user',function (req,res,next) {
 //     console.log('/user',req.body);

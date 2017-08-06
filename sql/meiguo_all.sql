@@ -87,7 +87,9 @@ CREATE TABLE "staff" (
   "id" uuid NOT NULL DEFAULT NULL PRIMARY KEY,
   "createdate" date NOT NULL DEFAULT NULL,
   "bio" jsonb NOT NULL DEFAULT NULL,
-  "relation_id" uuid[] NOT NULL
+  "relation_id" uuid[] NOT NULL,
+  "role" text COLLATE "pg_catalog"."default" NOT NULL DEFAULT NULL,
+  "summary_bio" jsonb DEFAULT NULL
 )
 ;
 COMMENT ON COLUMN "staff"."relation_id" IS 'length can be 0';
@@ -109,7 +111,8 @@ CREATE TABLE "student" (
   "GPA" jsonb DEFAULT NULL,
   "WMA" jsonb DEFAULT NULL,
   "WYZ" jsonb DEFAULT NULL,
-  "VOM" jsonb DEFAULT NULL
+  "VOM" jsonb DEFAULT NULL,
+  "summary_bio" jsonb DEFAULT NULL
 )
 ;
 

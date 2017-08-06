@@ -15,9 +15,7 @@ module.exports = new LocalStrategy(
             req.body.password = hash;
             pgdb.createOneUserCB(req,
                 () => {return done(null)},
-                (err) => {
-                    return done(err)
-                }
+                (err) => {return done(err)}
             );
         });
     }

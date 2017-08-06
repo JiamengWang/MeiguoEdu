@@ -82,12 +82,27 @@ router.post('/login', function(req, res, next){
             // return res.redirect(307,)
         }
 
+        res.cookie('jwt', userInfo.token, {httpOnly: true});
         return res.status(200).json({
             success: true,
             message: 'login success!',
             userInfo: userInfo
         });
 
+    })(req, res, next);
+});
+
+router.post('/password', function(req, res, next){
+    const checkFormResult = checkForm('/password', req.body);
+    if(!checkFormResult.validate){
+        return res.status(401).json({
+            success: false,
+            message: checkFormResult.message
+        });
+    }
+
+    passport.authenticate('local-reset-password', function(err, userInfo){
+        // TODO
     })(req, res, next);
 });
 
@@ -105,11 +120,15 @@ function checkForm(route, payload){
     let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
     if(!payload.username || !validator.isEmail(payload.username)){
-        message += 'email format incorrect. ';
+        message += ' email format incorrect.';
         validate = false;
     }
     if(!payload.password || !passwordRegex.test(payload.password)){
-        message += 'password format incorrect. ';
+        message += ' password format incorrect.';
+        validate = false;
+    }
+    if(route=='/password' && (!payload.newPassword || !passwordRegex.test(payload.newPassword))){
+        message += ' new password format incorrect.';
         validate = false;
     }
 

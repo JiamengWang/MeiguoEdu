@@ -13,45 +13,41 @@ module.exports = new LocalStrategy(
     function(req, username, password, done){
         pgdb.getoneFromLoginCB(req,
             (data) => {
-                // console.log(data);
                 let userInfo = {username: username};
+                // check this user has password
                 if(!data.password){
                     userInfo.err = username + ' dose not have password in database';
                     return done(null, userInfo);
                 }
 
+                // check old password match with db
                 bcrypt.compare(password, data.password, function(err, isMatched){
                     if(err) return done(err);
 
-                    if(isMatched === false){
+                    if(isMatched === false || data.isvisited > 0){
                         userInfo.err = 'invalid username or password';
                         return done(null, userInfo);
                     }
 
-                    if(data.isvisited === 0){
-                        userInfo.needReset = true;
-                        return done(null, userInfo);
-                    }
-
-                    userInfo.token = jwt.sign(
-                        {   exp: Math.floor(Date.now() / 1000) + config['JWT']['EXP'],
-                            sub: username
-                        }, config['JWT']['SECRET']
-                    );
-                    return done(null, userInfo);
+                    // salt hash new password
+                    bcrypt.hash(req.body.newPassword, config['BCRYPT']['SALT_ROUND'], function (err, hash) {
+                        if(err) return done(err);
+                        req.body.password = hash;
+                        pgdb.updateUser(req,
+                            () => {
+                                userInfo.token = jwt.sign(
+                                    {   exp: Math.floor(Date.now() / 1000) + config['JWT']['EXP'],
+                                        sub: username
+                                    }, config['JWT']['SECRET']
+                                );
+                                return done(null, userInfo);
+                            },
+                            (err) => {return done(err)}
+                        );
+                    });
                 });
             },
             (err) => {return done(err)}
         );
     }
 );
-
-/*
-    This is an error when getting non-existing user
-    QueryResultError {
-        code: queryResultErrorCode.noData
-        message: "No data returned from the query."
-        received: 0
-        query: "select * from login where username = 'abc1234@abc.com'"
-    }
-*/

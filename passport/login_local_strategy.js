@@ -1,23 +1,48 @@
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt');
+var jwt = require('jsonwebtoken');
+var yaml = require('js-yaml');
+var fs = require('fs');
+var path = require('path');
 var pgdb = require('../query');
+
+const config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../config.yaml'), 'utf8'));
 
 module.exports = new LocalStrategy(
     { passReqToCallback: true },
     function(req, username, password, done){
         pgdb.getoneFromLoginCB(req,
             (data) => {
-                console.log(data);
-                return done(null, null, username, false);
+                // console.log(data);
+                let userInfo = {username: username};
+                if(!data.password){
+                    userInfo.err = username + ' dose not have password in database';
+                    return done(null, userInfo);
+                }
+
+                bcrypt.compare(password, data.password, function(err, isMatched){
+                    if(err) return done(err);
+
+                    if(isMatched == false){
+                        userInfo.err = 'invalid username or password';
+                        return done(null, userInfo);
+                    }
+
+                    if(data.isvisited == 0){
+                        userInfo.needReset = true;
+                        return done(null, userInfo);
+                    }
+
+                    userInfo.token = jwt.sign(
+                        {   exp: Math.floor(Date.now() / 1000) + config['JWT']['EXP'],
+                            sub: username
+                        }, config['JWT']['SECRET']
+                    );
+                    return done(null, userInfo);
+                });
             },
-            (err) => { return done(err, null, username, null) }
+            (err) => {return done(err)}
         );
-        // check password correctness
-        // if need to reset password
-        // No
-            // generate jwt
-            // return error, token, userInfo, needReset=false
-        // Yes
-            // return error, token, userInfo, needReset=true
     }
 );
 

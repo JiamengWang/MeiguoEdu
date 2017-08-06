@@ -1,16 +1,25 @@
 var LocalStrategy = require('passport-local').Strategy;
+var bcrypt = require('bcrypt');
+var yaml = require('js-yaml');
+var fs = require('fs');
+var path = require('path');
 var pgdb = require('../query');
+
+const config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../config.yaml'), 'utf8'));
 
 module.exports = new LocalStrategy(
     { passReqToCallback: true },
     function(req, username, password, done){
-        // TODO: salt hash
-        pgdb.createOneUserCB(req,
-            () => {return done(null)},
-            (err) => {
-                return done(err)
-            }
-        );
+        bcrypt.hash(password, config['BCRYPT']['SALT_ROUND'], function (err, hash) {
+            if(err) return done(err);
+            req.body.password = hash;
+            pgdb.createOneUserCB(req,
+                () => {return done(null)},
+                (err) => {
+                    return done(err)
+                }
+            );
+        });
     }
 );
 

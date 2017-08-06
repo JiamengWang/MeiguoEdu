@@ -6,7 +6,7 @@ var router = express.Router();
 router.post('/signup', function(req, res, next){
     const checkFormResult = checkForm('/signup', req.body);
     if(!checkFormResult.validate){
-        return res.status(400).json({
+        return res.status(401).json({
             success: false,
             message: checkFormResult.message
         });
@@ -17,7 +17,7 @@ router.post('/signup', function(req, res, next){
             console.log(err);
             // '23505' is duplicate email error in PostgreSQL
             if(err.code && err.code === '23505'){
-                return res.status(409).json({
+                return res.status(401).json({
                     success: false,
                     message: 'this email is already taken.'
                 });
@@ -43,17 +43,18 @@ router.post('/login', function(req, res, next){
     if(!checkFormResult.validate){
         return res.status(400).json({
             success: false,
-            message: checkFormResult.message
+            message: checkFormResult.message,
+            userInfo: req.body.username
         });
     }
 
-    passport.authenticate('local-login', function(err, token, userInfo, needReset) {
-        if (err) {
+    passport.authenticate('local-login', function(err, userInfo) {
+        if(err) {
             console.log(err);
-            if(err.message && err.message === 'No data returned from the query.'){
-                return res.status(400).json({
+            if(err.message && (err.message === 'No data returned from the query.')){
+                return res.status(401).json({
                     success: false,
-                    message: 'login failed! invalid username or password.',
+                    message: 'login failed! invalid username or password.'
                 });
             }
             return res.status(400).json({
@@ -63,16 +64,28 @@ router.post('/login', function(req, res, next){
             });
         }
 
-        if(needReset){
+        if(userInfo.err){
+            console.log(userInfo.err);
+            return res.status(401).json({
+                success: false,
+                message: 'login failed! invalid username or password.',
+            });
+        }
+
+        if(userInfo.needReset){
+            return res.status(307).json({
+                success: false,
+                message: 'redirection',
+                userInfo: userInfo
+            });
             //TODO learn how to use res.status(307) redirection
-            return res.status(307).end();
+            // return res.redirect(307,)
         }
 
         return res.status(200).json({
             success: true,
             message: 'login success!',
-            token,
-            userInfo
+            userInfo: userInfo
         });
 
     })(req, res, next);
@@ -91,21 +104,16 @@ function checkForm(route, payload){
      */
     let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
-    if(route === '/signup'){
-        if(!payload || !validator.isEmail(payload.username)){
-            message += 'email format incorrect. ';
-            validate = false;
-        }
-        if(!payload || !passwordRegex.test(payload.password)){
-            message += 'password format incorrect. ';
-            validate = false;
-        }
-
-        if(validate){
-            message = route.substr(1) + " successful";
-        }
+    if(!payload.username || !validator.isEmail(payload.username)){
+        message += 'email format incorrect. ';
+        validate = false;
+    }
+    if(!payload.password || !passwordRegex.test(payload.password)){
+        message += 'password format incorrect. ';
+        validate = false;
     }
 
+    if(validate){ message = route.substr(1) + " successful"; }
     return {
         message,
         validate

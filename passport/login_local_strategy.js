@@ -5,6 +5,7 @@ var yaml = require('js-yaml');
 var fs = require('fs');
 var path = require('path');
 var pgdb = require('../query');
+var utiliy = require('../utility/rawdataProcess');
 
 const config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../config.yaml'), 'utf8'));
 
@@ -35,7 +36,8 @@ module.exports = new LocalStrategy(
 
                     userInfo.token = jwt.sign(
                         {   exp: Math.floor(Date.now() / 1000) + config['JWT']['EXP'],
-                            sub: username
+                            sub: utiliy.md5(username),
+                            role: data.role
                         }, config['JWT']['SECRET']
                     );
                     return done(null, userInfo);

@@ -1177,11 +1177,11 @@
                     <div class="input-field col m3">
                         <select id="user_role">
                             <option value="" disabled selected>Choose User roles</option>
-                            <option value="Student">Student</option>
+                            <option value="STUD">Student</option>
                             <option value="FT">Family Translator</option>
                             <option value="DOE">Director of Education</option>
                             <option value="PMC">Counselor</option>
-                            <option value="Admin">Administrator</option>
+                            <option value="ADMIN">Administrator</option>
                         </select>
                         <!--<label>Role</label>-->
                     </div>
@@ -1990,7 +1990,7 @@
                 this.$http.get('/logout')
                     .then(function (res) {
                     console.log(res);
-                    if (res.data.code == '302') {
+                    if (res.data.code == 'x') {
                         console.log(this.location);
                         window.location.replace(this.location.origin + '/' + res.data.url);
                     }

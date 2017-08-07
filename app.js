@@ -13,6 +13,7 @@ var users = require('./routes/users');
 var admin = require('./routes/admin');
 
 var api = require('./routes/v1');
+var levelcheck = require('./utility/levelcheck');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var db = require('./query.js');
@@ -42,6 +43,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use('/v1',levelcheck.check);
 app.use('/v1',api);
 app.use('/', index);
 app.use('/auth', auth);

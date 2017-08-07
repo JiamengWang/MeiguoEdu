@@ -8,7 +8,7 @@ var options = { promiseLib: promise };
 var pgp = require('pg-promise')(options);
 var db = pgp(config['POSTGRE']['URI']);
 
-var fs = require('fs');
+
 var jwt = require('jsonwebtoken');
 var cert = 'wjm';
 
@@ -35,14 +35,18 @@ module.exports = {
     getAllStaffs: getallStaffs,
     createStudent:createStudent,
     removeUser:removeOneUser,
-    // createStaff:createStaff,
+    createStaff:createStaff,
 
     getOneStudent: getoneStudent,
     getOneStaff: getoneStaff,
     // getOneActivityRecord:getoneActivityRecord,
 
+
     userFirstLoginResetCB: userFirstLoginResetCB,
     updateIsVistedCB: updateIsVistedCB,
+
+    fetchrole : fetchRole,
+
 };
 
 function getoneFromLogin (req,res,next) {
@@ -167,6 +171,11 @@ function createOneUserCB(req,thenCallBack,catchCallBack) {
 
 
 function createStudent(req,res,next) {
+    /**behaviour: student biographical infotmation should existed in req.body
+     * method: POST
+     * note: insert record into student/relation tables
+     *       this method will be called by survery parser when we receive input data
+     * */
     console.log(req);
     db.none('insert into student (id,createdate,bio,hours,happi,badges,summary_bio)'+
         'values (${id},${createdate},${bio},${hours},${happi},${badges},${summary_bio})',standardizeIn(req.body,'student')
@@ -194,24 +203,69 @@ function createStudent(req,res,next) {
 }
 
 function createStaff(req,res,next) {
-    // do.none();
+    /**behaviour: staff biographical information shoud existed in req.body
+     * method: POST
+     * note: only insert into staff table
+     *       this method will be called by survery parser when we receive input data
+     * */
+    console.log(req.body);
+    db.none('insert into staff (id,createdate,bio,relation_id,role,summary_bio)'+
+        'values (${id},${createdate},${bio},${relation_id},${role},${summary_bio})',standardizeIn(req.body,'staff')
+    ).then(function () {
+        res.status(200)
+            .json({
+                status: 'success',
+                message: 'Insert one Staff Bio'
+            });
+    }).catch(function (err) {
+        console.log(err);
+        return next(err);
+    })
+}
+
+function createTodoCell(req,res,next) {
+
+}
+
+function updateRelation(req,res,next) {
+
+}
+
+function updatePassword(req,res,next) {
+    db.none('update login set password = $1 where id = $2',
+        [req.body.newpassword,req.who])
+        .then(function () {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Update password success'
+                });
+        })
+        .catch(function (err) {
+            return next(err);
+        });
 }
 
 function removeOneUser(req,res,next) {
-    console.log(req.body);
-    var username = req.body.username;
+    /** behaviour: based on email address, remove one user from a login table
+     *              -- if it is student's email, we should also manually remove bio info from student information
+     *              -- if it is staff's email, we should also manually remove bio info from staff information
+     *  method: DELETE
+     *  note: url should contains the target email address
+     * */
+    var username = req.params.username;
     if (!username) {
         res.status(400).json({
             status:'fail',
-            message:'need student id'
+            message:'need username'
         });
         return;
     }
     db.one('delete from login where username = $1 returning *',username)
-        .then(function (result) {
-            var result = result;
+        .then(function (data) {
+            var result = data;
             console.log(result);
-            if (result.role == "student") {
+            if (result.role == "Student") {
                 removeOneStudent(result.id,res,next);
             } else {
                 removeOneStaff(result.id,res,next);
@@ -224,28 +278,32 @@ function removeOneUser(req,res,next) {
 function removeOneStudent(stuID,res,next) {
     // var stuID = req.body.id;
     // console.log(stuID);
-    if (!stuID) {
-        res.status(400).json({
-            status:'fail',
-            message:'need student id'
-        });
-        return;
-    }
-    db.result('delete from student where id = $1',stuID)
-        .then(function (result) {
-            console.log(result);
-            res.status(200).json({
-                status:'success',
-                message:'Removed:'+result
-            });
-        }).catch(function (err) {
-            return next(err);
-        });
+
+    res.status(200).json({
+        status:'success',
+        message:'Removed:'+result
+    });
+
+    // if (!stuID) {
+    //     res.status(400).json({
+    //         status:'fail',
+    //         message:'need student id'
+    //     });
+    //     return;
+    // }
+    // db.result('delete from student where id = $1',stuID)
+    //     .then(function (result) {
+    //         console.log(result);
+    //         res.status(200).json({
+    //             status:'success',
+    //             message:'Removed:'+result
+    //         });
+    //     }).catch(function (err) {
+    //         return next(err);
+    //     });
 }
 
 function removeOneStaff(staffID,res,next) {
-    // var staffID = req.body.id;
-    // console.log(staffID);
     if (!staffID) {
         res.status(400).json({
             status:'fail',
@@ -283,8 +341,8 @@ function updateIsVistedCB(req, thenCallBack, catchCallBack) {
 function standardizeIn(body,mode) {
     // console.log(body);
     var out = {};
+    var date = new Date();
     if (mode == 'student') {
-        var date = new Date();
         out['id'] = util.md5(body.email);
         out['createdate'] = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
         out['bio'] = JSON.stringify(body);
@@ -292,9 +350,13 @@ function standardizeIn(body,mode) {
         out['hours'] = '{0,0,0,0,0}';
         out['happi'] = '{0,0,0,0,0}';
         out['badges'] = '{"c1"}';
-
     } else if (mode == 'staff') {
-
+        out['id'] = util.md5(body.email);
+        out['createdate'] = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+        out['bio'] = JSON.stringify(body);
+        out['role'] = body.role;
+        out['relation_id'] = '{}';
+        out['summary_bio'] = getsummaryString(body,mode);
     } else if (mode == 'newuser') {
         out['id'] = util.md5(body.username);
         out['username'] =body.username;
@@ -318,8 +380,24 @@ function getsummaryString(body,mode) {
         out['gender'] = body.gender;
         out['birthcity'] = body.birthCity;
     } else if (mode == 'staff') {
-
+        out['name'] = body.family_name+' '+body.given_name;
+        out['gender'] = body.gender;
+        out['preferred_name'] = body.preferred_name;
+        out['email'] = body.email;
     }
-    // console.log(out);
+    console.log(out);
     return JSON.stringify(out);
+}
+
+
+function fetchRole(req,res,path,levelcontrol,callback) {
+    db.one('select role from login where id = $1',req.who)
+        .then(function (data) {
+            console.log(data);
+            callback(null,data,path);
+        }).catch(function (err) {
+            // console.log(err);
+            // return next(err);
+            callback(err);
+    });
 }

@@ -80,19 +80,22 @@ router.post('/login', function(req, res, next){
         if(userInfo.needReset){
             return res.status(307).json({
                 success: true,
+
                 message: 'redirection',
                 userInfo: userInfo
             });
             //TODO learn how to use res.status(307) redirection
-            // return res.redirect(307,)
+            // return res.redirect(307,'http:localhost:3000/admin');
         }
 
         res.cookie('jwt', userInfo.token, {httpOnly: true});
         delete userInfo.token;
+
         return res.status(200).json({
             success: true,
             message: 'login success!',
-            userInfo: userInfo
+            userInfo: userInfo,
+            url : 'admin'
         });
 
     })(req, res, next);

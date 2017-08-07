@@ -14,7 +14,7 @@ module.exports = new LocalStrategy(
         pgdb.getoneFromLoginCB(req,
             (data) => {
                 // console.log(data);
-                let userInfo = {username: username};
+                let userInfo = {username: username, role: data.role};
                 if(!data.password){
                     userInfo.err = username + ' dose not have password in database';
                     return done(null, userInfo);
@@ -33,12 +33,20 @@ module.exports = new LocalStrategy(
                         return done(null, userInfo);
                     }
 
-                    userInfo.token = jwt.sign(
-                        {   exp: Math.floor(Date.now() / 1000) + config['JWT']['EXP'],
-                            sub: username
-                        }, config['JWT']['SECRET']
+                    req.body.userID = data.id;
+                    req.body.isvisited = data.isvisited + 1;
+                    pgdb.updateIsVistedCB(req,
+                        () => {
+                            userInfo.token = jwt.sign(
+                                {   exp: Math.floor(Date.now() / 1000) + config['JWT']['EXP'],
+                                    sub: username,
+                                    role: data.role
+                                }, config['JWT']['SECRET']
+                            );
+                            return done(null, userInfo);
+                        },
+                        (err) => {return done(err)}
                     );
-                    return done(null, userInfo);
                 });
             },
             (err) => {return done(err)}

@@ -13,7 +13,7 @@ module.exports = new LocalStrategy(
     function(req, username, password, done){
         pgdb.getoneFromLoginCB(req,
             (data) => {
-                let userInfo = {username: username};
+                let userInfo = {username: username, role: data.role};
                 // check this user has password
                 if(!data.password){
                     userInfo.err = username + ' dose not have password in database';
@@ -33,11 +33,14 @@ module.exports = new LocalStrategy(
                     bcrypt.hash(req.body.newPassword, config['BCRYPT']['SALT_ROUND'], function (err, hash) {
                         if(err) return done(err);
                         req.body.password = hash;
-                        pgdb.updateUser(req,
+                        req.body.userID = data.id;
+                        req.body.isvisited = data.isvisited + 1;
+                        pgdb.userFirstLoginResetCB(req,
                             () => {
                                 userInfo.token = jwt.sign(
                                     {   exp: Math.floor(Date.now() / 1000) + config['JWT']['EXP'],
-                                        sub: username
+                                        sub: username,
+                                        role: data.role
                                     }, config['JWT']['SECRET']
                                 );
                                 return done(null, userInfo);

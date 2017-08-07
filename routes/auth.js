@@ -1,7 +1,12 @@
 var express = require('express');
 var passport = require('passport');
 var validator = require('validator');
+var jwt = require('jsonwebtoken');
 var router = express.Router();
+var yaml = require('js-yaml');
+var fs = require('fs');
+var path = require('path');
+
 
 router.post('/signup', function(req, res, next){
     const checkFormResult = checkForm('/signup', req.body);
@@ -74,7 +79,7 @@ router.post('/login', function(req, res, next){
 
         if(userInfo.needReset){
             return res.status(307).json({
-                success: false,
+                success: true,
                 message: 'redirection',
                 userInfo: userInfo
             });
@@ -83,6 +88,7 @@ router.post('/login', function(req, res, next){
         }
 
         res.cookie('jwt', userInfo.token, {httpOnly: true});
+        delete userInfo.token;
         return res.status(200).json({
             success: true,
             message: 'login success!',
@@ -102,8 +108,44 @@ router.post('/password', function(req, res, next){
     }
 
     passport.authenticate('local-reset-password', function(err, userInfo){
-        // TODO
+        if(err){
+            console.log(err);
+            return res.status(400).json({
+                success: false,
+                message: 'login failed! please check error object.',
+                error: err
+            });
+        }
+
+        if(userInfo.err){
+            console.log(userInfo.err);
+            return res.status(401).json({
+                success: false,
+                message: 'login failed! invalid username or password.'
+            });
+        }
+
+        res.cookie('jwt', userInfo.token, {httpOnly: true});
+        delete userInfo.token;
+        return res.status(200).json({
+            success: true,
+            message: 'login success!',
+            userInfo: userInfo
+        });
     })(req, res, next);
+});
+
+const config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../config.yaml'), 'utf8'));
+router.get('/logout',function (req, res, next) {
+    jwt.verify(req.cookies.jwt, config['JWT']['SECRET'], function(err, decode) {
+        if(err) {
+            console.log(err);
+            return res.redirect('/');
+        }
+
+        res.clearCookie('jwt');
+        return res.status(200).end();
+    });
 });
 
 function checkForm(route, payload){

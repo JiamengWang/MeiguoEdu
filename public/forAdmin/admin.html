@@ -1987,12 +1987,13 @@
         },
         methods:{
             logout:function() {
-                this.$http.get('/logout')
+                this.$http.get('/auth/logout')
                     .then(function (res) {
                     console.log(res);
-                    if (res.data.code == 'x') {
+                    if (res.status === 200) {
                         console.log(this.location);
-                        window.location.replace(this.location.origin + '/' + res.data.url);
+                        sessionStorage.clear();
+                        window.location.replace(window.location.origin);
                     }
                 }).catch(function (err) {
                     console.log(err);

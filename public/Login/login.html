@@ -201,8 +201,7 @@
                     username: name,
                     password: pass,
                 }).then(function (res) {
-                    console.log(res.status,typeof(res.status));
-                    sessionStorage.setItem('meiguo_user', err.body.userInfo.username);
+                    sessionStorage.setItem('meiguo_user', res.body.userInfo.username);
 //                    if (res.status === 307) {
                         console.log(window.location+res.body.url);
                         window.location.replace(window.location + res.body.url);

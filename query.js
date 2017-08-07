@@ -27,11 +27,13 @@ module.exports = {
     getAllStaffs: getallStaffs,
     createStudent:createStudent,
     removeUser:removeOneUser,
-    // createStaff:createStaff,
+    createStaff:createStaff,
 
     getOneStudent: getoneStudent,
     getOneStaff: getoneStaff,
     // getOneActivityRecord:getoneActivityRecord,
+
+    fetchrole : fetchRole,
 };
 
 function getoneFromLogin (req,res,next) {
@@ -274,8 +276,6 @@ function removeOneStudent(stuID,res,next) {
 }
 
 function removeOneStaff(staffID,res,next) {
-    // var staffID = req.body.id;
-    // console.log(staffID);
     if (!staffID) {
         res.status(400).json({
             status:'fail',
@@ -346,4 +346,16 @@ function getsummaryString(body,mode) {
     }
     console.log(out);
     return JSON.stringify(out);
+}
+
+
+function fetchRole(req,res,next,path,levelcontorl,callback) {
+    db.one('select role from login where id = $1',req.who)
+        .then(function (data) {
+            console.log(data);
+
+        }).catch(function (err) {
+            // console.log(err);
+            return next(err);
+    });
 }

@@ -1,0 +1,29 @@
+STUDENT : {
+  STUDENT : 'READ',
+  STAFF : 'READ',
+  USER : 'READ'
+}
+
+DOE : {
+  STUDENT : 'WRITE',
+  STAFF : 'WRITE',
+  USER : 'READ'
+}
+
+PMC : {
+  STUDENT : 'WRITE',
+  STAFF : 'READ',
+  USER : 'READ'
+}
+
+FT : {
+  STUDENT : 'READ',
+  STAFF : 'READ',
+  USER : 'READ'
+}
+
+ADMIN : {
+  STUDENT : 'WRITE',
+  STAFF : 'WRITE',
+  USER : 'WRITE'
+}

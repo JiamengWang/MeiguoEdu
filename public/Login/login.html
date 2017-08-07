@@ -196,15 +196,15 @@
                     this.password="";
                     return;
                 }
-                this.$http.post('/login', {
+                this.$http.post('/auth/login', {
                     username: name,
                     password: pass,
                 }).then(function (res) {
                     console.log(res);
-                    if (res.data.code == '302') {
-                        console.log(this.location);
+//                    if (res.data.code == '307') {
+                        console.log(this.location+res.data.url);
                         window.location.replace(this.location + res.data.url);
-                    }
+//                    }
                 }).catch(function (err) {
                     console.log(err);
                 });

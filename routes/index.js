@@ -106,7 +106,7 @@ router.get('/helen',function (req,res,next) {
     res.sendFile('helen.html',{root: path.join(__dirname, '../public/helen')})
 });
 router.get('/admin',function (req,res,next) {
-    validateRoleAndSendFile(res,req.cookies.jwt,'Admin','forAdmin/admin.html');
+    validateRoleAndSendFile(res,req.cookies.jwt,'ADMIN','forAdmin/admin.html');
 });
 
 router.get('/doe',function (req,res,next) {
@@ -120,7 +120,7 @@ router.get('/pmc',function (req,res,next) {
 });
 
 router.get('/student',function (req,res,next) {
-    validateRoleAndSendFile(res,req.cookies.jwt,'Student','forAdmin/admin.html');
+    validateRoleAndSendFile(res,req.cookies.jwt,'STUD','forAdmin/admin.html');
     // res.end('request student page');
 });
 

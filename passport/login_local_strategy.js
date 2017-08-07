@@ -5,7 +5,6 @@ var yaml = require('js-yaml');
 var fs = require('fs');
 var path = require('path');
 var pgdb = require('../query');
-var utiliy = require('../utility/rawdataProcess');
 
 const config = yaml.safeLoad(fs.readFileSync(path.join(__dirname, '../config.yaml'), 'utf8'));
 

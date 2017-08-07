@@ -11,6 +11,8 @@ var yaml = require('js-yaml');
 
 const levelcontrol = yaml.safeLoad(fs.readFileSync(path.join(__dirname, './levelcontrol.yaml'), 'utf8'));
 
+
+// TODO incompatable regex with role change from Student -> STUD
 const STUDENT = new RegExp("^\/student\/?");
 const STAFF = new RegExp("^\/staff\/?");
 const USER = new RegExp("/^\/user\/?/");
@@ -33,16 +35,15 @@ function CheckJWT(req,res,next) {
         }
         req.who = decode.sub;
         console.log('JWT validate');
-        db.fetchrole(req,res,next,whichPath(req.url),levelcontrol,function (err,data,path) {
+        db.fetchrole(req,res,whichPath(req.url),levelcontrol,function (err,data,path) {
             if (err) {
                 console.log(err);
                 return next(err);
             } else {
                 console.log(data,path);
-
+                return next(null,data);
             }
         })
-        return next();
     });
 
 

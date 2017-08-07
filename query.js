@@ -364,7 +364,7 @@ function getsummaryString(body,mode) {
 }
 
 
-function fetchRole(req,res,path,levelcontorl,callback) {
+function fetchRole(req,res,path,levelcontrol,callback) {
     db.one('select role from login where id = $1',req.who)
         .then(function (data) {
             console.log(data);

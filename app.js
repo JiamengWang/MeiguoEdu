@@ -27,6 +27,8 @@ var localSignupStrategy = require('./passport/signup_local_strategy');
 passport.use('local-signup', localSignupStrategy);
 var localLoginStrategy = require('./passport/login_local_strategy');
 passport.use('local-login', localLoginStrategy);
+var localPasswordStrategy = require('./passport/password_local_strategy');
+passport.use('local-reset-password', localPasswordStrategy);
 
 
 // view engine setup

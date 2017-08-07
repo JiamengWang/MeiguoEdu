@@ -10,12 +10,20 @@ var db = pgp(config['POSTGRE']['URI']);
 
 
 var jwt = require('jsonwebtoken');
-// var cert = fs.readFileSync('./private.key');
 var cert = 'wjm';
 
 var util = require('./utility/rawdataProcess');
 
-// add query functions
+/*
+user {
+  id: '03e5d82b-05d9-df15-c717-24d39ea4c6',
+  username: 'example@example.com',
+  role: 'STUD',
+  password: '$2a$10$zR9DjxZ39fecG4a7275jtvCMzgnVVO0m4R1cRr3b7styana',
+  isvisited: 0,
+  nickname: ''
+}
+*/
 
 module.exports = {
     getoneFromLogin:getoneFromLogin,
@@ -33,7 +41,12 @@ module.exports = {
     getOneStaff: getoneStaff,
     // getOneActivityRecord:getoneActivityRecord,
 
+
+    userFirstLoginResetCB: userFirstLoginResetCB,
+    updateIsVistedCB: updateIsVistedCB,
+
     fetchrole : fetchRole,
+
 };
 
 function getoneFromLogin (req,res,next) {
@@ -310,6 +323,19 @@ function removeOneStaff(staffID,res,next) {
     });
 }
 
+function userFirstLoginResetCB(req, thenCallBack, catchCallBack) {
+    db.none('update login set password = $1, isvisited = $2 where id = $3',
+        [req.body.password, req.body.isvisited ,req.body.userID])
+        .then(thenCallBack)
+        .catch(function(err) { catchCallBack(err) });
+}
+
+function updateIsVistedCB(req, thenCallBack, catchCallBack) {
+    db.none('update login set isvisited = $1 where id = $2',
+        [req.body.isvisited ,req.body.userID])
+        .then(thenCallBack)
+        .catch(function(err) { catchCallBack(err) });
+}
 
 // utility functions used for this database
 function standardizeIn(body,mode) {

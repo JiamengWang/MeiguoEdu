@@ -124,6 +124,11 @@ router.get('/student',function (req,res,next) {
     // res.end('request student page');
 });
 
+router.get('/reset',function (req,res,next) {
+    // validateRoleAndSendFile()
+    res.sendFile('resetPassword.html',{root: path.join(__dirname, '../public/resetpassword')})
+});
+
 
 var validateRoleAndSendFile = function (res,cookie,role,file) {
     jwt.verify(cookie,cert,function (err,decode) {

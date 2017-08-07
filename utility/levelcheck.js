@@ -23,6 +23,8 @@ function CheckJWT(req,res,next) {
     console.log('check',req.method,levelcontrol);
     console.log(whichPath(req.url));
 
+
+    //
     jwt.verify(req.cookies.jwt,cert,function (err,decode) {
         if(err) {
             console.log(err);
@@ -36,7 +38,7 @@ function CheckJWT(req,res,next) {
                 console.log(err);
                 return next(err);
             } else {
-                console.log(data);
+                console.log(data,path);
 
             }
         })

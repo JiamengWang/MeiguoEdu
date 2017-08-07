@@ -8,7 +8,7 @@ var options = { promiseLib: promise };
 var pgp = require('pg-promise')(options);
 var db = pgp(config['POSTGRE']['URI']);
 
-var fs = require('fs');
+
 var jwt = require('jsonwebtoken');
 // var cert = fs.readFileSync('./private.key');
 var cert = 'wjm';
@@ -218,6 +218,21 @@ function updateRelation(req,res,next) {
 
 }
 
+function updatePassword(req,res,next) {
+    db.none('update login set password = $1 where id = $2',
+        [req.body.newpassword,req.who])
+        .then(function () {
+            res.status(200)
+                .json({
+                    status: 'success',
+                    message: 'Update password success'
+                });
+        })
+        .catch(function (err) {
+            return next(err);
+        });
+}
+
 function removeOneUser(req,res,next) {
     /** behaviour: based on email address, remove one user from a login table
      *              -- if it is student's email, we should also manually remove bio info from student information
@@ -349,13 +364,14 @@ function getsummaryString(body,mode) {
 }
 
 
-function fetchRole(req,res,next,path,levelcontorl,callback) {
+function fetchRole(req,res,path,levelcontorl,callback) {
     db.one('select role from login where id = $1',req.who)
         .then(function (data) {
             console.log(data);
-
+            callback(null,data,path);
         }).catch(function (err) {
             // console.log(err);
-            return next(err);
+            // return next(err);
+            callback(err);
     });
 }

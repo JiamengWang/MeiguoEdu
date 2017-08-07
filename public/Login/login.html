@@ -34,7 +34,8 @@
   <!--<link rel="stylesheet" href="badges.css">-->
 
   <!--axios ajax library-->
-  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <!--<script src="https://unpkg.com/axios/dist/axios.min.js"></script>-->
+  <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
 
   <style>
     .displayContent{
@@ -158,7 +159,7 @@
 
 
 <script>
-    Vue.prototype.$http = axios;
+//    Vue.prototype.$http = axios;
     var login = new Vue({
         el:'#login',
         data:{
@@ -200,13 +201,20 @@
                     username: name,
                     password: pass,
                 }).then(function (res) {
-                    console.log(res);
-//                    if (res.data.code == '307') {
-                        console.log(this.location+res.data.url);
-                        window.location.replace(this.location + res.data.url);
+                    console.log(res.status,typeof(res.status));
+                    sessionStorage.setItem('meiguo_user', err.body.userInfo.username);
+//                    if (res.status === 307) {
+                        console.log(window.location+res.body.url);
+                        window.location.replace(window.location + res.body.url);
 //                    }
                 }).catch(function (err) {
                     console.log(err);
+                    if (err.status === 307) {
+                        sessionStorage.setItem('meiguo_user', err.body.userInfo.username);
+                        console.log(window.location);
+                        console.log(err.body);
+                        window.location.replace(window.location.origin + '/' + err.body.url);
+                    }
                 });
             },
             cleanAll: function(){

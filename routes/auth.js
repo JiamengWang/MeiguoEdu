@@ -80,9 +80,9 @@ router.post('/login', function(req, res, next){
         if(userInfo.needReset){
             return res.status(307).json({
                 success: true,
-
                 message: 'redirection',
-                userInfo: userInfo
+                userInfo: userInfo,
+                url:'reset'
             });
             //TODO learn how to use res.status(307) redirection
             // return res.redirect(307,'http:localhost:3000/admin');
@@ -95,7 +95,7 @@ router.post('/login', function(req, res, next){
             success: true,
             message: 'login success!',
             userInfo: userInfo,
-            url : 'admin'
+            url : userInfo.role
         });
 
     })(req, res, next);
@@ -104,6 +104,7 @@ router.post('/login', function(req, res, next){
 router.post('/password', function(req, res, next){
     const checkFormResult = checkForm('/password', req.body);
     if(!checkFormResult.validate){
+        console.log(checkFormResult.message);
         return res.status(401).json({
             success: false,
             message: checkFormResult.message
@@ -133,7 +134,8 @@ router.post('/password', function(req, res, next){
         return res.status(200).json({
             success: true,
             message: 'login success!',
-            userInfo: userInfo
+            userInfo: userInfo,
+            url : userInfo.role
         });
     })(req, res, next);
 });
@@ -165,6 +167,7 @@ function checkForm(route, payload){
     let passwordRegex = new RegExp("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})");
 
     if(!payload.username || !validator.isEmail(payload.username)){
+        console.log(payload.username);
         message += ' email format incorrect.';
         validate = false;
     }

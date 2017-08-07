@@ -120,13 +120,12 @@ router.get('/pmc',function (req,res,next) {
 });
 
 //TODO incompactable url with role Student -> STUD
-router.get('/student',function (req,res,next) {
+router.get('/stud',function (req,res,next) {
     validateRoleAndSendFile(res,req.cookies.jwt,'STUD','forAdmin/admin.html');
     // res.end('request student page');
 });
 
 router.get('/reset',function (req,res,next) {
-    // validateRoleAndSendFile()
     res.sendFile('resetPassword.html',{root: path.join(__dirname, '../public/resetpassword')})
 });
 

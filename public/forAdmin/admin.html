@@ -1207,9 +1207,9 @@
         <div class="background">
             <!-- <img src="617227.jpg"> -->
         </div>
-        <a href="#user"><img class="circle" src="../images/s1.png"></a>
-        <a href="#name"><span class="white-text name">John Doe</span></a>
-        <a href="#email"><span class="white-text email">jdandturk@gmail.com</span></a>
+        <a href="#user"><img class="circle" src="../images/default.png"></a>
+        <a href="#name"><span class="white-text name">{{nickname}}</span></a>
+        <a href="#email"><span class="white-text email">{{email}}</span></a>
     </div></li>
 
     <li><a href="#DOE_slider_top"><i class="material-icons">group</i>Directors Of Education</a></li>
@@ -2043,6 +2043,18 @@
                 });
             }
         }
+    });
+
+    var sidenav = new Vue({
+        el:"slide-out",
+        data:{
+            nickname:sessionStorage.getItem('nickname'),
+            email:sessionStorage.getItem('meiguo_user'),
+        },
+        methods:{
+
+        }
+
     });
 
     var responseHandler = function (res) {

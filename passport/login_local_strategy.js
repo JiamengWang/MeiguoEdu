@@ -14,7 +14,7 @@ module.exports = new LocalStrategy(
         pgdb.getoneFromLoginCB(req,
             (data) => {
                 // console.log(data);
-                let userInfo = {username: username, role: data.role};
+                let userInfo = {username: username, role: data.role, nickname: data.nickname};
                 if(!data.password){
                     userInfo.err = username + ' dose not have password in database';
                     return done(null, userInfo);

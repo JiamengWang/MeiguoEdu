@@ -53,7 +53,7 @@ router.get('/pmc',function (req,res,next) {
     // res.end('request pmc page');
 });
 
-//TODO incompactable url with role Student -> STUD
+
 router.get('/stud',function (req,res,next) {
     validateRoleAndSendFile(res,req.cookies.jwt,'STUD','forAdmin/admin.html');
     // res.end('request student page');

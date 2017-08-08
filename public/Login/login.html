@@ -210,6 +210,8 @@
                     console.log(err);
                     if (err.status === 307) {
                         sessionStorage.setItem('meiguo_user', err.body.userInfo.username);
+                        sessionStorage.setItem('nickname',err.body.userInfo.nickname);
+//                        sessionStorage.setItem('');
                         console.log(window.location);
                         console.log(err.body);
                         window.location.replace(window.location.origin + '/' + err.body.url);
